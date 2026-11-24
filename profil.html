@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Profil - Kocheeng</title>
+<title>Profil - D' Mom</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
 body{background:#FFF8F0;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 15px 120px}
 .top{width:100%;max-width:900px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.top h1{font-size:22px}
+.top h1{font-size:28px;font-weight:900}
 .top h1 span{color:#FF6B35}
+.top small{display:block;font-size:10px;color:#999;letter-spacing:2px;font-weight:600}
 .top a{text-decoration:none;color:#FF6B35;font-weight:700;font-size:14px}
 h2{font-size:26px;text-align:center}
 .sub{color:#888;font-size:14px;text-align:center;margin:8px 0 22px}
-
-/* CONTAINER SLIDE */
 .slide-wrap{width:100%;max-width:900px;height:540px;background:#fff;border-radius:28px;box-shadow:0 15px 40px rgba(0,0,0,.1);overflow:hidden;position:relative;display:flex}
 .form-box{width:50%;padding:35px;display:flex;flex-direction:column;justify-content:center;transition:.6s}
 .form-box h3{font-size:24px;margin-bottom:6px}
@@ -26,64 +25,51 @@ h2{font-size:26px;text-align:center}
 .btn-dark{background:#1A1A1A;color:#fff}
 .small{font-size:12px;color:#888;text-align:center;margin-top:12px}
 .small a{color:#FF6B35;text-decoration:none;font-weight:700}
-
-/* PANEL GAMBAR YANG GESER */
 .overlay{position:absolute;top:0;left:50%;width:50%;height:100%;background:linear-gradient(135deg,#FF6B35,#FF9A5A);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;transition:.6s;z-index:10}
 .overlay img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:4px solid #fff;margin-bottom:18px}
 .overlay h3{font-size:24px;margin-bottom:10px}
 .overlay p{font-size:14px;opacity:.9;line-height:1.5;margin-bottom:20px}
 .overlay button{background:#fff;color:#FF6B35;border:none;padding:13px 28px;border-radius:30px;font-weight:800;cursor:pointer;font-size:14px}
-
-/* KALO AKTIF, OVERLAY GESER KE KIRI */
 .slide-wrap.active .overlay{left:0}
-.slide-wrap.active .form-daftar{opacity:0;pointer-events:none}
-.slide-wrap.active .form-masuk{opacity:1}
-
-/* NAV */
 .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;justify-content:space-around;padding:16px 0 22px;border-top:1px solid #eee;box-shadow:0 -5px 25px rgba(0,0,0,.1);z-index:90}
-.nav a{text-decoration:none;color:#999;font-size:14px;font-weight:600;text-align:center}
+.nav a{text-decoration:none;color:#999;font-size:14px;font-weight:600;text-align:center;line-height:1.3}
 .nav a.active{color:#FF6B35}
-.nav a span{font-size:28px;display:block}
+.nav a span{font-size:28px;display:block;margin-bottom:2px}
 @media(max-width:700px){
   .slide-wrap{flex-direction:column;height:auto}
   .form-box{width:100%}
   .overlay{position:relative;left:0!important;width:100%;padding:25px}
   .overlay img{width:80px;height:80px}
   .form-daftar{display:none}
-  .slide-wrap.active .form-daftar{display:flex;opacity:1}
+  .slide-wrap.active .form-daftar{display:flex}
   .slide-wrap.active .form-masuk{display:none}
 }
 </style>
 </head>
 <body>
 
-<div class="top"><h1>Kocheeng<span>🍰</span></h1><a href="index.html">← Balik ke Toko</a></div>
-<h2>Selamat Datang, Sultan! 👑</h2>
+<div class="top"><div><h1>D' MOM<span>🍰</span></h1><small>TOKO KUE SULTAN</small></div><a href="index.html">← Balik ke Toko</a></div>
+<h2>Selamat Datang di D' Mom! 👑</h2>
 <p class="sub">Daftar dulu, atau geser buat masuk!</p>
 
 <div class="slide-wrap" id="slideWrap">
-  <!-- FORM MASUK (di kiri, ketutup awalnya) -->
   <div class="form-box form-masuk">
     <h3>🔐 Masuk</h3>
-    <p>Udah punya akun? Gas masuk, kue sultan udah nungguin!</p>
+    <p>Udah punya akun? Gas masuk, kue D' Mom udah nungguin!</p>
     <input placeholder="Email / Nomor HP">
     <input type="password" placeholder="Password">
-    <button class="btn btn-orange" onclick="alert('Selamat Datang Kembali! 🎉')">Masuk Sekarang →</button>
+    <button class="btn btn-orange" onclick="alert('Selamat Datang Kembali di D Mom! 🎉')">Masuk Sekarang →</button>
     <p class="small"><a href="#">Lupa Password?</a></p>
   </div>
-
-  <!-- FORM DAFTAR (yang keliatan pertama) -->
   <div class="form-box form-daftar">
     <h3>✨ Daftar Baru</h3>
     <p>Baru pertama kali? Daftar dulu, dapet voucher 50%!</p>
     <input placeholder="Nama Lengkap">
     <input placeholder="Email / Nomor HP">
     <input type="password" placeholder="Buat Password">
-    <button class="btn btn-dark" onclick="alert('Akun berhasil dibuat! 🎁')">Daftar & Dapet Voucher 🎁</button>
+    <button class="btn btn-dark" onclick="alert('Akun D Mom berhasil dibuat! 🎁')">Daftar & Dapet Voucher 🎁</button>
     <p class="small">Dengan daftar, lu setuju sama <a href="#">Syarat & Ketentuan</a></p>
   </div>
-
-  <!-- PANEL YANG GESER -->
   <div class="overlay" id="overlay">
     <img id="overlayImg" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400">
     <h3 id="overlayTitle">Udah Punya Akun?</h3>
@@ -102,8 +88,7 @@ h2{font-size:26px;text-align:center}
 <script>
 let isLogin=false;
 function toggleSlide(){
-  let wrap=document.getElementById('slideWrap');
-  wrap.classList.toggle('active');
+  document.getElementById('slideWrap').classList.toggle('active');
   isLogin=!isLogin;
   if(isLogin){
     document.getElementById('overlayTitle').textContent='Belum Punya Akun?';
