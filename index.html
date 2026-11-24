@@ -17,7 +17,6 @@ body{background:#FFF8F0;padding-bottom:110px}
 .icon-cart small{font-size:8px;font-weight:800;margin-top:1px}
 .cart-badge{position:absolute;top:-7px;right:-7px;background:#FF2D55;color:#fff;font-size:11px;font-weight:800;width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #FFF8F0}
 .search{margin:10px 18px;background:#fff;padding:14px 15px;border-radius:15px;display:flex;gap:10px;color:#999;box-shadow:0 2px 10px rgba(0,0,0,.05);font-size:14px}
-/* BANNER KECIL - RAMPING */
 .banner{margin:12px 18px;background:linear-gradient(135deg,#FF6B35,#FF9A5A);border-radius:16px;padding:14px 16px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .banner-text{flex:1}
 .banner-text h2{font-size:17px;white-space:nowrap;line-height:1.2}
@@ -78,19 +77,14 @@ body{background:#FFF8F0;padding-bottom:110px}
     <div class="logo"><h1>D' MOM<span>🍰</span></h1><small>Toko Kue Sultan</small></div>
     <div class="icon-cart" onclick="showCart()">🛒<small>CART</small><span class="cart-badge" id="cartCount">0</span></div>
   </div>
-
   <div class="search">🔍 Cari kue D' Mom...</div>
-
-  <!-- BANNER KECIL, JUDUL NYAMBUNG 1 BARIS -->
   <div class="banner">
     <div class="banner-text"><h2>Kue Sultan Diskon 50%!</h2><p>Khusus hari ini, Gas keun!</p></div>
     <button>Order →</button>
   </div>
-
   <div class="cat"><div class="active">Semua</div><div>🍰 Cake</div><div>🧁 Cupcake</div><div>🍩 Donat</div><div>🍪 Cookies</div></div>
   <div class="section"><h3>Best Seller 🔥</h3>
     <div class="grid">
-
       <div class="card">
         <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400">
         <div class="card-info"><b>Choco Sultan</b><small>Coklat Lumer</small>
@@ -101,7 +95,6 @@ body{background:#FFF8F0;padding-bottom:110px}
           </div>
         </div>
       </div>
-
       <div class="card">
         <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400">
         <div class="card-info"><b>Strawberry Queen</b><small>Fresh Strawberry</small>
@@ -112,7 +105,6 @@ body{background:#FFF8F0;padding-bottom:110px}
           </div>
         </div>
       </div>
-
       <div class="card">
         <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400">
         <div class="card-info"><b>Red Velvet</b><small>Super Lembut</small>
@@ -123,7 +115,6 @@ body{background:#FFF8F0;padding-bottom:110px}
           </div>
         </div>
       </div>
-
       <div class="card">
         <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400">
         <div class="card-info"><b>Cheese Cake</b><small>Keju Sultan</small>
@@ -134,18 +125,15 @@ body{background:#FFF8F0;padding-bottom:110px}
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
-
 <div class="nav">
   <a href="#" class="active"><span>🏠</span>Home</a>
   <a href="#"><span>🍰</span>Shop</a>
   <a href="#"><span>❤️</span>Wishlist</a>
   <a href="profil.html"><span>👤</span>Akun</a>
 </div>
-
 <button class="chat-btn" onclick="toggleChat()">💬<span class="notif" id="notif">1</span></button>
 <div class="chat-box" id="chatBox">
   <div class="chat-header"><div class="avatar">🍰</div><div style="flex:1"><b>Admin D' Mom</b><br><small>● Online - Balas cepat</small></div><span onclick="toggleChat()" style="cursor:pointer;font-size:20px">✕</span></div>
@@ -153,8 +141,29 @@ body{background:#FFF8F0;padding-bottom:110px}
   <div class="quick"><button onclick="quickChat('Harga kue berapa?')">💰 Harga Kue</button><button onclick="quickChat('Ongkir ke Bandung?')">🚚 Ongkir</button><button onclick="quickChat('Mau order dong')">🛒 Order</button></div>
   <div class="chat-input"><input id="chatInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter') sendChat()"><button onclick="sendChat()">➤</button></div>
 </div>
-
 <div class="popup" id="popup"><img id="popupImg" style="display:none"><h3 id="popupTitle"></h3><p id="popupText"></p><div id="popupList"></div><button id="popupBtn">Oke! 👌</button><button class="close" onclick="document.getElementById('popup').style.display='none'">Tutup</button></div>
+
+<!-- SUPABASE D' MOM -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = "https://yagjplecxxojxdjiqrhv.supabase.co";
+const SUPABASE_KEY = "sb_publishable_XkvJ55x0zjvVW73LiG6mbw_hmOaYau2";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function loadKue() {
+  const { data, error } = await db.from('kue_basah').select('*');
+  if (error) { console.log("Gagal:", error.message); return; }
+  console.log("BERHASIL! Kue dari database:", data);
+  alert("BERHASIL NYAMBUNG! Ada " + data.length + " kue basah di database!");
+}
+loadKue();
+
+async function beliKue(namaKue, hargaKue) {
+  const { error } = await db.from('pesanan').insert([{ user_id: 1, kode_pesanan: 'DMOM-' + Date.now(), total: hargaKue, status: 'pending', alamat_kirim: 'Bandung' }]);
+  if (!error) { alert("Pesanan " + namaKue + " masuk database! 🎉 Cek Supabase > pesanan!"); }
+  else { alert("Gagal: " + error.message); }
+}
+</script>
 
 <script>
 let cart=[];
@@ -165,7 +174,7 @@ function beliLangsung(nama,harga,img){
   document.getElementById('popupText').innerHTML='Lu mau langsung beli <b>'+nama+'</b> seharga <b>Rp '+harga.toLocaleString('id-ID')+'</b> tanpa masuk keranjang, Bro! Gas?';
   document.getElementById('popupList').innerHTML='';
   document.getElementById('popupBtn').textContent='💳 Bayar Sekarang - Rp '+harga.toLocaleString('id-ID');
-  document.getElementById('popupBtn').onclick=function(){alert('Pesanan '+nama+' berhasil! 🎉 Kurir langsung jalan!');document.getElementById('popup').style.display='none'};
+  document.getElementById('popupBtn').onclick=function(){beliKue(nama,harga);document.getElementById('popup').style.display='none'};
   document.getElementById('popup').style.display='block';
 }
 function showCart(){
@@ -182,7 +191,7 @@ function showCart(){
     document.getElementById('popupText').innerHTML='Ada <b>'+cart.length+' kue</b> di keranjang lu. Total: <b>Rp '+total.toLocaleString('id-ID')+'</b>';
     document.getElementById('popupList').innerHTML=html;
     document.getElementById('popupBtn').textContent='💳 Checkout Semua - Rp '+total.toLocaleString('id-ID');
-    document.getElementById('popupBtn').onclick=function(){alert('Checkout '+cart.length+' kue berhasil! 🎉');cart=[];document.getElementById('cartCount').textContent='0';document.getElementById('popup').style.display='none'};
+    document.getElementById('popupBtn').onclick=function(){beliKue('Checkout '+cart.length+' kue',total);cart=[];document.getElementById('cartCount').textContent='0';document.getElementById('popup').style.display='none'};
   }
   document.getElementById('popup').style.display='block';
 }
@@ -192,56 +201,4 @@ function quickChat(text){document.getElementById('chatInput').value=text;sendCha
 function sendChat(){let input=document.getElementById('chatInput');let body=document.getElementById('chatBody');if(!input.value.trim())return;let m=document.createElement('div');m.className='msg user';m.textContent=input.value;body.appendChild(m);let teks=input.value.toLowerCase();input.value='';body.scrollTop=body.scrollHeight;setTimeout(()=>{let r=document.createElement('div');r.className='msg admin';if(teks.includes('harga'))r.textContent='Harga mulai Rp 85k Kak! Mau yang mana? 😍';else if(teks.includes('ongkir'))r.textContent='Bandung kota FREE ONGKIR! 🎉';else if(teks.includes('order'))r.textContent='Siap! Mau order yang mana? 🛒';else r.textContent='Siap Kak! Mau tanya harga, ongkir, atau langsung order? 😊';body.appendChild(r);body.scrollTop=body.scrollHeight},800)}
 </script>
 </body>
-<!-- SUPABASE D' MOM -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-  // 1. SAMBUNG KE SUPABASE
-  const SUPABASE_URL = "https://yagjplecxxojxdjiqrhv.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_XkvJ55x0zjvVW73LiG6mbw_hmOaYau2";
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  // 2. TES KONEKSI - AMBIL KUE BASAH DARI DATABASE
-  async function loadKue() {
-    const { data, error } = await supabase
-      .from('kue_basah')
-      .select('*');
-    
-    if (error) {
-      console.log("Gagal:", error.message);
-      return;
-    }
-    console.log("BERHASIL! Kue dari database:", data);
-    alert("BERHASIL NYAMBUNG! Ada " + data.length + " kue basah di database!");
-  }
-
-  // 3. FUNGSI BELI - MASUK KE TABEL PESANAN
-  async function beliKue(namaKue, hargaKue) {
-    const { data, error } = await supabase
-      .from('pesanan')
-      .insert([
-        { 
-          user_id: 1, 
-          kode_pesanan: 'DMOM-' + Date.now(),
-          total: hargaKue,
-          status: 'pending',
-          alamat_kirim: 'Bandung'
-        }
-      ]);
-    if (!error) alert("Pesanan " + namaKue + " masuk database! 🎉");
-  }
-
-  // 4. FUNGSI CEK SALDO
-  async function cekSaldo(userId) {
-    const { data } = await supabase
-      .from('saldo')
-      .select('saldo')
-      .eq('user_id', userId)
-      .single();
-    console.log("Saldo lu:", data?.saldo || 0);
-    return data?.saldo || 0;
-  }
-
-  // JALANKAN TES
-  loadKue();
-</script>
 </html>
