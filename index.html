@@ -3,20 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>D'MOM 👑 - Kue Basah Luxury Bandung</title>
+<title>D'MOM 👑 - Admin Black Gold FIX</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
   body{background:#0A0A0A;color:#fff;padding-bottom:80px}
-  .header{background:#000;color:#D4AF37;padding:14px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;border-bottom:1px solid #D4AF37;box-shadow:0 4px 20px rgba(212,175,55,.2)}
+  .header{background:#000;color:#D4AF37;padding:14px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;border-bottom:1px solid #D4AF37}
   .header b{font-size:20px;letter-spacing:2px;color:#D4AF37}
   .header small{font-size:10px;color:#aaa;letter-spacing:1px}
-  .header-right{font-size:20px}
   .hero{margin:15px;border-radius:20px;overflow:hidden;position:relative;background:#111;border:1px solid #333}
   .hero img{width:100%;height:200px;object-fit:cover;opacity:.85}
   .hero-text{position:absolute;bottom:0;left:0;right:0;padding:18px;background:linear-gradient(transparent,rgba(0,0,0,.95))}
-  .hero-text .label{display:inline-block;background:#D4AF37;color:#000;font-size:10px;font-weight:bold;padding:5px 10px;border-radius:20px;letter-spacing:1px;margin-bottom:8px}
-  .hero-text h2{font-size:24px;line-height:1.2;color:#fff}
+  .hero-text .label{display:inline-block;background:#D4AF37;color:#000;font-size:10px;font-weight:bold;padding:5px 10px;border-radius:20px;margin-bottom:8px}
+  .hero-text h2{font-size:24px;line-height:1.2}
   .hero-text h2 span{color:#D4AF37}
   .hero-text p{font-size:12px;color:#ccc;margin-top:5px;line-height:1.5}
   .promo{margin:0 15px 15px;background:linear-gradient(135deg,#D4AF37,#B8860B);color:#000;border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center}
@@ -31,17 +30,16 @@
   .judul span{font-size:12px;color:#888;font-weight:normal}
   .container{padding:0 12px;max-width:600px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .card{background:#141414;border:1px solid #2A2A2A;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;position:relative}
-  .card.best{border:1px solid #D4AF37;box-shadow:0 0 15px rgba(212,175,55,.25)}
+  .card.best{border:1px solid #D4AF37}
   .badge-best{position:absolute;top:8px;left:8px;background:#D4AF37;color:#000;font-size:10px;font-weight:bold;padding:4px 8px;border-radius:20px;z-index:2}
   .card img{width:100%;height:140px;object-fit:cover}
   .card-body{padding:11px;display:flex;flex-direction:column;flex:1}
-  .card-body h3{font-size:14px;line-height:1.3;min-height:36px;color:#fff}
+  .card-body h3{font-size:14px;line-height:1.3;min-height:36px}
   .card-body p{font-size:11px;color:#999;line-height:1.4;margin:4px 0;flex:1}
   .price{color:#D4AF37;font-weight:bold;font-size:16px;margin:4px 0}
   .stok{font-size:11px;color:#777;margin-bottom:8px}
   .btn-beli{background:linear-gradient(135deg,#D4AF37,#B8860B);color:#000;border:none;width:100%;padding:10px;border-radius:10px;font-weight:bold;font-size:13px;cursor:pointer}
   .btn-keranjang{background:#222;color:#D4AF37;border:1px solid #D4AF37;width:100%;padding:9px;border-radius:10px;font-weight:bold;font-size:12px;cursor:pointer;margin-top:6px}
-  .btn-beli:active,.btn-keranjang:active{transform:scale(.97)}
   .footer{text-align:center;padding:20px 15px 0;color:#666;font-size:11px;line-height:1.6}
   .footer b{color:#D4AF37}
   .page{display:none;padding:15px;max-width:600px;margin:auto}
@@ -61,14 +59,13 @@
   .item-list small{color:#999}
   .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:99;justify-content:center;align-items:flex-end}
   .modal.show{display:flex}
-  .sheet{background:#141414;width:100%;max-width:500px;border-radius:22px 22px 0 0;padding:22px;max-height:88vh;overflow:auto;border-top:2px solid #D4AF37;color:#fff}
+  .sheet{background:#141414;width:100%;max-width:500px;border-radius:22px 22px 0 0;padding:22px;max-height:88vh;overflow:auto;border-top:2px solid #D4AF37}
   .sheet h3{color:#D4AF37}
   .pay-opt{border:2px solid #333;border-radius:14px;padding:14px;margin:10px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:#0A0A0A}
   .pay-opt.active{border-color:#D4AF37;background:#1A1A1A}
   .pay-opt small{color:#999}
   .topup-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
   .topup-btn{padding:14px;border:1px solid #D4AF37;border-radius:12px;background:#0A0A0A;color:#D4AF37;font-weight:bold;cursor:pointer}
-  .topup-btn:active{background:#D4AF37;color:#000}
   .btn-main{background:linear-gradient(135deg,#D4AF37,#B8860B);color:#000;border:none;width:100%;padding:14px;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer}
   .btn-dark{background:#000;color:#D4AF37;border:1px solid #D4AF37;width:100%;padding:14px;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer}
   .btn-soft{background:#222;color:#ccc;border:none;width:100%;padding:14px;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer}
@@ -79,24 +76,54 @@
   .nav-item .foto-nav{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #D4AF37;margin:0 auto 2px;display:block}
   .badge-cart{position:absolute;top:-4px;right:18px;background:#D4AF37;color:#000;font-size:10px;font-weight:bold;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
   .nav-wrap{position:relative}
-  /* PETA CUSTOM */
   .map-box{border:1px solid #D4AF37;border-radius:20px;overflow:hidden;position:relative;background:#111}
   .map-box iframe{width:100%;height:320px;border:0;display:block}
   .pin-bangunan{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%);text-align:center;z-index:5;pointer-events:none}
-  .pin-bangunan .pin-img{width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid #D4AF37;box-shadow:0 0 0 4px rgba(212,175,55,.3),0 8px 20px rgba(0,0,0,.6);background:#000}
-  .pin-bangunan .pin-label{background:#D4AF37;color:#000;font-size:11px;font-weight:bold;padding:5px 10px;border-radius:20px;margin-top:2px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+  .pin-bangunan .pin-img{width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid #D4AF37;background:#000}
+  .pin-bangunan .pin-label{background:#D4AF37;color:#000;font-size:11px;font-weight:bold;padding:5px 10px;border-radius:20px;margin-top:2px;white-space:nowrap}
   .pin-bangunan .pin-arrow{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #D4AF37;margin:0 auto}
   .pin-pulse{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;border-radius:50%;border:2px solid #D4AF37;animation:pulse 2s infinite;pointer-events:none}
   @keyframes pulse{0%{transform:translate(-50%,-50%) scale(.6);opacity:1}100%{transform:translate(-50%,-50%) scale(1.4);opacity:0}}
   .toko-card{display:flex;gap:12px;background:#141414;border:1px solid #D4AF37;border-radius:16px;padding:12px;margin-top:12px;align-items:center}
   .toko-card img{width:80px;height:80px;object-fit:cover;border-radius:12px;border:2px solid #D4AF37}
+  .admin-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+  .admin-top small{color:#999;font-size:11px}
+  .admin-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #D4AF37}
+  .admin-tabs{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;padding:12px 0}
+  .admin-tabs::-webkit-scrollbar{display:none}
+  .admin-tab{padding:9px 16px;border-radius:20px;border:1px solid #333;background:#111;color:#ccc;font-size:12px;font-weight:bold;cursor:pointer;flex-shrink:0}
+  .admin-tab.active{background:#D4AF37;color:#000;border-color:#D4AF37}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 12px}
+  .stat-box{background:#141414;border:1px solid #333;border-radius:16px;padding:14px;position:relative;overflow:hidden}
+  .stat-box.gold{border-color:#D4AF37;background:linear-gradient(135deg,#1A1A1A,#2A2100)}
+  .stat-box small{color:#999;font-size:11px}
+  .stat-box b{font-size:20px;color:#fff;display:block;margin:4px 0 2px}
+  .stat-box .naik{font-size:11px;color:#4CAF50;font-weight:bold}
+  .stat-box .icon-stat{position:absolute;top:12px;right:12px;font-size:20px}
+  .chart-box{background:#141414;border:1px solid #333;border-radius:16px;padding:14px;margin:10px 0}
+  .chart-box .chart-head{display:flex;justify-content:space-between;align-items:center}
+  .chart-bars{display:flex;align-items:flex-end;gap:8px;height:110px;margin-top:14px;padding-top:10px;border-top:1px solid #222}
+  .chart-bar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%}
+  .chart-bar .bar{width:100%;max-width:28px;border-radius:8px 8px 0 0;background:linear-gradient(to top,#B8860B,#FFD700)}
+  .chart-bar small{font-size:10px;color:#888;margin-top:6px}
+  .order-card{background:#141414;border:1px solid #333;border-radius:14px;padding:12px;margin:10px 0;display:flex;gap:10px;align-items:center}
+  .order-card img{width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid #D4AF37}
+  .status-pill{font-size:10px;font-weight:bold;padding:5px 10px;border-radius:20px;white-space:nowrap}
+  .status-selesai{background:#0A3D1F;color:#4CAF50}
+  .status-proses{background:#3A2A00;color:#FFD700}
+  .status-tunggu{background:#333;color:#ccc}
+  .input-admin{width:100%;background:#000;border:1px solid #333;color:#fff;padding:12px;border-radius:10px;margin:5px 0;font-size:14px}
+  .input-admin:focus{border-color:#D4AF37;outline:none}
+  .admin-kue{background:#141414;border:1px solid #333;border-radius:14px;padding:12px;margin:10px 0;display:flex;gap:10px;align-items:center}
+  .admin-kue img{width:60px;height:60px;object-fit:cover;border-radius:10px}
+  .admin-btn{padding:7px 10px;border-radius:8px;border:none;font-weight:bold;font-size:12px;cursor:pointer}
 </style>
 </head>
 <body>
 
 <div class="header">
   <div><b>D'MOM 👑</b><br><small>LUXURY KUE BASAH • BANDUNG</small></div>
-  <div class="header-right">🔔</div>
+  <div style="font-size:20px">🔔</div>
 </div>
 
 <div id="pageHome">
@@ -112,7 +139,7 @@
     <div><b>🎁 PROMO HARI INI!</b><br><small>Beli 2 Gratis Ongkir Bandung Kota!</small></div>
     <button class="btn-promo" onclick="document.getElementById('listKue').scrollIntoView({behavior:'smooth'})">LIHAT ➔</button>
   </div>
-  <div class="kategori" id="kategoriBar">
+  <div class="kategori">
     <div class="kat active" onclick="filterKat('ALL',this)">✨ Semua</div>
     <div class="kat" onclick="filterKat('COKLAT',this)">🍫 Coklat</div>
     <div class="kat" onclick="filterKat('KEJU',this)">🧀 Keju</div>
@@ -137,7 +164,7 @@
 
 <div class="page" id="pageProfil">
   <div class="profil-card">
-    <img class="profil-foto" id="fotoUser" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200" onerror="this.src='https://via.placeholder.com/200'">
+    <img class="profil-foto" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200" onerror="this.src='https://via.placeholder.com/200'">
     <div class="profil-nama">Ko Cheng <span>👑</span></div>
     <small style="color:#999">@mas_phus • Member Sultan • Bandung</small>
     <div class="saldo-box">
@@ -150,6 +177,7 @@
   <div class="menu-profil" onclick="bukaTopUp()"><div><b>💰 Top Up Saldo</b><br><small>Isi saldo buat bayar lebih cepet</small></div><span style="color:#D4AF37">›</span></div>
   <div class="menu-profil" onclick="pindahPage('riwayat')"><div><b>🧾 Riwayat Pesanan</b><br><small>Liat semua pesanan lu</small></div><span style="color:#D4AF37">›</span></div>
   <div class="menu-profil" onclick="pindahPage('peta')"><div><b>📍 Alamat Toko</b><br><small>Lihat lokasi toko di peta</small></div><span style="color:#D4AF37">›</span></div>
+  <div class="menu-profil" onclick="bukaAdmin()" style="border-color:#D4AF37;background:#1A1A00"><div><b>👑 Halaman Admin</b><br><small>Kelola kue, pesanan & omset - Khusus Bos!</small></div><span style="color:#D4AF37">›</span></div>
   <div class="menu-profil" onclick="alert('Hubungi Admin D\'MOM: 0812-3456-7890')"><div><b>💬 Bantuan</b><br><small>Chat Admin D'MOM</small></div><span style="color:#D4AF37">›</span></div>
 </div>
 
@@ -160,7 +188,6 @@
   <button class="btn-soft" onclick="loadRiwayat()">🔄 Refresh Riwayat</button>
 </div>
 
-<!-- PAGE PETA - KOORDINAT LU -->
 <div class="page" id="pagePeta">
   <h2 style="color:#D4AF37">📍 Peta Toko</h2>
   <p style="color:#999;font-size:13px;margin:6px 0 12px">Lokasi persis toko D'MOM - Klik PIN buat buka Maps!</p>
@@ -174,7 +201,6 @@
     </div>
     <div style="position:absolute;bottom:10px;left:10px;background:#000;border:1px solid #D4AF37;color:#D4AF37;font-size:11px;font-weight:bold;padding:6px 10px;border-radius:20px">📍 KLIK PETA UNTUK BUKA MAPS</div>
   </div>
-
   <div class="toko-card">
     <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300'">
     <div style="flex:1">
@@ -182,14 +208,82 @@
       <small style="color:#ccc;line-height:1.5">Toko Kue Basah Luxury<br>Buka: 08.00 - 21.00 WIB<br>⭐ 4.9 • 1.2k Ulasan</small>
     </div>
   </div>
-
   <div style="background:#141414;border:1px solid #333;border-radius:14px;padding:14px;margin-top:12px">
     <b style="color:#D4AF37">📍 Lokasi Persis:</b><br>
-    <small style="color:#ccc;line-height:1.6">Klik tombol di bawah buat langsung ke titik toko lu di Google Maps!<br>Link: maps.app.goo.gl/XrH5MAv8k7MqRpH68</small><br>
+    <small style="color:#ccc;line-height:1.6">Klik tombol di bawah buat langsung ke titik toko lu di Google Maps!</small><br>
     <button class="btn-main" onclick="window.open('https://maps.app.goo.gl/XrH5MAv8k7MqRpH68','_blank')">🗺️ BUKA DI GOOGLE MAPS</button>
     <button class="btn-dark" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=https://maps.app.goo.gl/XrH5MAv8k7MqRpH68','_blank')">🚗 PETUNJUK ARAH KE TOKO</button>
-    <button class="btn-soft" onclick="navigator.clipboard.writeText('https://maps.app.goo.gl/XrH5MAv8k7MqRpH68');alert('Link Maps ke-copy! Bagiin ke temen lu! 📍')">🔗 SALIN LINK MAPS</button>
   </div>
+</div>
+
+<div class="page" id="pageAdmin">
+  <div class="admin-top">
+    <div><h2 style="color:#fff;font-size:22px">Halo, Bos! 👋</h2><small>Admin D'MOM • Bandung</small></div>
+    <img class="admin-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100">
+  </div>
+  <div style="background:linear-gradient(135deg,#D4AF37,#B8860B);color:#000;border-radius:16px;padding:14px;margin:12px 0;display:flex;justify-content:space-between;align-items:center">
+    <div><small style="opacity:.7;font-weight:bold">💰 PENDAPATAN HARI INI</small><br><b id="statOmsetTop" style="font-size:22px">Rp 0</b><br><small style="opacity:.8">🔥 Naik dari kemarin!</small></div>
+    <div style="font-size:32px">👑</div>
+  </div>
+  <div class="admin-tabs">
+    <div class="admin-tab active" data-tab="overview" onclick="adminTab('overview',this)">📊 Overview</div>
+    <div class="admin-tab" data-tab="kue" onclick="adminTab('kue',this)">🍰 Kue</div>
+    <div class="admin-tab" data-tab="pesanan" onclick="adminTab('pesanan',this)">🧾 Pesanan</div>
+    <div class="admin-tab" data-tab="tambah" onclick="adminTab('tambah',this)">➕ Tambah</div>
+    <div class="admin-tab" data-tab="pelanggan" onclick="adminTab('pelanggan',this)">👥 Pelanggan</div>
+  </div>
+  <div id="adminOverview">
+    <div class="stat-grid">
+      <div class="stat-box gold"><small>🍰 Total Kue</small><b id="statKue">0</b><span class="naik">▲ Menu Aktif</span><span class="icon-stat">🍰</span></div>
+      <div class="stat-box"><small>🧾 Pesanan</small><b id="statPesanan">0</b><span class="naik">▲ Baru Masuk</span><span class="icon-stat">🧾</span></div>
+      <div class="stat-box"><small>📦 Total Stok</small><b id="statStok">0</b><span class="naik">▲ Siap Jual</span><span class="icon-stat">📦</span></div>
+      <div class="stat-box gold"><small>💰 Total Omset</small><b id="statOmset">Rp 0</b><span class="naik">▲ +18% Minggu Ini</span><span class="icon-stat">💰</span></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-head"><div><b>📈 Penjualan Mingguan</b><br><small style="color:#999">7 Hari Terakhir</small></div><span style="background:#0A3D1F;color:#4CAF50;font-size:11px;font-weight:bold;padding:5px 10px;border-radius:20px">▲ +18%</span></div>
+      <div class="chart-bars">
+        <div class="chart-bar"><div class="bar" style="height:35%"></div><small>Sen</small></div>
+        <div class="chart-bar"><div class="bar" style="height:55%"></div><small>Sel</small></div>
+        <div class="chart-bar"><div class="bar" style="height:45%"></div><small>Rab</small></div>
+        <div class="chart-bar"><div class="bar" style="height:70%"></div><small>Kam</small></div>
+        <div class="chart-bar"><div class="bar" style="height:65%"></div><small>Jum</small></div>
+        <div class="chart-bar"><div class="bar" style="height:90%"></div><small>Sab</small></div>
+        <div class="chart-bar"><div class="bar" style="height:100%"></div><small>Min</small></div>
+      </div>
+      <p style="font-size:11px;color:#888;margin-top:8px">Hari Minggu paling rame! Siapin stok lebih banyak! 🔥</p>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px"><b>🧾 Pesanan Terbaru</b><span style="color:#D4AF37;font-size:12px;cursor:pointer" onclick="adminTab('pesanan',document.querySelector('[data-tab=pesanan]'))">Lihat Semua ›</span></div>
+    <div id="listAdminPesananTop"></div>
+    <button class="btn-main" onclick="adminTab('tambah',document.querySelector('[data-tab=tambah]'))">➕ TAMBAH KUE BARU</button>
+    <button class="btn-soft" onclick="loadAdmin()">🔄 Refresh Data</button>
+  </div>
+  <div id="adminKue" style="display:none">
+    <button class="btn-soft" onclick="loadAdmin()">🔄 Refresh Kue</button>
+    <div id="listAdminKue"></div>
+  </div>
+  <div id="adminPesanan" style="display:none">
+    <button class="btn-soft" onclick="loadAdminPesanan()">🔄 Refresh Pesanan</button>
+    <div id="listAdminPesanan"></div>
+  </div>
+  <div id="adminTambah" style="display:none">
+    <div style="background:#141414;border:1px solid #D4AF37;border-radius:16px;padding:16px">
+      <b style="color:#D4AF37">➕ Tambah Kue Baru</b><br><small style="color:#999">Isi lengkap, terus klik SIMPAN!</small><br><br>
+      <input class="input-admin" id="inNama" placeholder="Nama Kue - contoh: Choco Sultan">
+      <input class="input-admin" id="inHarga" type="number" placeholder="Harga - contoh: 85000">
+      <input class="input-admin" id="inStok" type="number" placeholder="Stok - contoh: 20">
+      <input class="input-admin" id="inDeskripsi" placeholder="Deskripsi - contoh: Coklat lumer, lembut banget!">
+      <input class="input-admin" id="inGambar" placeholder="Link Foto (URL gambar) - boleh kosong">
+      <button class="btn-main" onclick="tambahKueAdmin()">💾 SIMPAN KUE BARU</button>
+    </div>
+  </div>
+  <div id="adminPelanggan" style="display:none">
+    <div style="background:#141414;border:1px solid #333;border-radius:16px;padding:16px;text-align:center">
+      <div style="font-size:40px">👥</div><b>Pelanggan Setia D'MOM</b><br><small style="color:#999">Total pelanggan yang pernah order:</small><br><b id="statPelanggan" style="font-size:24px;color:#D4AF37">1 Pelanggan</b><br><br>
+      <div class="item-list"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100"><div style="flex:1;text-align:left"><b>Ko Cheng 👑</b><br><small>@mas_phus • Bandung • Member Sultan</small></div><span class="status-pill status-selesai">VIP</span></div>
+    </div>
+  </div>
+  <button class="btn-main" onclick="pindahPage('home')">🏠 Kembali ke Toko</button>
+  <p style="text-align:center;color:#666;font-size:11px;margin-top:10px">Lu lagi di Admin - Gak bakal mental ke Beranda lagi! ✅</p>
 </div>
 
 <div class="bottom-nav">
@@ -206,12 +300,12 @@
     <p id="beliHarga" class="price" style="font-size:22px">Rp 85.000</p>
     <p style="margin:12px 0 4px;font-size:14px;color:#ccc">Mau Bayar Pake Apa?</p>
     <div class="pay-opt active" id="optCOD" onclick="pilihBayar('COD')">
-      <div><b>💵 COD - Bayar di Tempat</b><br><small>Bayar cash pas kurir dateng. Paling gampang!</small></div><b style="color:#D4AF37">✔️</b>
+      <div><b>💵 COD - Bayar di Tempat</b><br><small>Bayar cash pas kurir dateng.</small></div><b style="color:#D4AF37">✔️</b>
     </div>
     <div class="pay-opt" id="optSALDO" onclick="pilihBayar('SALDO')">
       <div><b>💰 SALDO</b><br><small id="saldoInfo">Saldo lu: Rp 0</small></div><b></b>
     </div>
-    <div id="peringatanSaldo" style="display:none;background:#2A1A00;border:1px solid #D4AF37;padding:12px;border-radius:10px;font-size:13px;margin-top:5px;color:#FFD700">Maaf kak, saldonya kurang nih 🙏<br>Top Up dulu yuk biar bisa bayar pake Saldo?<br><button class="btn-main" onclick="tutupBeli();bukaTopUp()">💰 Top Up Saldo</button></div>
+    <div id="peringatanSaldo" style="display:none;background:#2A1A00;border:1px solid #D4AF37;padding:12px;border-radius:10px;font-size:13px;margin-top:5px;color:#FFD700">Maaf kak, saldonya kurang 🙏<br><button class="btn-main" onclick="tutupBeli();bukaTopUp()">💰 Top Up Saldo</button></div>
     <button class="btn-dark" onclick="prosesBeli()">🛍️ BELI SEKARANG</button>
     <button class="btn-soft" onclick="tutupBeli()">Lihat Kue Lagi</button>
   </div>
@@ -221,15 +315,26 @@
   <div class="sheet">
     <h3>💰 Top Up Saldo</h3>
     <p style="font-size:13px;margin:6px 0;color:#ccc">Saldo sekarang: <b id="saldoTopUp" style="color:#D4AF37">Rp 0</b></p>
-    <p style="font-size:13px;color:#ccc">Pilih Nominal:</p>
     <div class="topup-grid">
       <button class="topup-btn" onclick="topUp(20000)">Rp 20.000</button>
       <button class="topup-btn" onclick="topUp(50000)">Rp 50.000</button>
       <button class="topup-btn" onclick="topUp(100000)">Rp 100.000</button>
       <button class="topup-btn" onclick="topUp(200000)">Rp 200.000</button>
     </div>
-    <p style="font-size:12px;color:#888">Top Up langsung masuk (simulasi). Nanti bisa diganti QRIS / Transfer.</p>
     <button class="btn-soft" onclick="tutupTopUp()">Nanti Aja</button>
+  </div>
+</div>
+
+<div class="modal" id="modalEdit">
+  <div class="sheet">
+    <h3>✏️ Edit Kue</h3>
+    <input class="input-admin" id="editNama" placeholder="Nama Kue">
+    <input class="input-admin" id="editHarga" type="number" placeholder="Harga">
+    <input class="input-admin" id="editStok" type="number" placeholder="Stok">
+    <input class="input-admin" id="editDeskripsi" placeholder="Deskripsi">
+    <input class="input-admin" id="editGambar" placeholder="Link Foto">
+    <button class="btn-main" onclick="simpanEdit()">💾 SIMPAN PERUBAHAN</button>
+    <button class="btn-soft" onclick="document.getElementById('modalEdit').classList.remove('show')">Batal</button>
   </div>
 </div>
 
@@ -237,31 +342,47 @@
 const SUPABASE_URL = "https://yagjplecxxojxdjiqrhv.supabase.co";
 const SUPABASE_KEY = "sb_publishable_XkvJ55x0zjvVW73LiG6mbw_hmOaYau2";
 let supabase = null;
-if(window.supabase){
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-} else {
-  document.getElementById('listKue').innerHTML = '<div style="background:#2A1A00;padding:20px;border-radius:15px;text-align:center;grid-column:1/3;border:1px solid #D4AF37"><b>Supabase Gagal Ke-Load!</b><br><small>Coba refresh / ganti ke WiFi!</small></div>';
-}
+if(window.supabase){ supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); }
 const USER_ID = 1;
-let kueDipilih = null;
-let metodeBayar = 'COD';
-let saldoUser = 0;
-let semuaKue = [];
-let filterAktif = 'ALL';
-let keranjang = [];
+let kueDipilih = null; let metodeBayar = 'COD'; let saldoUser = 0; let semuaKue = []; let filterAktif = 'ALL'; let keranjang = []; let editId = null;
+let halamanSekarang = 'home';
 function rupiah(n){ return 'Rp ' + Number(n||0).toLocaleString('id-ID'); }
+// FIX NAVIGASI - DIKUNCI, GAK MENTAL KE BERANDA
+function sembunyikanSemua(){
+  document.getElementById('pageHome').style.display = 'none';
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+}
 function pindahPage(p){
-  document.getElementById('pageHome').style.display = p==='home' ? 'block' : 'none';
-  ['Keranjang','Profil','Riwayat','Peta'].forEach(x=>{
-    document.getElementById('page'+x).classList.toggle('active', p===x.toLowerCase());
-  });
+  halamanSekarang = p;
+  sembunyikanSemua();
+  if(p==='home'){
+    document.getElementById('pageHome').style.display = 'block';
+  } else {
+    let el = document.getElementById('page' + p.charAt(0).toUpperCase() + p.slice(1));
+    if(el) el.classList.add('active');
+  }
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  let navId = 'nav' + p.charAt(0).toUpperCase() + p.slice(1);
-  if(document.getElementById(navId)) document.getElementById(navId).classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+  let navMap = {home:'navHome',keranjang:'navKeranjang',profil:'navProfil',riwayat:'navRiwayat',peta:'navPeta'};
+  if(navMap[p] && document.getElementById(navMap[p])) document.getElementById(navMap[p]).classList.add('active');
+  // Kalo Admin, semua nav bawah dimatiin biar gak ke-reset ke Home
+  if(p==='admin'){
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  }
+  window.scrollTo(0,0);
   if(p==='keranjang') renderKeranjang();
   if(p==='riwayat') loadRiwayat();
   if(p==='profil') loadSaldo();
+  if(p==='admin') loadAdmin();
+}
+function bukaAdmin(){
+  // Fungsi khusus Admin - langsung kunci di Admin
+  halamanSekarang = 'admin';
+  sembunyikanSemua();
+  document.getElementById('pageAdmin').classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  window.scrollTo(0,0);
+  loadAdmin();
+  adminTab('overview', document.querySelector('[data-tab=overview]'));
 }
 async function loadSaldo(){
   if(!supabase) return;
@@ -271,7 +392,7 @@ async function loadSaldo(){
     document.getElementById('saldoProfil').innerText = rupiah(saldoUser);
     document.getElementById('saldoTopUp').innerText = rupiah(saldoUser);
     document.getElementById('saldoInfo').innerText = 'Saldo lu: ' + rupiah(saldoUser);
-  }catch(e){ console.log('Saldo error:', e); }
+  }catch(e){}
 }
 function filterKat(kat, el){
   filterAktif = kat;
@@ -281,13 +402,8 @@ function filterKat(kat, el){
 }
 function renderKue(){
   let data = semuaKue;
-  if(filterAktif !== 'ALL'){
-    data = semuaKue.filter(k => (k.nama||'').toUpperCase().includes(filterAktif) || (k.deskripsi||'').toUpperCase().includes(filterAktif));
-  }
-  if(!data || data.length===0){
-    document.getElementById('listKue').innerHTML = '<div style="background:#141414;padding:20px;border-radius:15px;text-align:center;grid-column:1/3;border:1px solid #333"><b>Kue kategori ini lagi kosong!</b></div>';
-    return;
-  }
+  if(filterAktif !== 'ALL'){ data = semuaKue.filter(k => (k.nama||'').toUpperCase().includes(filterAktif) || (k.deskripsi||'').toUpperCase().includes(filterAktif)); }
+  if(!data || data.length===0){ document.getElementById('listKue').innerHTML = '<div style="background:#141414;padding:20px;border-radius:15px;text-align:center;grid-column:1/3;border:1px solid #333"><b>Kue kategori ini lagi kosong!</b></div>'; return; }
   document.getElementById('jumlahTxt').innerText = data.length + ' menu';
   let html = '';
   data.forEach((k,i)=>{
@@ -304,49 +420,21 @@ async function loadKue(){
   if(!supabase) return;
   try{
     const { data, error } = await supabase.from('kue_basah').select('*').order('id');
-    if(error){
-      document.getElementById('listKue').innerHTML = '<div style="background:#2A1A00;padding:20px;border-radius:15px;text-align:center;grid-column:1/3;border:1px solid #D4AF37"><b>GAGAL AMBIL KUE!</b><br><small>'+error.message+'</small><br><br><button onclick="loadKue()" style="padding:10px 20px;background:#D4AF37;color:#000;border:none;border-radius:10px;font-weight:bold">COBA LAGI</button></div>';
-      return;
-    }
-    if(!data || data.length===0){
-      document.getElementById('listKue').innerHTML = '<div style="background:#141414;padding:20px;border-radius:15px;text-align:center;grid-column:1/3"><b>Kue lagi kosong!</b></div>';
-      return;
-    }
-    semuaKue = data;
-    renderKue();
-  }catch(e){
-    document.getElementById('listKue').innerHTML = '<div style="background:#2A1A00;padding:20px;border-radius:15px;grid-column:1/3"><b>ERROR JS:</b><br>'+e.message+'</div>';
-  }
+    if(error){ document.getElementById('listKue').innerHTML = '<div style="background:#2A1A00;padding:20px;border-radius:15px;text-align:center;grid-column:1/3;border:1px solid #D4AF37"><b>GAGAL AMBIL KUE!</b><br><small>'+error.message+'</small></div>'; return; }
+    if(!data || data.length===0){ document.getElementById('listKue').innerHTML = '<div style="background:#141414;padding:20px;border-radius:15px;text-align:center;grid-column:1/3"><b>Kue lagi kosong!</b></div>'; return; }
+    semuaKue = data; renderKue();
+  }catch(e){}
 }
-function tambahKeranjang(id,nama,harga,img){
-  keranjang.push({id,nama,harga,img});
-  updateBadge();
-  alert(nama + ' masuk keranjang! 🛒');
-}
-function hapusKeranjang(index){
-  keranjang.splice(index,1);
-  updateBadge(); renderKeranjang();
-}
+function tambahKeranjang(id,nama,harga,img){ keranjang.push({id,nama,harga,img}); updateBadge(); alert(nama + ' masuk keranjang! 🛒'); }
+function hapusKeranjang(index){ keranjang.splice(index,1); updateBadge(); renderKeranjang(); }
 function kosongkanKeranjang(){ keranjang=[]; updateBadge(); renderKeranjang(); }
-function updateBadge(){
-  let b = document.getElementById('badgeCart');
-  if(keranjang.length>0){ b.style.display='flex'; b.innerText=keranjang.length; } else { b.style.display='none'; }
-}
+function updateBadge(){ let b = document.getElementById('badgeCart'); if(keranjang.length>0){ b.style.display='flex'; b.innerText=keranjang.length; } else { b.style.display='none'; } }
 function renderKeranjang(){
   let box = document.getElementById('listKeranjang');
-  if(keranjang.length===0){
-    box.innerHTML = '<div style="background:#141414;border:1px solid #333;border-radius:14px;padding:30px;text-align:center"><div style="font-size:40px">🛒</div><b>Keranjang masih kosong!</b><br><small style="color:#999">Yuk jajan dulu di Home!</small><br><br><button class="btn-main" onclick="pindahPage(\'home\')">🍰 LIHAT KUE</button></div>';
-    document.getElementById('totalKeranjang').style.display='none';
-    return;
-  }
+  if(keranjang.length===0){ box.innerHTML = '<div style="background:#141414;border:1px solid #333;border-radius:14px;padding:30px;text-align:center"><div style="font-size:40px">🛒</div><b>Keranjang masih kosong!</b><br><br><button class="btn-main" onclick="pindahPage(\'home\')">🍰 LIHAT KUE</button></div>'; document.getElementById('totalKeranjang').style.display='none'; return; }
   let html=''; let total=0;
-  keranjang.forEach((k,i)=>{
-    total+=k.harga;
-    html+=`<div class="item-list"><img src="${k.img}"><div style="flex:1"><b>${k.nama}</b><br><small style="color:#D4AF37;font-weight:bold">${rupiah(k.harga)}</small></div><button onclick="hapusKeranjang(${i})" style="background:#222;color:#fff;border:1px solid #333;padding:8px 10px;border-radius:10px">🗑️</button></div>`;
-  });
-  box.innerHTML=html;
-  document.getElementById('totalTxt').innerText=rupiah(total);
-  document.getElementById('totalKeranjang').style.display='block';
+  keranjang.forEach((k,i)=>{ total+=k.harga; html+=`<div class="item-list"><img src="${k.img}"><div style="flex:1"><b>${k.nama}</b><br><small style="color:#D4AF37;font-weight:bold">${rupiah(k.harga)}</small></div><button onclick="hapusKeranjang(${i})" style="background:#222;color:#fff;border:1px solid #333;padding:8px 10px;border-radius:10px">🗑️</button></div>`; });
+  box.innerHTML=html; document.getElementById('totalTxt').innerText=rupiah(total); document.getElementById('totalKeranjang').style.display='block';
 }
 async function checkoutKeranjang(){
   if(keranjang.length===0) return;
@@ -354,30 +442,122 @@ async function checkoutKeranjang(){
   if(!confirm('Checkout '+keranjang.length+' kue, total '+rupiah(total)+' ?')) return;
   const { error } = await supabase.from('pesanan').insert({user_id: USER_ID, total: total, status: 'COD - Belum Bayar', metode_bayar: 'COD', created_at: new Date().toISOString()});
   if(error){ alert('Gagal: '+error.message); return; }
-  alert('Pesanan masuk! 💵 Bayar COD pas kurir dateng ya! Makasih udah jajan di D\'MOM! 🍰');
-  keranjang=[]; updateBadge(); renderKeranjang(); pindahPage('riwayat');
+  alert('Pesanan masuk! 💵 Bayar COD pas kurir dateng ya!'); keranjang=[]; updateBadge(); renderKeranjang(); pindahPage('riwayat');
 }
 async function loadRiwayat(){
   if(!supabase) return;
   try{
     const { data, error } = await supabase.from('pesanan').select('*').eq('user_id', USER_ID).order('created_at',{ascending:false});
-    if(error){ document.getElementById('listRiwayat').innerHTML='<p style="color:#FFD700">Gagal: '+error.message+'</p>'; return; }
-    if(!data || data.length===0){ document.getElementById('listRiwayat').innerHTML='<div style="background:#141414;border:1px solid #333;border-radius:14px;padding:30px;text-align:center"><div style="font-size:40px">🧾</div><b>Belum ada pesanan!</b><br><small style="color:#999">Yuk jajan dulu!</small></div>'; return; }
+    if(error){ document.getElementById('listRiwayat').innerHTML='<p>Gagal: '+error.message+'</p>'; return; }
+    if(!data || data.length===0){ document.getElementById('listRiwayat').innerHTML='<div style="background:#141414;border:1px solid #333;border-radius:14px;padding:30px;text-align:center"><div style="font-size:40px">🧾</div><b>Belum ada pesanan!</b></div>'; return; }
     let html='';
-    data.forEach(p=>{
-      let tgl = new Date(p.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}) + ' ' + new Date(p.created_at).toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
-      html+=`<div class="item-list"><div style="font-size:30px">🍰</div><div style="flex:1"><b>Pesanan #${p.id}</b><br><small>${tgl} • ${p.status}</small><br><b style="color:#D4AF37">${rupiah(p.total)}</b></div><span style="font-size:11px;background:#1A1A1A;border:1px solid #D4AF37;color:#D4AF37;padding:5px 8px;border-radius:20px">${p.metode_bayar}</span></div>`;
-    });
+    data.forEach(p=>{ let tgl = new Date(p.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}); html+=`<div class="item-list"><div style="font-size:30px">🍰</div><div style="flex:1"><b>Pesanan #${p.id}</b><br><small>${tgl} • ${p.status}</small><br><b style="color:#D4AF37">${rupiah(p.total)}</b></div><span style="font-size:11px;background:#1A1A1A;border:1px solid #D4AF37;color:#D4AF37;padding:5px 8px;border-radius:20px">${p.metode_bayar}</span></div>`; });
     document.getElementById('listRiwayat').innerHTML=html;
-  }catch(e){ document.getElementById('listRiwayat').innerHTML='<p>Error: '+e.message+'</p>'; }
+  }catch(e){}
+}
+function adminTab(tab, el){
+  ['Overview','Kue','Pesanan','Tambah','Pelanggan'].forEach(x=>{
+    let id = 'admin'+x;
+    if(document.getElementById(id)) document.getElementById(id).style.display = tab.toLowerCase()===x.toLowerCase() ? 'block' : 'none';
+  });
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  if(el) el.classList.add('active');
+  if(tab==='pesanan') loadAdminPesanan();
+  if(tab==='kue') loadAdmin();
+  if(tab==='overview') loadAdmin();
+}
+async function loadAdmin(){
+  if(!supabase) return;
+  const { data } = await supabase.from('kue_basah').select('*').order('id');
+  if(!data) return;
+  semuaKue = data; renderKue();
+  document.getElementById('statKue').innerText = data.length;
+  document.getElementById('statStok').innerText = data.reduce((a,b)=>a+(b.stok||0),0);
+  let html='';
+  data.forEach(k=>{
+    const img = k.gambar || k.gambar_url || 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=200';
+    html+=`<div class="admin-kue"><img src="${img}"><div style="flex:1"><b>${k.nama}</b><br><small style="color:#D4AF37">${rupiah(k.harga)} • Stok: ${k.stok ?? 0}</small><br><small style="color:#999">${k.deskripsi||''}</small></div><div><button class="admin-btn" style="background:#D4AF37;color:#000" onclick="bukaEdit(${k.id})">✏️ EDIT</button> <button class="admin-btn" style="background:#3A0000;color:#FF6B6B;border:1px solid #FF6B6B" onclick="hapusKue(${k.id},'${(k.nama||'').replace(/'/g,'')}')">🗑️</button></div></div>`;
+  });
+  document.getElementById('listAdminKue').innerHTML = html || '<p style="color:#999;text-align:center;padding:20px">Belum ada kue!</p>';
+  const { data: pes } = await supabase.from('pesanan').select('*');
+  if(pes){
+    document.getElementById('statPesanan').innerText = pes.length;
+    let omset = pes.reduce((a,b)=>a+(b.total||0),0);
+    document.getElementById('statOmset').innerText = rupiah(omset);
+    document.getElementById('statOmsetTop').innerText = rupiah(omset);
+    document.getElementById('statPelanggan').innerText = pes.length + ' Pelanggan';
+    let top = pes.slice(-3).reverse();
+    let htmlTop='';
+    top.forEach(p=>{
+      let statusClass = p.status.includes('SELESAI') ? 'status-selesai' : (p.status.includes('DIANTAR') ? 'status-proses' : 'status-tunggu');
+      let statusTxt = p.status.includes('SELESAI') ? '✅ Selesai' : (p.status.includes('DIANTAR') ? '🛵 Diproses' : '⏳ Menunggu');
+      htmlTop+=`<div class="order-card"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=100"><div style="flex:1"><b>Pesanan #${p.id} - Kue Sultan</b><br><small style="color:#999">${rupiah(p.total)} • ${p.metode_bayar}</small></div><span class="status-pill ${statusClass}">${statusTxt}</span></div>`;
+    });
+    document.getElementById('listAdminPesananTop').innerHTML = htmlTop || '<p style="color:#999;text-align:center;padding:15px">Belum ada pesanan!</p>';
+  }
+}
+async function loadAdminPesanan(){
+  if(!supabase) return;
+  const { data, error } = await supabase.from('pesanan').select('*').order('created_at',{ascending:false});
+  if(error){ document.getElementById('listAdminPesanan').innerHTML='<p>Gagal: '+error.message+'</p>'; return; }
+  if(!data || data.length===0){ document.getElementById('listAdminPesanan').innerHTML='<p style="color:#999;text-align:center;padding:20px">Belum ada pesanan masuk!</p>'; return; }
+  let html='';
+  data.forEach(p=>{
+    let tgl = new Date(p.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'short'}) + ' ' + new Date(p.created_at).toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+    html+=`<div style="background:#141414;border:1px solid #333;border-radius:14px;padding:12px;margin:10px 0"><div style="display:flex;justify-content:space-between"><b>Pesanan #${p.id}</b><b style="color:#D4AF37">${rupiah(p.total)}</b></div><small style="color:#999">${tgl} • ${p.metode_bayar} • User ${p.user_id}</small><br><small>Status: <b style="color:#FFD700">${p.status}</b></small><br><div style="display:flex;gap:6px;margin-top:8px"><button class="admin-btn" style="background:#D4AF37;color:#000;flex:1" onclick="ubahStatus(${p.id},'LUNAS - Saldo')">✅ LUNAS</button><button class="admin-btn" style="background:#222;color:#D4AF37;border:1px solid #D4AF37;flex:1" onclick="ubahStatus(${p.id},'SEDANG DIANTAR')">🛵 DIANTAR</button><button class="admin-btn" style="background:#0A5C2E;color:#fff;flex:1" onclick="ubahStatus(${p.id},'SELESAI')">🎉 SELESAI</button></div></div>`;
+  });
+  document.getElementById('listAdminPesanan').innerHTML=html;
+}
+async function ubahStatus(id,status){
+  const { error } = await supabase.from('pesanan').update({status: status}).eq('id', id);
+  if(error){ alert('Gagal: '+error.message); return; }
+  alert('Status jadi: '+status+' ✅'); loadAdminPesanan(); loadAdmin();
+}
+async function tambahKueAdmin(){
+  let nama = document.getElementById('inNama').value.trim();
+  let harga = parseInt(document.getElementById('inHarga').value);
+  let stok = parseInt(document.getElementById('inStok').value) || 0;
+  let deskripsi = document.getElementById('inDeskripsi').value.trim();
+  let gambar = document.getElementById('inGambar').value.trim() || 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500';
+  if(!nama || !harga){ alert('Nama & Harga wajib diisi, Bos! 🙏'); return; }
+  const { error } = await supabase.from('kue_basah').insert({nama: nama, harga: harga, stok: stok, deskripsi: deskripsi, gambar: gambar});
+  if(error){ alert('Gagal tambah: '+error.message); return; }
+  alert('Kue '+nama+' berhasil ditambah! 🎉');
+  document.getElementById('inNama').value=''; document.getElementById('inHarga').value=''; document.getElementById('inStok').value=''; document.getElementById('inDeskripsi').value=''; document.getElementById('inGambar').value='';
+  adminTab('kue',document.querySelector('[data-tab=kue]'));
+}
+function bukaEdit(id){
+  let k = semuaKue.find(x=>x.id===id);
+  if(!k) return;
+  editId = id;
+  document.getElementById('editNama').value = k.nama || '';
+  document.getElementById('editHarga').value = k.harga || 0;
+  document.getElementById('editStok').value = k.stok || 0;
+  document.getElementById('editDeskripsi').value = k.deskripsi || '';
+  document.getElementById('editGambar').value = k.gambar || k.gambar_url || '';
+  document.getElementById('modalEdit').classList.add('show');
+}
+async function simpanEdit(){
+  let nama = document.getElementById('editNama').value.trim();
+  let harga = parseInt(document.getElementById('editHarga').value);
+  let stok = parseInt(document.getElementById('editStok').value) || 0;
+  let deskripsi = document.getElementById('editDeskripsi').value.trim();
+  let gambar = document.getElementById('editGambar').value.trim();
+  const { error } = await supabase.from('kue_basah').update({nama: nama, harga: harga, stok: stok, deskripsi: deskripsi, gambar: gambar}).eq('id', editId);
+  if(error){ alert('Gagal edit: '+error.message); return; }
+  alert('Kue berhasil di-update! ✅'); document.getElementById('modalEdit').classList.remove('show'); loadAdmin();
+}
+async function hapusKue(id,nama){
+  if(!confirm('Yakin hapus '+nama+' ?')) return;
+  const { error } = await supabase.from('kue_basah').delete().eq('id', id);
+  if(error){ alert('Gagal hapus: '+error.message); return; }
+  alert('Kue dihapus! 🗑️'); loadAdmin();
 }
 function bukaBeli(id,nama,harga){
-  kueDipilih = {id,nama,harga};
-  metodeBayar = 'COD';
+  kueDipilih = {id,nama,harga}; metodeBayar = 'COD';
   document.getElementById('beliNama').innerText = nama;
   document.getElementById('beliHarga').innerText = rupiah(harga);
-  pilihBayar('COD');
-  document.getElementById('modalBeli').classList.add('show');
+  pilihBayar('COD'); document.getElementById('modalBeli').classList.add('show');
 }
 function tutupBeli(){ document.getElementById('modalBeli').classList.remove('show'); }
 function bukaTopUp(){ document.getElementById('modalTopUp').classList.add('show'); loadSaldo(); }
@@ -386,11 +566,7 @@ function pilihBayar(m){
   metodeBayar = m;
   document.getElementById('optCOD').classList.toggle('active', m==='COD');
   document.getElementById('optSALDO').classList.toggle('active', m==='SALDO');
-  if(m==='SALDO' && saldoUser < kueDipilih.harga){
-    document.getElementById('peringatanSaldo').style.display='block';
-  } else {
-    document.getElementById('peringatanSaldo').style.display='none';
-  }
+  if(m==='SALDO' && saldoUser < kueDipilih.harga){ document.getElementById('peringatanSaldo').style.display='block'; } else { document.getElementById('peringatanSaldo').style.display='none'; }
 }
 async function topUp(nominal){
   if(!confirm('Top Up ' + rupiah(nominal) + ' ?')) return;
@@ -398,39 +574,23 @@ async function topUp(nominal){
   const { error } = await supabase.from('saldo').update({saldo: baru}).eq('user_id', USER_ID);
   if(error){ alert('Gagal Top Up: '+error.message); return; }
   await supabase.from('riwayat_saldo').insert({user_id: USER_ID, jumlah: nominal, tipe: 'topup', keterangan: 'Top Up Saldo'});
-  await loadSaldo();
-  alert('Top Up Berhasil! Saldo lu sekarang ' + rupiah(baru) + ' 🎉');
-  tutupTopUp();
+  await loadSaldo(); alert('Top Up Berhasil! Saldo lu sekarang ' + rupiah(baru) + ' 🎉'); tutupTopUp();
 }
 async function prosesBeli(){
   if(!kueDipilih) return;
   if(metodeBayar==='SALDO'){
-    if(saldoUser < kueDipilih.harga){
-      alert('Maaf kak, saldonya kurang 🙏 Top Up dulu yuk!'); bukaTopUp(); return;
-    }
+    if(saldoUser < kueDipilih.harga){ alert('Maaf kak, saldonya kurang 🙏 Top Up dulu yuk!'); bukaTopUp(); return; }
     const sisa = saldoUser - kueDipilih.harga;
     const { error: errSaldo } = await supabase.from('saldo').update({saldo: sisa}).eq('user_id', USER_ID);
     if(errSaldo){ alert('Gagal potong saldo: '+errSaldo.message); return; }
     await supabase.from('riwayat_saldo').insert({user_id: USER_ID, jumlah: -kueDipilih.harga, tipe: 'beli', keterangan: 'Beli '+kueDipilih.nama});
     await loadSaldo();
   }
-  const { error } = await supabase.from('pesanan').insert({
-    user_id: USER_ID,
-    total: kueDipilih.harga,
-    status: metodeBayar==='COD' ? 'COD - Belum Bayar' : 'LUNAS - Saldo',
-    metode_bayar: metodeBayar,
-    created_at: new Date().toISOString()
-  });
+  const { error } = await supabase.from('pesanan').insert({ user_id: USER_ID, total: kueDipilih.harga, status: metodeBayar==='COD' ? 'COD - Belum Bayar' : 'LUNAS - Saldo', metode_bayar: metodeBayar, created_at: new Date().toISOString() });
   if(error){ alert('Gagal: '+error.message); return; }
-  tutupBeli();
-  if(metodeBayar==='COD'){
-    alert('Pesanan '+kueDipilih.nama+' masuk! 💵 Bayar COD pas kurir dateng ya! Makasih udah jajan di D\'MOM! 🍰');
-  } else {
-    alert('Berhasil Beli pake Saldo! 💰');
-  }
-  await loadSaldo();
+  tutupBeli(); alert(metodeBayar==='COD' ? 'Pesanan masuk! 💵 Bayar COD pas kurir dateng ya!' : 'Berhasil Beli pake Saldo! 💰'); await loadSaldo();
 }
 loadSaldo(); loadKue(); renderKeranjang();
 </script>
 </body>
- </html>
+                                                                  </html>
