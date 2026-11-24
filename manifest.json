@@ -1,0 +1,32 @@
+{
+  "name": "D'MOM 👑 - Kue Basah Sultan Bandung",
+  "short_name": "D'MOM",
+  "description": "Kue Basah Sultan, Lumer, Premium dari Bandung. Fresh tiap hari!",
+  "id": "/",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A0A0A",
+  "theme_color": "#D4AF37",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=192&h=192&fit=crop",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=512&h=512&fit=crop",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=512&h=512&fit=crop",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
