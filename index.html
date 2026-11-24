@@ -4,10 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>D'MOM 👑 - Stok Habis Merah</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#D4AF37">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="D'MOM">
+<link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=180&h=180&fit=crop">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
-  body{background:#0A0A0A;color:#fff;padding-bottom:80px}
+  html,body{overscroll-behavior-y:auto;touch-action:pan-y}
+  body{background:#0A0A0A;color:#fff;padding-bottom:80px;overflow-x:hidden}
   .header{background:#000;color:#D4AF37;padding:14px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;border-bottom:1px solid #D4AF37}
   .header b{font-size:20px;letter-spacing:2px;color:#D4AF37}
   .header small{font-size:10px;color:#aaa;letter-spacing:1px}
@@ -22,13 +30,13 @@
   .promo b{font-size:14px}
   .promo small{font-size:11px;opacity:.8}
   .promo .btn-promo{background:#000;color:#D4AF37;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;font-size:12px;cursor:pointer}
-  .kategori{display:flex;gap:8px;padding:0 15px 14px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+  .kategori{display:flex;gap:8px;padding:0 15px 14px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;scroll-snap-type:x proximity;touch-action:pan-y;overscroll-behavior-x:contain}
   .kategori::-webkit-scrollbar{display:none}
   .kat{padding:8px 16px;border-radius:20px;border:1px solid #333;background:#111;color:#ccc;font-size:12px;cursor:pointer;flex-shrink:0}
   .kat.active{background:#D4AF37;color:#000;border-color:#D4AF37;font-weight:bold}
   .judul{padding:0 15px 12px;font-size:16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;color:#D4AF37}
   .judul span{font-size:12px;color:#888;font-weight:normal}
-  .container{padding:0 12px;max-width:600px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .container{padding:0 12px;max-width:600px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;touch-action:pan-y}
   .card{background:#141414;border:1px solid #2A2A2A;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;position:relative}
   .card.best{border:1px solid #D4AF37}
   .card.habis{opacity:.75;border-color:#FF3B30}
@@ -93,7 +101,7 @@
   @keyframes pulse{0%{transform:translate(-50%,-50%) scale(.6);opacity:1}100%{transform:translate(-50%,-50%) scale(1.5);opacity:0}}
   .toko-card{display:flex;gap:12px;background:#141414;border:1px solid #D4AF37;border-radius:16px;padding:12px;margin-top:12px;align-items:center}
   .toko-card img{width:80px;height:80px;object-fit:cover;border-radius:12px;border:2px solid #D4AF37}
-  .slide-wrap{display:flex;gap:12px;overflow-x:auto;padding:0 15px 6px;scroll-snap-type:x mandatory;scrollbar-width:none}
+  .slide-wrap{display:flex;gap:12px;overflow-x:auto;padding:0 15px 6px;scroll-snap-type:x proximity;scrollbar-width:none;touch-action:pan-y;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
   .slide-wrap::-webkit-scrollbar{display:none}
   .slide-card{min-width:160px;width:160px;scroll-snap-align:start;background:#141414;border:1px solid #2A2A2A;border-radius:16px;overflow:hidden;flex-shrink:0}
   .slide-card.gold{border-color:#D4AF37}
@@ -110,7 +118,7 @@
   .admin-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
   .admin-top small{color:#999;font-size:11px}
   .admin-avatar{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #D4AF37}
-  .admin-tabs{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;padding:12px 0}
+  .admin-tabs{display:flex;gap:8px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;padding:12px 0;touch-action:pan-y}
   .admin-tabs::-webkit-scrollbar{display:none}
   .admin-tab{padding:9px 16px;border-radius:20px;border:1px solid #333;background:#111;color:#ccc;font-size:12px;font-weight:bold;cursor:pointer;flex-shrink:0}
   .admin-tab.active{background:#D4AF37;color:#000;border-color:#D4AF37}
@@ -615,7 +623,6 @@ async function hapusKue(id,nama){
   alert('Kue dihapus! 🗑️'); loadAdmin();
 }
 function bukaBeli(id,nama,harga){
-  // PENGAMAN TAMBAHAN: Kalo stok habis, tolak!
   let k = semuaKue.find(x=>x.id===id);
   if(k && Number(k.stok||0) <= 0){ alert('Maaf, ' + nama + ' lagi HABIS! 🙏 Coba kue lain ya!'); return; }
   kueDipilih = {id,nama,harga}; metodeBayar = 'COD';
@@ -655,6 +662,13 @@ async function prosesBeli(){
   tutupBeli(); alert(metodeBayar==='COD' ? 'Pesanan masuk! 💵 Bayar COD pas kurir dateng ya!' : 'Berhasil Beli pake Saldo! 💰'); await loadSaldo();
 }
 loadSaldo(); loadKue(); renderKeranjang();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').then(() => console.log('D\'MOM siap di-install! 👑')).catch((e) => console.log('SW gagal:', e));
+  });
+}
 </script>
 </body>
 </html>
