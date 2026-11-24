@@ -79,8 +79,17 @@
   .nav-item .foto-nav{width:28px;height:28px;border-radius:50%;object-fit:cover;border:2px solid #D4AF37;margin:0 auto 2px;display:block}
   .badge-cart{position:absolute;top:-4px;right:18px;background:#D4AF37;color:#000;font-size:10px;font-weight:bold;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center}
   .nav-wrap{position:relative}
-  .map-box{border:1px solid #D4AF37;border-radius:16px;overflow:hidden}
-  .map-box iframe{width:100%;height:300px;border:0;display:block}
+  /* PETA CUSTOM */
+  .map-box{border:1px solid #D4AF37;border-radius:20px;overflow:hidden;position:relative;background:#111}
+  .map-box iframe{width:100%;height:320px;border:0;display:block}
+  .pin-bangunan{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%);text-align:center;z-index:5;pointer-events:none}
+  .pin-bangunan .pin-img{width:68px;height:68px;border-radius:50%;object-fit:cover;border:3px solid #D4AF37;box-shadow:0 0 0 4px rgba(212,175,55,.3),0 8px 20px rgba(0,0,0,.6);background:#000}
+  .pin-bangunan .pin-label{background:#D4AF37;color:#000;font-size:11px;font-weight:bold;padding:5px 10px;border-radius:20px;margin-top:2px;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+  .pin-bangunan .pin-arrow{width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #D4AF37;margin:0 auto}
+  .pin-pulse{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;border-radius:50%;border:2px solid #D4AF37;animation:pulse 2s infinite;pointer-events:none}
+  @keyframes pulse{0%{transform:translate(-50%,-50%) scale(.6);opacity:1}100%{transform:translate(-50%,-50%) scale(1.4);opacity:0}}
+  .toko-card{display:flex;gap:12px;background:#141414;border:1px solid #D4AF37;border-radius:16px;padding:12px;margin-top:12px;align-items:center}
+  .toko-card img{width:80px;height:80px;object-fit:cover;border-radius:12px;border:2px solid #D4AF37}
 </style>
 </head>
 <body>
@@ -90,7 +99,6 @@
   <div class="header-right">🔔</div>
 </div>
 
-<!-- PAGE HOME -->
 <div id="pageHome">
   <div class="hero">
     <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=800'">
@@ -116,7 +124,6 @@
   <div class="footer"><b>D'MOM 👑</b><br>Jl. Kue Basah No. 1 - Bandung<br>Buka Tiap Hari 08.00 - 21.00 WIB</div>
 </div>
 
-<!-- PAGE KERANJANG -->
 <div class="page" id="pageKeranjang">
   <h2 style="color:#D4AF37">🛒 Keranjang</h2>
   <p style="color:#999;font-size:13px;margin:6px 0 12px">Kue yang lu pilih, bayar sekali aja!</p>
@@ -128,7 +135,6 @@
   </div>
 </div>
 
-<!-- PAGE PROFIL -->
 <div class="page" id="pageProfil">
   <div class="profil-card">
     <img class="profil-foto" id="fotoUser" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200" onerror="this.src='https://via.placeholder.com/200'">
@@ -143,11 +149,10 @@
   </div>
   <div class="menu-profil" onclick="bukaTopUp()"><div><b>💰 Top Up Saldo</b><br><small>Isi saldo buat bayar lebih cepet</small></div><span style="color:#D4AF37">›</span></div>
   <div class="menu-profil" onclick="pindahPage('riwayat')"><div><b>🧾 Riwayat Pesanan</b><br><small>Liat semua pesanan lu</small></div><span style="color:#D4AF37">›</span></div>
-  <div class="menu-profil" onclick="pindahPage('peta')"><div><b>📍 Alamat Toko</b><br><small>Jl. Kue Basah No.1 - Bandung</small></div><span style="color:#D4AF37">›</span></div>
+  <div class="menu-profil" onclick="pindahPage('peta')"><div><b>📍 Alamat Toko</b><br><small>Lihat lokasi toko di peta</small></div><span style="color:#D4AF37">›</span></div>
   <div class="menu-profil" onclick="alert('Hubungi Admin D\'MOM: 0812-3456-7890')"><div><b>💬 Bantuan</b><br><small>Chat Admin D'MOM</small></div><span style="color:#D4AF37">›</span></div>
 </div>
 
-<!-- PAGE RIWAYAT -->
 <div class="page" id="pageRiwayat">
   <h2 style="color:#D4AF37">🧾 Riwayat</h2>
   <p style="color:#999;font-size:13px;margin:6px 0 12px">Semua pesanan lu yang udah masuk.</p>
@@ -155,21 +160,38 @@
   <button class="btn-soft" onclick="loadRiwayat()">🔄 Refresh Riwayat</button>
 </div>
 
-<!-- PAGE PETA -->
+<!-- PAGE PETA - KOORDINAT LU -->
 <div class="page" id="pagePeta">
   <h2 style="color:#D4AF37">📍 Peta Toko</h2>
-  <p style="color:#999;font-size:13px;margin:6px 0 12px">D'MOM - Jl. Kue Basah No.1, Bandung</p>
-  <div class="map-box">
-    <iframe src="https://www.google.com/maps?q=Bandung&output=embed" loading="lazy"></iframe>
+  <p style="color:#999;font-size:13px;margin:6px 0 12px">Lokasi persis toko D'MOM - Klik PIN buat buka Maps!</p>
+  <div class="map-box" onclick="window.open('https://maps.app.goo.gl/XrH5MAv8k7MqRpH68','_blank')">
+    <iframe src="https://www.google.com/maps?q=https://maps.app.goo.gl/XrH5MAv8k7MqRpH68&output=embed" loading="lazy"></iframe>
+    <div class="pin-pulse"></div>
+    <div class="pin-bangunan">
+      <img class="pin-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=200" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=200'">
+      <div class="pin-label">👑 D'MOM - DI SINI!</div>
+      <div class="pin-arrow"></div>
+    </div>
+    <div style="position:absolute;bottom:10px;left:10px;background:#000;border:1px solid #D4AF37;color:#D4AF37;font-size:11px;font-weight:bold;padding:6px 10px;border-radius:20px">📍 KLIK PETA UNTUK BUKA MAPS</div>
   </div>
+
+  <div class="toko-card">
+    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=300'">
+    <div style="flex:1">
+      <b style="color:#D4AF37">🏪 D'MOM Bandung 👑</b><br>
+      <small style="color:#ccc;line-height:1.5">Toko Kue Basah Luxury<br>Buka: 08.00 - 21.00 WIB<br>⭐ 4.9 • 1.2k Ulasan</small>
+    </div>
+  </div>
+
   <div style="background:#141414;border:1px solid #333;border-radius:14px;padding:14px;margin-top:12px">
-    <b style="color:#D4AF37">🏪 D'MOM Bandung</b><br>
-    <small style="color:#ccc;line-height:1.6">Jl. Kue Basah No. 1, Bandung, Jawa Barat<br>Buka: 08.00 - 21.00 WIB<br>WA: 0812-3456-7890<br>Ongkir Bandung Kota: GRATIS kalo beli 2!</small><br>
-    <button class="btn-main" onclick="window.open('https://www.google.com/maps/search/?api=1&query=Bandung','_blank')">🗺️ Buka di Google Maps</button>
+    <b style="color:#D4AF37">📍 Lokasi Persis:</b><br>
+    <small style="color:#ccc;line-height:1.6">Klik tombol di bawah buat langsung ke titik toko lu di Google Maps!<br>Link: maps.app.goo.gl/XrH5MAv8k7MqRpH68</small><br>
+    <button class="btn-main" onclick="window.open('https://maps.app.goo.gl/XrH5MAv8k7MqRpH68','_blank')">🗺️ BUKA DI GOOGLE MAPS</button>
+    <button class="btn-dark" onclick="window.open('https://www.google.com/maps/dir/?api=1&destination=https://maps.app.goo.gl/XrH5MAv8k7MqRpH68','_blank')">🚗 PETUNJUK ARAH KE TOKO</button>
+    <button class="btn-soft" onclick="navigator.clipboard.writeText('https://maps.app.goo.gl/XrH5MAv8k7MqRpH68');alert('Link Maps ke-copy! Bagiin ke temen lu! 📍')">🔗 SALIN LINK MAPS</button>
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <div class="nav-item active" id="navHome" onclick="pindahPage('home')"><span class="icon">🏠</span>Home</div>
   <div class="nav-item" id="navKeranjang" onclick="pindahPage('keranjang')"><div class="nav-wrap"><span class="icon">🛒</span><div class="badge-cart" id="badgeCart" style="display:none">0</div></div>Keranjang</div>
@@ -178,7 +200,6 @@
   <div class="nav-item" id="navPeta" onclick="pindahPage('peta')"><span class="icon">📍</span>Peta</div>
 </div>
 
-<!-- MODAL BELI -->
 <div class="modal" id="modalBeli">
   <div class="sheet">
     <h3 id="beliNama">Choco Sultan</h3>
@@ -196,7 +217,6 @@
   </div>
 </div>
 
-<!-- MODAL TOP UP -->
 <div class="modal" id="modalTopUp">
   <div class="sheet">
     <h3>💰 Top Up Saldo</h3>
