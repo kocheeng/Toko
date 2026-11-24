@@ -28,7 +28,6 @@
   .kat.active{background:#D4AF37;color:#000;border-color:#D4AF37;font-weight:bold;transform:scale(1.05)}
   .judul{padding:0 15px 12px;font-size:16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;color:#D4AF37}
   .judul span{font-size:12px;color:#888;font-weight:normal}
-  /* INI KUNCINYA - KOTAK KUE JADI BISA DI GESER BENERAN */
   .kue-swipe-wrap{overflow-x:auto;scroll-snap-type:x mandatory;display:flex;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x pan-y}
   .kue-swipe-wrap::-webkit-scrollbar{display:none}
   .kue-page{min-width:100%;width:100%;scroll-snap-align:start;flex-shrink:0;padding:0 12px}
@@ -186,9 +185,10 @@
     <div class="kat" data-kat="SULTAN" onclick="lompatKeJenis('SULTAN')">👑 Sultan</div>
   </div>
 
-  <div class="geser-hint">👈 <b>CARA GESER YANG BENER:</b><br>Tempelin jempol di <b>TENGAH GAMBAR KUE</b>, terus <b>TARIK KE KIRI</b> cepet! Jangan geser pelan & jangan geser dari tombol BELI! 👉<br><small>Kalau masih susah, klik tombol ◀ ▶ di bawah ini!</small></div>
+  <!-- TULISAN DISEMBUNYIIN, TAPI TETEP ADA BIAR GESER JALAN -->
+  <div class="geser-hint" style="display:none">👈 <b>CARA GESER YANG BENER:</b><br>Tempelin jempol di <b>TENGAH GAMBAR KUE</b>, terus <b>TARIK KE KIRI</b> cepet! Jangan geser pelan & jangan geser dari tombol BELI! 👉<br><small>Kalau masih susah, klik tombol ◀ ▶ di bawah ini!</small></div>
 
-  <div class="swipe-nav">
+  <div class="swipe-nav" style="display:none">
     <button onclick="geserJenis(-1)">◀ Sebelumnya</button>
     <span id="jenisAktifTxt" style="font-size:12px;color:#D4AF37;font-weight:bold">✨ Semua</span>
     <button onclick="geserJenis(1)">Berikutnya ▶</button>
@@ -196,7 +196,6 @@
 
   <div class="judul">👑 Best Seller <span id="jumlahTxt"></span></div>
 
-  <!-- INI YANG BISA DI GESER - 5 HALAMAN -->
   <div class="kue-swipe-wrap" id="kueSwipe"></div>
   <div class="dots-wrap" id="dotsWrap">
     <div class="dot active" onclick="lompatKeJenis('ALL')"></div>
@@ -205,21 +204,21 @@
     <div class="dot" onclick="lompatKeJenis('PANDAN')"></div>
     <div class="dot" onclick="lompatKeJenis('SULTAN')"></div>
   </div>
-  <p style="text-align:center;font-size:11px;color:#666;padding:0 0 6px">👆 Geser kotak kue di atas ke kiri / kanan!</p>
+  <p style="display:none;text-align:center;font-size:11px;color:#666;padding:0 0 6px">👆 Geser kotak kue di atas ke kiri / kanan!</p>
 
   <div class="slide-section">
     <div class="slide-head"><b>🍰 Kue Basah Sultan</b><div class="slide-nav"><button class="slide-btn" onclick="geserSlide('slideSultan',-1)">◀</button><button class="slide-btn" onclick="geserSlide('slideSultan',1)">▶</button></div></div>
-    <div class="slide-hint">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
+    <div class="slide-hint" style="display:none">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
     <div class="slide-wrap" id="slideSultan"></div>
   </div>
   <div class="slide-section">
     <div class="slide-head"><b>🍫 Kue Basah Lumer</b><div class="slide-nav"><button class="slide-btn" onclick="geserSlide('slideLumer',-1)">◀</button><button class="slide-btn" onclick="geserSlide('slideLumer',1)">▶</button></div></div>
-    <div class="slide-hint">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
+    <div class="slide-hint" style="display:none">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
     <div class="slide-wrap" id="slideLumer"></div>
   </div>
   <div class="slide-section">
     <div class="slide-head"><b>🍿 Snacks & Cemilan</b><div class="slide-nav"><button class="slide-btn" onclick="geserSlide('slideSnacks',-1)">◀</button><button class="slide-btn" onclick="geserSlide('slideSnacks',1)">▶</button></div></div>
-    <div class="slide-hint">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
+    <div class="slide-hint" style="display:none">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
     <div class="slide-wrap" id="slideSnacks"></div>
   </div>
   <div class="footer"><b>D'MOM 👑</b><br>Jl. Kue Basah No. 1 - Bandung<br>Buka Tiap Hari 08.00 - 21.00 WIB</div>
@@ -439,7 +438,8 @@ function lompatKeJenis(kat){
   filterAktif = kat;
   document.querySelectorAll('.kat').forEach(k=>k.classList.toggle('active', k.dataset.kat===kat));
   document.querySelectorAll('#dotsWrap .dot').forEach((d,i)=>d.classList.toggle('active', DAFTAR_JENIS[i]===kat));
-  document.getElementById('jenisAktifTxt').innerText = LABEL_JENIS[kat] || kat;
+  let elTxt = document.getElementById('jenisAktifTxt');
+  if(elTxt) elTxt.innerText = LABEL_JENIS[kat] || kat;
   let bar = document.getElementById('kategoriBar');
   let aktifEl = document.querySelector('.kat[data-kat="'+kat+'"]');
   if(bar && aktifEl){ bar.scrollTo({left: aktifEl.offsetLeft - 20, behavior:'smooth'}); }
@@ -484,11 +484,10 @@ function renderKue(){
     } else {
       isi = data.map((k,i)=>kartuKue(k,i)).join('');
     }
-    html += `<div class="kue-page"><div style="text-align:center;font-size:12px;color:#D4AF37;font-weight:bold;padding:0 0 10px">${LABEL_JENIS[kat]} • ${data.length} menu • 👈 Geser ke kiri / kanan 👉</div><div class="kue-grid">${isi}</div></div>`;
+    html += `<div class="kue-page"><div style="display:none;text-align:center;font-size:12px;color:#D4AF37;font-weight:bold;padding:0 0 10px">${LABEL_JENIS[kat]} • ${data.length} menu • 👈 Geser ke kiri / kanan 👉</div><div class="kue-grid">${isi}</div></div>`;
   });
   wrap.innerHTML = html;
   renderSlides();
-  // Pasang deteksi geser - kalau user geser kotak, jenis ikut ganti!
   if(!wrap.dataset.pasang){
     wrap.dataset.pasang = '1';
     let timer = null;
@@ -503,7 +502,8 @@ function renderKue(){
           filterAktif = kat;
           document.querySelectorAll('.kat').forEach(k=>k.classList.toggle('active', k.dataset.kat===kat));
           document.querySelectorAll('#dotsWrap .dot').forEach((d,i)=>d.classList.toggle('active', DAFTAR_JENIS[i]===kat));
-          document.getElementById('jenisAktifTxt').innerText = LABEL_JENIS[kat];
+          let elTxt2 = document.getElementById('jenisAktifTxt');
+          if(elTxt2) elTxt2.innerText = LABEL_JENIS[kat];
           document.getElementById('jumlahTxt').innerText = dataPerJenis(kat).length + ' menu • ' + LABEL_JENIS[kat];
           let bar = document.getElementById('kategoriBar');
           let aktifEl = document.querySelector('.kat[data-kat="'+kat+'"]');
