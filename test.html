@@ -10,44 +10,34 @@
     background:#000 url('marmer.jpg') center/cover fixed no-repeat;
     min-height:100vh;color:#fff;padding-bottom:110px;
   }
-  /* Overlay gua tipisin biar marmer makin keliatan */
-  body::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,.20);z-index:-1}
+  body::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,.05);z-index:-1}
   .wrap{max-width:1120px;margin:0 auto;padding:0 10px}
   .top{padding:24px 14px 8px;display:flex;justify-content:space-between;align-items:center}
   .top h1{font-size:32px;font-weight:800;text-shadow:0 2px 10px rgba(0,0,0,.8)}
   .top p{color:#FFD700;font-size:14px;margin-top:6px;text-shadow:0 2px 8px rgba(0,0,0,.8)}
   .avatar{width:58px;height:58px;border-radius:50%;border:3px solid #FFD700;object-fit:cover;background:#222}
-
   .card-gold{margin:16px 14px;background:linear-gradient(135deg,#FFD700,#F5C542 30%,#B8860B 70%,#FFD700);border-radius:24px;padding:22px;color:#000;box-shadow:0 12px 35px rgba(255,215,0,.45)}
   .card-gold small{background:#000;color:#FFD700;padding:7px 12px;border-radius:20px;font-size:11px;font-weight:700}
   .card-gold h2{font-size:26px;margin:14px 0 4px}
   .card-gold p{font-size:14px;opacity:.75}
   .btn-absen{margin-top:16px;background:#000;color:#fff;border:none;padding:14px;border-radius:12px;font-weight:700;width:100%;cursor:pointer;font-size:15px}
-
-  /* INI YANG TRANSPARAN BRO! KELAS! */
   .stats{display:flex;gap:12px;padding:0 14px}
-  .stat{flex:1;background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,215,0,0.5);border-radius:16px;padding:16px 8px;text-align:center;box-shadow:0 8px 20px rgba(0,0,0,.3)}
-  .stat b{font-size:24px;color:#FFD700;display:block;text-shadow:0 2px 8px rgba(0,0,0,.7)}
-  .stat span{font-size:12px;color:#fff}
-
+  .stat{flex:1;background:rgba(255,255,255,0.02);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border:1px solid rgba(255,215,0,0.4);border-radius:16px;padding:16px 8px;text-align:center}
+  .stat b{font-size:24px;color:#FFD700;display:block;text-shadow:0 2px 8px rgba(0,0,0,.9)}
+  .stat span{font-size:12px;color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.9)}
   .section{padding:20px 14px}
-  .section h3{font-size:18px;margin-bottom:14px;text-shadow:0 2px 8px rgba(0,0,0,.8)}
-
-  /* KOTAK KECIL TRANSPARAN - KACA! */
+  .section h3{font-size:18px;margin-bottom:14px;text-shadow:0 2px 8px rgba(0,0,0,.9)}
   .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
-  .menu{background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,215,0,0.5);border-radius:18px;padding:18px 6px;text-align:center;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.3)}
-  .menu:hover{background:rgba(255,215,0,0.15);transform:translateY(-3px)}
-  .menu .icon{width:48px;height:48px;margin:0 auto 8px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(0,0,0,0.35);border:1px solid rgba(255,215,0,0.6)}
-  .menu span{font-size:12px;font-weight:600;text-shadow:0 1px 5px rgba(0,0,0,.8)}
-
+  .menu{background:rgba(255,255,255,0.02);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border:1px solid rgba(255,215,0,0.4);border-radius:18px;padding:18px 6px;text-align:center;cursor:pointer}
+  .menu .icon{width:48px;height:48px;margin:0 auto 8px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;background:rgba(0,0,0,0.25);border:1px solid rgba(255,215,0,0.5)}
+  .menu span{font-size:12px;font-weight:600;text-shadow:0 1px 5px rgba(0,0,0,.9)}
   .flex2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  .list{background:rgba(255,255,255,0.08);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,215,0,0.5);border-radius:20px;padding:8px 16px;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+  .list{background:rgba(255,255,255,0.02);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border:1px solid rgba(255,215,0,0.4);border-radius:20px;padding:8px 16px}
   .list-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.15)}
   .list-row:last-child{border:none}
   .badge{padding:7px 11px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
-  .green{background:rgba(30,77,43,.8);color:#7CFF9A}.orange{background:rgba(77,53,30,.8);color:#FFC46B}.blue{background:rgba(30,42,77,.8);color:#8AB4FF}
-
-  .nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(15px);border-top:1px solid rgba(255,215,0,0.5);display:flex;justify-content:space-around;padding:12px 0 20px}
+  .green{background:rgba(30,77,43,.7);color:#7CFF9A}.orange{background:rgba(77,53,30,.7);color:#FFC46B}.blue{background:rgba(30,42,77,.7);color:#8AB4FF}
+  .nav{position:fixed;bottom:0;left:0;right:0;background:rgba(0,0,0,0.35);backdrop-filter:blur(8px);border-top:1px solid rgba(255,215,0,0.4);display:flex;justify-content:space-around;padding:12px 0 20px}
   .nav div{text-align:center;font-size:11px;color:#ccc}
   .nav .active{color:#FFD700}
   .nav .plus{width:56px;height:56px;background:#FFD700;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-size:30px;margin-top:-32px;border:4px solid #000}
