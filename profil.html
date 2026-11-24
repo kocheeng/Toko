@@ -104,4 +104,56 @@ function toggleSlide(){
 }
 </script>
 </body>
+<!-- SUPABASE D' MOM -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // 1. SAMBUNG KE SUPABASE
+  const SUPABASE_URL = "https://yagjplecxxojxdjiqrhv.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_XkvJ55x0zjvVW73LiG6mbw_hmOaYau2";
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // 2. TES KONEKSI - AMBIL KUE BASAH DARI DATABASE
+  async function loadKue() {
+    const { data, error } = await supabase
+      .from('kue_basah')
+      .select('*');
+    
+    if (error) {
+      console.log("Gagal:", error.message);
+      return;
+    }
+    console.log("BERHASIL! Kue dari database:", data);
+    alert("BERHASIL NYAMBUNG! Ada " + data.length + " kue basah di database!");
+  }
+
+  // 3. FUNGSI BELI - MASUK KE TABEL PESANAN
+  async function beliKue(namaKue, hargaKue) {
+    const { data, error } = await supabase
+      .from('pesanan')
+      .insert([
+        { 
+          user_id: 1, 
+          kode_pesanan: 'DMOM-' + Date.now(),
+          total: hargaKue,
+          status: 'pending',
+          alamat_kirim: 'Bandung'
+        }
+      ]);
+    if (!error) alert("Pesanan " + namaKue + " masuk database! 🎉");
+  }
+
+  // 4. FUNGSI CEK SALDO
+  async function cekSaldo(userId) {
+    const { data } = await supabase
+      .from('saldo')
+      .select('saldo')
+      .eq('user_id', userId)
+      .single();
+    console.log("Saldo lu:", data?.saldo || 0);
+    return data?.saldo || 0;
+  }
+
+  // JALANKAN TES
+  loadKue();
+</script>
 </html>
