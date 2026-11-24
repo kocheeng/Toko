@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil - Kocheeng</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#FFF8F0;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 15px 120px}
+.top{width:100%;max-width:900px;display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.top h1{font-size:22px}
+.top h1 span{color:#FF6B35}
+.top a{text-decoration:none;color:#FF6B35;font-weight:700;font-size:14px}
+h2{font-size:26px;text-align:center}
+.sub{color:#888;font-size:14px;text-align:center;margin:8px 0 22px}
+
+/* CONTAINER SLIDE */
+.slide-wrap{width:100%;max-width:900px;height:540px;background:#fff;border-radius:28px;box-shadow:0 15px 40px rgba(0,0,0,.1);overflow:hidden;position:relative;display:flex}
+.form-box{width:50%;padding:35px;display:flex;flex-direction:column;justify-content:center;transition:.6s}
+.form-box h3{font-size:24px;margin-bottom:6px}
+.form-box p{font-size:13px;color:#888;margin-bottom:18px;line-height:1.5}
+.form-box input{width:100%;padding:13px 15px;border:1px solid #eee;border-radius:14px;margin-bottom:12px;outline:none;background:#FFF8F0;font-size:14px}
+.form-box input:focus{border-color:#FF6B35;background:#fff}
+.btn{width:100%;padding:14px;border:none;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer}
+.btn-orange{background:#FF6B35;color:#fff}
+.btn-dark{background:#1A1A1A;color:#fff}
+.small{font-size:12px;color:#888;text-align:center;margin-top:12px}
+.small a{color:#FF6B35;text-decoration:none;font-weight:700}
+
+/* PANEL GAMBAR YANG GESER */
+.overlay{position:absolute;top:0;left:50%;width:50%;height:100%;background:linear-gradient(135deg,#FF6B35,#FF9A5A);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;transition:.6s;z-index:10}
+.overlay img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:4px solid #fff;margin-bottom:18px}
+.overlay h3{font-size:24px;margin-bottom:10px}
+.overlay p{font-size:14px;opacity:.9;line-height:1.5;margin-bottom:20px}
+.overlay button{background:#fff;color:#FF6B35;border:none;padding:13px 28px;border-radius:30px;font-weight:800;cursor:pointer;font-size:14px}
+
+/* KALO AKTIF, OVERLAY GESER KE KIRI */
+.slide-wrap.active .overlay{left:0}
+.slide-wrap.active .form-daftar{opacity:0;pointer-events:none}
+.slide-wrap.active .form-masuk{opacity:1}
+
+/* NAV */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;justify-content:space-around;padding:16px 0 22px;border-top:1px solid #eee;box-shadow:0 -5px 25px rgba(0,0,0,.1);z-index:90}
+.nav a{text-decoration:none;color:#999;font-size:14px;font-weight:600;text-align:center}
+.nav a.active{color:#FF6B35}
+.nav a span{font-size:28px;display:block}
+@media(max-width:700px){
+  .slide-wrap{flex-direction:column;height:auto}
+  .form-box{width:100%}
+  .overlay{position:relative;left:0!important;width:100%;padding:25px}
+  .overlay img{width:80px;height:80px}
+  .form-daftar{display:none}
+  .slide-wrap.active .form-daftar{display:flex;opacity:1}
+  .slide-wrap.active .form-masuk{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="top"><h1>Kocheeng<span>🍰</span></h1><a href="index.html">← Balik ke Toko</a></div>
+<h2>Selamat Datang, Sultan! 👑</h2>
+<p class="sub">Daftar dulu, atau geser buat masuk!</p>
+
+<div class="slide-wrap" id="slideWrap">
+  <!-- FORM MASUK (di kiri, ketutup awalnya) -->
+  <div class="form-box form-masuk">
+    <h3>🔐 Masuk</h3>
+    <p>Udah punya akun? Gas masuk, kue sultan udah nungguin!</p>
+    <input placeholder="Email / Nomor HP">
+    <input type="password" placeholder="Password">
+    <button class="btn btn-orange" onclick="alert('Selamat Datang Kembali! 🎉')">Masuk Sekarang →</button>
+    <p class="small"><a href="#">Lupa Password?</a></p>
+  </div>
+
+  <!-- FORM DAFTAR (yang keliatan pertama) -->
+  <div class="form-box form-daftar">
+    <h3>✨ Daftar Baru</h3>
+    <p>Baru pertama kali? Daftar dulu, dapet voucher 50%!</p>
+    <input placeholder="Nama Lengkap">
+    <input placeholder="Email / Nomor HP">
+    <input type="password" placeholder="Buat Password">
+    <button class="btn btn-dark" onclick="alert('Akun berhasil dibuat! 🎁')">Daftar & Dapet Voucher 🎁</button>
+    <p class="small">Dengan daftar, lu setuju sama <a href="#">Syarat & Ketentuan</a></p>
+  </div>
+
+  <!-- PANEL YANG GESER -->
+  <div class="overlay" id="overlay">
+    <img id="overlayImg" src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400">
+    <h3 id="overlayTitle">Udah Punya Akun?</h3>
+    <p id="overlayText">Kalo udah pernah daftar, langsung masuk aja! Gak usah daftar lagi, Bro!</p>
+    <button onclick="toggleSlide()" id="overlayBtn">Masuk →</button>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="index.html"><span>🏠</span>Home</a>
+  <a href="index.html"><span>🍰</span>Shop</a>
+  <a href="#"><span>❤️</span>Wishlist</a>
+  <a href="profil.html" class="active"><span>👤</span>Akun</a>
+</div>
+
+<script>
+let isLogin=false;
+function toggleSlide(){
+  let wrap=document.getElementById('slideWrap');
+  wrap.classList.toggle('active');
+  isLogin=!isLogin;
+  if(isLogin){
+    document.getElementById('overlayTitle').textContent='Belum Punya Akun?';
+    document.getElementById('overlayText').textContent='Yah belum daftar? Gas daftar dulu, dapet voucher 50% langsung!';
+    document.getElementById('overlayBtn').textContent='← Daftar';
+    document.getElementById('overlayImg').src='https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400';
+  }else{
+    document.getElementById('overlayTitle').textContent='Udah Punya Akun?';
+    document.getElementById('overlayText').textContent='Kalo udah pernah daftar, langsung masuk aja! Gak usah daftar lagi, Bro!';
+    document.getElementById('overlayBtn').textContent='Masuk →';
+    document.getElementById('overlayImg').src='https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400';
+  }
+}
+</script>
+</body>
+</html>
