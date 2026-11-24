@@ -3,115 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PATISSERIE LUMIÈRE - Toko Kue Sultan</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Kocheeng - Toko Kue Sultan</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#FFF8EE;max-width:430px;margin:0 auto;padding-bottom:80px}
-.top{background:#111827;color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-family:'Playfair Display',serif;font-size:22px;letter-spacing:1px}
-.logo span{color:#C9A24B}
-.hero{margin:14px;border-radius:20px;overflow:hidden;position:relative;height:280px;background:url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800') center/cover}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7),transparent)}
-.hero-text{position:absolute;bottom:16px;left:16px;right:16px;color:#fff;z-index:2}
-.hero-text h1{font-family:'Playfair Display',serif;font-size:30px;line-height:1.1}
-.hero-text p{font-size:13px;opacity:.9;margin:6px 0 10px}
-.btn{background:#C9A24B;color:#111827;padding:10px 18px;border-radius:30px;font-weight:600;border:none;font-size:13px}
-.search{margin:0 14px;display:flex;gap:8px}
-.search input{flex:1;padding:12px 16px;border-radius:30px;border:1px solid #E5DCC8;background:#fff;outline:none}
-.cat{padding:14px;display:flex;gap:8px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
-.cat span{padding:8px 16px;border-radius:30px;background:#fff;border:1px solid #E5DCC8;font-size:12px}
-.cat span.active{background:#111827;color:#fff}
-.section{padding:0 14px}
-.section h2{font-family:'Playfair Display',serif;font-size:20px;margin:8px 0 12px}
-.card{background:#fff;border-radius:18px;overflow:hidden;display:flex;margin-bottom:12px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.card img{width:120px;height:120px;object-fit:cover}
-.card-info{padding:12px;flex:1}
-.card-info h3{font-size:14px}
-.card-info p{font-size:11px;color:#888;margin:4px 0}
-.price{font-weight:700;color:#B78A2E}
-.add{background:#111827;color:#fff;border:none;padding:7px 12px;border-radius:20px;font-size:11px;margin-top:6px}
-.promo{margin:14px;background:#111827;color:#fff;border-radius:18px;padding:18px;display:flex;justify-content:space-between;align-items:center}
-.promo h3{font-family:'Playfair Display',serif;font-size:18px}
-.promo p{font-size:11px;opacity:.8}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid #eee}
-.nav a{text-decoration:none;color:#999;font-size:11px;text-align:center}
-.nav a.active{color:#111827;font-weight:600}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#FFF8F0;padding-bottom:110px}
+.container{max-width:430px;margin:0 auto;background:#FFF8F0;min-height:100vh}
+.header{padding:20px 18px 10px;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:22px}
+.header h1 span{color:#FF6B35}
+.search{margin:10px 18px;background:#fff;padding:13px 15px;border-radius:15px;display:flex;gap:10px;color:#999;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.banner{margin:15px 18px;background:linear-gradient(135deg,#FF6B35,#FF9A5A);border-radius:20px;padding:22px;color:#fff}
+.banner h2{font-size:22px;line-height:1.2}
+.banner p{font-size:13px;opacity:.9;margin:8px 0 15px}
+.banner button{background:#fff;border:none;padding:10px 20px;border-radius:25px;font-weight:700;color:#FF6B35}
+.cat{padding:5px 18px;display:flex;gap:10px;overflow-x:auto}
+.cat div{background:#fff;padding:9px 16px;border-radius:20px;font-size:13px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.cat .active{background:#FF6B35;color:#fff}
+.section{padding:18px}
+.section h3{font-size:18px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.06)}
+.card img{width:100%;height:130px;object-fit:cover}
+.card-info{padding:12px}
+.card-info b{font-size:14px;display:block}
+.card-info small{color:#999;font-size:11px}
+.price-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+.price{color:#FF6B35;font-weight:800;font-size:15px}
+.add{background:#FF6B35;color:#fff;border:none;width:32px;height:32px;border-radius:50%;font-size:18px}
+
+/* NAV GEDE */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;justify-content:space-around;padding:16px 0 22px;border-top:1px solid #eee;box-shadow:0 -5px 25px rgba(0,0,0,.1);z-index:90}
+.nav a{text-decoration:none;color:#999;font-size:14px;font-weight:600;text-align:center;line-height:1.3}
+.nav a.active{color:#FF6B35}
+.nav a span{font-size:28px;display:block;margin-bottom:2px}
+
+/* BALON CHAT */
+.chat-btn{position:fixed;bottom:105px;right:18px;width:62px;height:62px;background:#FF6B35;color:#fff;border:none;border-radius:50%;font-size:28px;box-shadow:0 8px 20px rgba(255,107,53,.5);z-index:100;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.chat-btn .notif{position:absolute;top:-2px;right:-2px;background:#FF2D55;color:#fff;font-size:11px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.chat-box{position:fixed;bottom:180px;right:15px;width:320px;max-width:calc(100vw - 30px);background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,.25);z-index:101;display:none;overflow:hidden}
+.chat-header{background:#FF6B35;color:#fff;padding:15px;display:flex;gap:10px;align-items:center}
+.chat-header .avatar{width:40px;height:40px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.chat-header small{opacity:.9;font-size:11px}
+.chat-body{height:260px;overflow-y:auto;padding:15px;background:#FFF8F0;display:flex;flex-direction:column;gap:10px}
+.msg{padding:10px 13px;border-radius:15px;font-size:13px;max-width:80%;line-height:1.4}
+.msg.admin{background:#fff;align-self:flex-start;box-shadow:0 2px 8px rgba(0,0,0,.06);border-bottom-left-radius:4px}
+.msg.user{background:#FF6B35;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.chat-input{display:flex;padding:10px;gap:8px;background:#fff}
+.chat-input input{flex:1;border:1px solid #eee;padding:11px 14px;border-radius:25px;outline:none;font-size:13px}
+.chat-input button{background:#FF6B35;color:#fff;border:none;width:42px;height:42px;border-radius:50%;font-size:18px}
+.quick{display:flex;gap:6px;padding:0 10px 10px;background:#fff;overflow-x:auto}
+.quick button{white-space:nowrap;background:#FFF0E8;color:#FF6B35;border:1px solid #FFD8C0;padding:6px 12px;border-radius:20px;font-size:11px}
 </style>
 </head>
 <body>
-
-<div class="top">
-  <div class="logo">LUMIÈRE<span>.</span></div>
-  <div>🛒 0</div>
-</div>
-
-<div class="hero">
-  <div class="hero-text">
-    <p>✦ PATISSERIE PREMIUM</p>
-    <h1>Kue Sultan,<br>Rasa Juara.</h1>
-    <p>Fresh from oven setiap hari.</p>
-    <button class="btn" onclick="alert('Gas order, Bro!')">Pesan Sekarang →</button>
-  </div>
-</div>
-
-<div class="search">
-  <input placeholder="Cari kue... coklat, keju, tart...">
-  <button class="btn">🔍</button>
-</div>
-
-<div class="cat">
-  <span class="active">Semua</span><span>Signature</span><span>Tart</span><span>Croissant</span><span>Hampers</span>
-</div>
-
-<div class="section">
-  <h2>Best Seller Hari Ini 🔥</h2>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400">
-    <div class="card-info">
-      <h3>Chocolate Ganache Luxe</h3>
-      <p>⭐ 4.9 • 2.1k terjual • Coklat Belgia</p>
-      <div class="price">Rp 185.000</div>
-      <button class="add" onclick="alert('Ditambahkan!')">+ Keranjang</button>
+<div class="container">
+  <div class="header"><h1>Kocheeng<span>🍰</span></h1><div>🔔 🛒</div></div>
+  <div class="search">🔍 Cari kue sultan...</div>
+  <div class="banner"><h2>Kue Sultan<br>Diskon 50%!</h2><p>Khusus hari ini, Bro! Gas keun!</p><button>Order Sekarang →</button></div>
+  <div class="cat"><div class="active">Semua</div><div>🍰 Cake</div><div>🧁 Cupcake</div><div>🍩 Donat</div><div>🍪 Cookies</div></div>
+  <div class="section"><h3>Best Seller 🔥</h3>
+    <div class="grid">
+      <div class="card"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400"><div class="card-info"><b>Choco Sultan</b><small>Coklat Lumer</small><div class="price-row"><span class="price">Rp 85k</span><button class="add">+</button></div></div></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400"><div class="card-info"><b>Strawberry Queen</b><small>Fresh Strawberry</small><div class="price-row"><span class="price">Rp 95k</span><button class="add">+</button></div></div></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1587668178277-295251f9ce7c?w=400"><div class="card-info"><b>Red Velvet</b><small>Super Lembut</small><div class="price-row"><span class="price">Rp 110k</span><button class="add">+</button></div></div></div>
+      <div class="card"><img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400"><div class="card-info"><b>Cheese Cake</b><small>Keju Sultan</small><div class="price-row"><span class="price">Rp 120k</span><button class="add">+</button></div></div></div>
     </div>
   </div>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400">
-    <div class="card-info">
-      <h3>Raspberry Tart Sultan</h3>
-      <p>⭐ 4.8 • 1.5k terjual • Fresh Berry</p>
-      <div class="price">Rp 145.000</div>
-      <button class="add" onclick="alert('Ditambahkan!')">+ Keranjang</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400">
-    <div class="card-info">
-      <h3>Croissant Butter Premium</h3>
-      <p>⭐ 5.0 • 3k terjual • 7 Lapis</p>
-      <div class="price">Rp 45.000</div>
-      <button class="add" onclick="alert('Ditambahkan!')">+ Keranjang</button>
-    </div>
-  </div>
-</div>
-
-<div class="promo">
-  <div>
-    <h3>Hampers Eksklusif</h3>
-    <p>Diskon 25% - Buat hadiah sultan</p>
-  </div>
-  <button class="btn">Lihat →</button>
 </div>
 
 <div class="nav">
-  <a href="#" class="active">🏠<br>Home</a>
-  <a href="#">🍰<br>Shop</a>
-  <a href="#">❤️<br>Wishlist</a>
-  <a href="#">👤<br>Akun</a>
+  <a href="#" class="active"><span>🏠</span>Home</a>
+  <a href="#"><span>🍰</span>Shop</a>
+  <a href="#"><span>❤️</span>Wishlist</a>
+  <a href="#"><span>👤</span>Akun</a>
 </div>
 
+<!-- BALON CHAT -->
+<button class="chat-btn" onclick="toggleChat()">💬<span class="notif" id="notif">1</span></button>
+
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">
+    <div class="avatar">🍰</div>
+    <div style="flex:1"><b>Admin Kocheeng</b><br><small>● Online - Balas cepat</small></div>
+    <span onclick="toggleChat()" style="cursor:pointer;font-size:20px">✕</span>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="msg admin">Halo Kak! 👋 Selamat datang di Kocheeng! Mau order kue apa hari ini? 😋</div>
+    <div class="msg admin">Ada promo Diskon 50% loh! 🔥</div>
+  </div>
+  <div class="quick">
+    <button onclick="quickChat('Harga kue berapa?')">💰 Harga Kue</button>
+    <button onclick="quickChat('Ongkir ke Bandung?')">🚚 Ongkir</button>
+    <button onclick="quickChat('Mau order dong')">🛒 Order</button>
+  </div>
+  <div class="chat-input">
+    <input id="chatInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter') sendChat()">
+    <button onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<script>
+let opened=false;
+function toggleChat(){
+  let box=document.getElementById('chatBox');
+  let notif=document.getElementById('notif');
+  if(box.style.display==='block'){box.style.display='none'}else{box.style.display='block';notif.style.display='none';opened=true}
+}
+function quickChat(text){document.getElementById('chatInput').value=text;sendChat()}
+function sendChat(){
+  let input=document.getElementById('chatInput');
+  let body=document.getElementById('chatBody');
+  if(!input.value.trim()) return;
+  let userMsg=document.createElement('div');
+  userMsg.className='msg user';userMsg.textContent=input.value;
+  body.appendChild(userMsg);
+  let teks=input.value.toLowerCase();
+  input.value='';
+  body.scrollTop=body.scrollHeight;
+  setTimeout(()=>{
+    let reply=document.createElement('div');
+    reply.className='msg admin';
+    if(teks.includes('harga')||teks.includes('berapa')) reply.textContent='Harga kita mulai Rp 85k Kak! Choco Sultan Rp 85k, Strawberry Rp 95k. Mau yang mana? 😍';
+    else if(teks.includes('ongkir')||teks.includes('bandung')) reply.textContent='Untuk Bandung kota FREE ONGKIR Kak! 🎉 Kalau luar kota cuma 15k aja!';
+    else if(teks.includes('order')||teks.includes('beli')||teks.includes('pesan')) reply.textContent='Siap! Kakak mau order yang mana? Nanti aku bantu buatkan pesanan ya! 🛒 Langsung WA aja biar cepet!';
+    else reply.textContent='Siap Kak! Ada yang bisa dibantu lagi? Mau tanya harga, ongkir, atau langsung order? 😊';
+    body.appendChild(reply);body.scrollTop=body.scrollHeight;
+  },800);
+}
+</script>
 </body>
 </html>
