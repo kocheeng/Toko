@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kocheeng - Toko Kue Sultan</title>
+<title>D' Mom - Toko Kue Sultan</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
 body{background:#FFF8F0;padding-bottom:110px}
@@ -17,10 +17,12 @@ body{background:#FFF8F0;padding-bottom:110px}
 .icon-cart small{font-size:8px;font-weight:800;margin-top:1px}
 .cart-badge{position:absolute;top:-7px;right:-7px;background:#FF2D55;color:#fff;font-size:11px;font-weight:800;width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #FFF8F0}
 .search{margin:10px 18px;background:#fff;padding:14px 15px;border-radius:15px;display:flex;gap:10px;color:#999;box-shadow:0 2px 10px rgba(0,0,0,.05);font-size:14px}
-.banner{margin:15px 18px;background:linear-gradient(135deg,#FF6B35,#FF9A5A);border-radius:20px;padding:22px;color:#fff}
-.banner h2{font-size:22px;line-height:1.2}
-.banner p{font-size:13px;opacity:.9;margin:8px 0 15px}
-.banner button{background:#fff;border:none;padding:10px 20px;border-radius:25px;font-weight:700;color:#FF6B35}
+/* BANNER KECIL - RAMPING */
+.banner{margin:12px 18px;background:linear-gradient(135deg,#FF6B35,#FF9A5A);border-radius:16px;padding:14px 16px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.banner-text{flex:1}
+.banner-text h2{font-size:17px;white-space:nowrap;line-height:1.2}
+.banner-text p{font-size:11px;opacity:.9;margin-top:3px}
+.banner button{background:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:800;color:#FF6B35;font-size:12px;white-space:nowrap;flex-shrink:0}
 .cat{padding:5px 18px;display:flex;gap:10px;overflow-x:auto}
 .cat div{background:#fff;padding:9px 16px;border-radius:20px;font-size:13px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.05)}
 .cat .active{background:#FF6B35;color:#fff}
@@ -32,9 +34,7 @@ body{background:#FFF8F0;padding-bottom:110px}
 .card-info{padding:12px;display:flex;flex-direction:column;flex:1}
 .card-info b{font-size:14px;display:block}
 .card-info small{color:#999;font-size:11px;margin-bottom:8px}
-/* FIX: HARGA FULL BARIS, GAK KEJEPIT LAGI */
 .price{width:100%;color:#FF6B35;font-weight:900;font-size:16px;background:#FFF0E8;padding:9px;text-align:center;border-radius:12px;white-space:nowrap}
-/* BARIS 2: BELI + KERANJANG */
 .action-row{display:flex;gap:8px;margin-top:8px}
 .btn-beli{flex:1;background:#1A1A1A;color:#fff;border:none;padding:11px;border-radius:13px;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
 .btn-beli:active{transform:scale(.95);background:#FF6B35}
@@ -75,12 +75,18 @@ body{background:#FFF8F0;padding-bottom:110px}
 <body>
 <div class="container">
   <div class="header">
-    <div class="logo"><h1>KOCHEENG<span>🍰</span></h1><small>Toko Kue Sultan</small></div>
+    <div class="logo"><h1>D' MOM<span>🍰</span></h1><small>Toko Kue Sultan</small></div>
     <div class="icon-cart" onclick="showCart()">🛒<small>CART</small><span class="cart-badge" id="cartCount">0</span></div>
   </div>
 
-  <div class="search">🔍 Cari kue sultan...</div>
-  <div class="banner"><h2>Kue Sultan<br>Diskon 50%!</h2><p>Khusus hari ini, Bro! Gas keun!</p><button>Order Sekarang →</button></div>
+  <div class="search">🔍 Cari kue D' Mom...</div>
+
+  <!-- BANNER KECIL, JUDUL NYAMBUNG 1 BARIS -->
+  <div class="banner">
+    <div class="banner-text"><h2>Kue Sultan Diskon 50%!</h2><p>Khusus hari ini, Gas keun!</p></div>
+    <button>Order →</button>
+  </div>
+
   <div class="cat"><div class="active">Semua</div><div>🍰 Cake</div><div>🧁 Cupcake</div><div>🍩 Donat</div><div>🍪 Cookies</div></div>
   <div class="section"><h3>Best Seller 🔥</h3>
     <div class="grid">
@@ -142,8 +148,8 @@ body{background:#FFF8F0;padding-bottom:110px}
 
 <button class="chat-btn" onclick="toggleChat()">💬<span class="notif" id="notif">1</span></button>
 <div class="chat-box" id="chatBox">
-  <div class="chat-header"><div class="avatar">🍰</div><div style="flex:1"><b>Admin Kocheeng</b><br><small>● Online - Balas cepat</small></div><span onclick="toggleChat()" style="cursor:pointer;font-size:20px">✕</span></div>
-  <div class="chat-body" id="chatBody"><div class="msg admin">Halo Kak! 👋 Selamat datang di Kocheeng! Mau order kue apa hari ini? 😋</div><div class="msg admin">Ada promo Diskon 50% loh! 🔥</div></div>
+  <div class="chat-header"><div class="avatar">🍰</div><div style="flex:1"><b>Admin D' Mom</b><br><small>● Online - Balas cepat</small></div><span onclick="toggleChat()" style="cursor:pointer;font-size:20px">✕</span></div>
+  <div class="chat-body" id="chatBody"><div class="msg admin">Halo Kak! 👋 Selamat datang di D' Mom! Mau order kue apa hari ini? 😋</div><div class="msg admin">Ada promo Diskon 50% loh! 🔥</div></div>
   <div class="quick"><button onclick="quickChat('Harga kue berapa?')">💰 Harga Kue</button><button onclick="quickChat('Ongkir ke Bandung?')">🚚 Ongkir</button><button onclick="quickChat('Mau order dong')">🛒 Order</button></div>
   <div class="chat-input"><input id="chatInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter') sendChat()"><button onclick="sendChat()">➤</button></div>
 </div>
