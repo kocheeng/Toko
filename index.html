@@ -47,7 +47,7 @@
 
 <div class="container" id="listKue"><p style="text-align:center;color:#999;padding:20px">Lagi ngambil kue... 🍰</p></div>
 
-<!-- MODAL BELI - SOPAN -->
+<!-- MODAL BELI -->
 <div class="modal" id="modalBeli">
   <div class="sheet">
     <h3 id="beliNama">Choco Sultan</h3>
@@ -65,7 +65,7 @@
   </div>
 </div>
 
-<!-- MODAL TOP UP - CUMA MUNCUL KALO DIBUTUHKAN -->
+<!-- MODAL TOP UP -->
 <div class="modal" id="modalTopUp">
   <div class="sheet">
     <h3>💰 Top Up Saldo</h3>
@@ -91,27 +91,42 @@ let kueDipilih = null;
 let metodeBayar = 'COD';
 let saldoUser = 0;
 
-function rupiah(n){ return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+function rupiah(n){ return 'Rp ' + Number(n||0).toLocaleString('id-ID'); }
 
 async function loadSaldo(){
-  const { data } = await supabase.from('saldo').select('saldo').eq('user_id', USER_ID).single();
-  saldoUser = data ? data.saldo : 0;
-  document.getElementById('saldoTxt').innerText = rupiah(saldoUser);
-  document.getElementById('saldoTopUp').innerText = rupiah(saldoUser);
-  document.getElementById('saldoInfo').innerText = 'Saldo lu: ' + rupiah(saldoUser);
+  try{
+    const { data } = await supabase.from('saldo').select('saldo').eq('user_id', USER_ID).single();
+    saldoUser = data ? data.saldo : 0;
+    document.getElementById('saldoTxt').innerText = rupiah(saldoUser);
+    document.getElementById('saldoTopUp').innerText = rupiah(saldoUser);
+    document.getElementById('saldoInfo').innerText = 'Saldo lu: ' + rupiah(saldoUser);
+  }catch(e){ console.log('Saldo error:', e); }
 }
 
 async function loadKue(){
-  const { data, error } = await supabase.from('kue_basah').select('*');
-  if(error || !data || data.length===0){
-    document.getElementById('listKue').innerHTML = '<div style="background:white;padding:20px;border-radius:15px;text-align:center"><b>Kue lagi kosong di database!</b><br><small style="color:#888">Isi dulu di Supabase -> kue_basah, atau hubungi admin D\'MOM ya!</small></div>';
-    return;
+  try{
+    console.log('MULAI AMBIL KUE...');
+    const { data, error } = await supabase.from('kue_basah').select('*');
+    console.log('HASIL:', data, 'ERROR:', error);
+    if(error){
+      document.getElementById('listKue').innerHTML = '<div style="background:#FFE5E5;padding:20px;border-radius:15px;text-align:center"><b>GAGAL AMBIL KUE!</b><br><small style="color:red">'+error.message+'</small><br><br><button onclick="loadKue()" style="padding:10px 20px;background:#FF6B35;color:white;border:none;border-radius:10px;font-weight:bold">COBA LAGI</button></div>';
+      return;
+    }
+    if(!data || data.length===0){
+      document.getElementById('listKue').innerHTML = '<div style="background:white;padding:20px;border-radius:15px;text-align:center"><b>Kue lagi kosong di database!</b><br><small style="color:#888">Isi dulu di Supabase -&gt; kue_basah</small></div>';
+      return;
+    }
+    let html = '';
+    data.forEach(k=>{
+      const img = k.gambar || k.gambar_url || 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500';
+      const hrg = k.harga || 0;
+      const namaAman = (k.nama||'Kue').replace(/'/g, "");
+      html += `<div class="card"><img src="${img}" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500'"><div class="card-body"><h3>${k.nama}</h3><p style="font-size:13px;color:#777">${k.deskripsi||''}</p><div class="price">${rupiah(hrg)}</div><div style="font-size:12px;color:#999">Stok: ${k.stok ?? '-'}</div><button class="btn-beli" onclick="bukaBeli(${k.id},'${namaAman}',${hrg})">🛍️ BELI</button></div></div>`;
+    });
+    document.getElementById('listKue').innerHTML = html;
+  }catch(e){
+    document.getElementById('listKue').innerHTML = '<div style="background:#FFE5E5;padding:20px;border-radius:15px"><b>ERROR JS:</b><br>'+e.message+'<br><br><button onclick="loadKue()" style="padding:10px 20px;background:#FF6B35;color:white;border:none;border-radius:10px">COBA LAGI</button></div>';
   }
-  let html = '';
-  data.forEach(k=>{
-    html += `<div class="card"><img src="${k.gambar_url||'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500'}"><div class="card-body"><h3>${k.nama}</h3><p style="font-size:13px;color:#777">${k.deskripsi||''}</p><div class="price">${rupiah(k.harga)}</div><button class="btn-beli" onclick="bukaBeli(${k.id},'${k.nama}',${k.harga})">🛍️ BELI</button></div></div>`;
-  });
-  document.getElementById('listKue').innerHTML = html;
 }
 
 function bukaBeli(id,nama,harga){
@@ -172,7 +187,7 @@ async function prosesBeli(){
   if(metodeBayar==='COD'){
     alert('Pesanan '+kueDipilih.nama+' masuk! 💵 Bayar COD pas kurir dateng ya! Makasih udah jajan di D\'MOM! 🍰');
   } else {
-    alert('Berhasil Beli pake Saldo! 💰 Sisa saldo lu: ' + rupiah(saldoUser - kueDipilih.harga) + ' 🎉');
+    alert('Berhasil Beli pake Saldo! 💰');
   }
   await loadSaldo();
 }
