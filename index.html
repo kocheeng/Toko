@@ -9,9 +9,12 @@
   *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
   body{background:#FFF8E7}
   .header{background:#FF6B35;color:white;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-  .saldo-box{background:white;color:#333;padding:8px 12px;border-radius:20px;font-weight:bold;font-size:13px;cursor:pointer}
-  .saldo-box span{color:#FF6B35}
-  .container{padding:15px;max-width:500px;margin:auto}
+  .saldo-mini{font-size:12px;background:rgba(255,255,255,.2);padding:6px 10px;border-radius:20px;color:#fff}
+  .saldo-mini b{color:#FFE082}
+  .hero{background:white;margin:15px;border-radius:15px;padding:16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+  .hero h2{font-size:20px}
+  .hero p{font-size:13px;color:#777;margin-top:4px}
+  .container{padding:0 15px 15px;max-width:500px;margin:auto}
   .card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.1);margin-bottom:15px}
   .card img{width:100%;height:180px;object-fit:cover}
   .card-body{padding:12px}
@@ -27,36 +30,42 @@
   .topup-btn:hover{background:#FF6B35;color:white}
   .btn-main{background:#FF6B35;color:white;border:none;width:100%;padding:14px;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer}
   .btn-dark{background:#111;color:white;border:none;width:100%;padding:14px;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer}
+  .btn-soft{background:#eee;color:#333;border:none;width:100%;padding:14px;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div><b>D'MOM</b> 🍰<br><small style="font-size:11px">Kue Basah Bandung</small></div>
-  <div class="saldo-box" onclick="bukaTopUp()">💰 Saldo: <span id="saldoTxt">Rp 0</span> • Top Up +</div>
+  <div><b>D'MOM</b> 🍰<br><small style="font-size:11px;opacity:.9">Kue Basah Bandung</small></div>
+  <div class="saldo-mini">💰 Saldo: <b id="saldoTxt">Rp 0</b></div>
 </div>
 
-<div class="container" id="listKue"></div>
+<div class="hero">
+  <h2>Selamat Datang di D'MOM! 🍰</h2>
+  <p>Kue basah fresh tiap hari, langsung dari Bandung.<br>Silakan pilih dulu, bayarnya nanti aja!</p>
+</div>
 
-<!-- MODAL BELI -->
+<div class="container" id="listKue"><p style="text-align:center;color:#999;padding:20px">Lagi ngambil kue... 🍰</p></div>
+
+<!-- MODAL BELI - SOPAN -->
 <div class="modal" id="modalBeli">
   <div class="sheet">
     <h3 id="beliNama">Choco Sultan</h3>
     <p id="beliHarga" class="price">Rp 85.000</p>
-    <p style="margin:10px 0;font-size:14px">Mau Bayar Pake Apa, Bro?</p>
+    <p style="margin:12px 0 4px;font-size:14px">Mau Bayar Pake Apa?</p>
     <div class="pay-opt active" id="optCOD" onclick="pilihBayar('COD')">
-      <div><b>💵 COD - Bayar di Tempat</b><br><small>Bayar cash pas kurir dateng. Gak perlu saldo!</small></div><b>✔️</b>
+      <div><b>💵 COD - Bayar di Tempat</b><br><small>Bayar cash pas kurir dateng. Paling gampang!</small></div><b>✔️</b>
     </div>
     <div class="pay-opt" id="optSALDO" onclick="pilihBayar('SALDO')">
       <div><b>💰 SALDO</b><br><small id="saldoInfo">Saldo lu: Rp 0</small></div><b></b>
     </div>
-    <div id="peringatanSaldo" style="display:none;background:#FFE0E0;padding:10px;border-radius:10px;font-size:13px;margin-top:5px">⚠️ Saldo kurang! Top Up dulu yuk!<br><button class="btn-main" onclick="tutupBeli();bukaTopUp()">Top Up Sekarang</button></div>
+    <div id="peringatanSaldo" style="display:none;background:#FFF3ED;border:1px solid #FFCCBC;padding:12px;border-radius:10px;font-size:13px;margin-top:5px">Maaf kak, saldonya kurang nih 🙏<br>Top Up dulu yuk biar bisa bayar pake Saldo?<br><button class="btn-main" onclick="tutupBeli();bukaTopUp()">💰 Top Up Saldo</button></div>
     <button class="btn-dark" onclick="prosesBeli()">🛍️ BELI SEKARANG</button>
-    <button class="btn-main" style="background:#eee;color:#333" onclick="tutupBeli()">Batal</button>
+    <button class="btn-soft" onclick="tutupBeli()">Lihat Kue Lagi</button>
   </div>
 </div>
 
-<!-- MODAL TOP UP -->
+<!-- MODAL TOP UP - CUMA MUNCUL KALO DIBUTUHKAN -->
 <div class="modal" id="modalTopUp">
   <div class="sheet">
     <h3>💰 Top Up Saldo</h3>
@@ -68,8 +77,8 @@
       <button class="topup-btn" onclick="topUp(100000)">Rp 100.000</button>
       <button class="topup-btn" onclick="topUp(200000)">Rp 200.000</button>
     </div>
-    <p style="font-size:12px;color:#888">* Top Up langsung masuk (simulasi). Nanti bisa diganti QRIS / Transfer.</p>
-    <button class="btn-main" style="background:#eee;color:#333" onclick="tutupTopUp()">Tutup</button>
+    <p style="font-size:12px;color:#888">Top Up langsung masuk (simulasi). Nanti bisa diganti QRIS / Transfer.</p>
+    <button class="btn-soft" onclick="tutupTopUp()">Nanti Aja</button>
   </div>
 </div>
 
@@ -93,9 +102,13 @@ async function loadSaldo(){
 }
 
 async function loadKue(){
-  const { data } = await supabase.from('kue_basah').select('*');
+  const { data, error } = await supabase.from('kue_basah').select('*');
+  if(error || !data || data.length===0){
+    document.getElementById('listKue').innerHTML = '<div style="background:white;padding:20px;border-radius:15px;text-align:center"><b>Kue lagi kosong di database!</b><br><small style="color:#888">Isi dulu di Supabase -> kue_basah, atau hubungi admin D\'MOM ya!</small></div>';
+    return;
+  }
   let html = '';
-  (data||[]).forEach(k=>{
+  data.forEach(k=>{
     html += `<div class="card"><img src="${k.gambar_url||'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500'}"><div class="card-body"><h3>${k.nama}</h3><p style="font-size:13px;color:#777">${k.deskripsi||''}</p><div class="price">${rupiah(k.harga)}</div><button class="btn-beli" onclick="bukaBeli(${k.id},'${k.nama}',${k.harga})">🛍️ BELI</button></div></div>`;
   });
   document.getElementById('listKue').innerHTML = html;
@@ -139,7 +152,7 @@ async function prosesBeli(){
   if(!kueDipilih) return;
   if(metodeBayar==='SALDO'){
     if(saldoUser < kueDipilih.harga){
-      alert('Saldo kurang! Top Up dulu, Bro!'); bukaTopUp(); return;
+      alert('Maaf kak, saldonya kurang 🙏 Top Up dulu yuk!'); bukaTopUp(); return;
     }
     const sisa = saldoUser - kueDipilih.harga;
     const { error: errSaldo } = await supabase.from('saldo').update({saldo: sisa}).eq('user_id', USER_ID);
@@ -157,7 +170,7 @@ async function prosesBeli(){
   if(error){ alert('Gagal: '+error.message); return; }
   tutupBeli();
   if(metodeBayar==='COD'){
-    alert('Pesanan '+kueDipilih.nama+' masuk! 💵 Bayar COD pas kurir dateng ya, Bro! Jangan di-colong! 😂');
+    alert('Pesanan '+kueDipilih.nama+' masuk! 💵 Bayar COD pas kurir dateng ya! Makasih udah jajan di D\'MOM! 🍰');
   } else {
     alert('Berhasil Beli pake Saldo! 💰 Sisa saldo lu: ' + rupiah(saldoUser - kueDipilih.harga) + ' 🎉');
   }
