@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>D'MOM - Kue Basah Bandung</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
   body{background:#FFF8E7}
@@ -85,7 +85,12 @@
 <script>
 const SUPABASE_URL = "https://yagjplecxxojxdjiqrhv.supabase.co";
 const SUPABASE_KEY = "sb_publishable_XkvJ55x0zjvVW73LiG6mbw_hmOaYau2";
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+let supabase = null;
+if(window.supabase){
+  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+} else {
+  document.getElementById('listKue').innerHTML = '<div style="background:#FFE5E5;padding:20px;border-radius:15px;text-align:center"><b>Supabase Gagal Ke-Load!</b><br><small>Sinyal lagi jelek / jsdelivr ke-block. Coba refresh / ganti ke WiFi!</small><br><br><button onclick="location.reload()" style="padding:10px 20px;background:#FF6B35;color:white;border:none;border-radius:10px;font-weight:bold">REFRESH</button></div>';
+}
 const USER_ID = 1;
 let kueDipilih = null;
 let metodeBayar = 'COD';
@@ -94,6 +99,7 @@ let saldoUser = 0;
 function rupiah(n){ return 'Rp ' + Number(n||0).toLocaleString('id-ID'); }
 
 async function loadSaldo(){
+  if(!supabase) return;
   try{
     const { data } = await supabase.from('saldo').select('saldo').eq('user_id', USER_ID).single();
     saldoUser = data ? data.saldo : 0;
@@ -104,6 +110,7 @@ async function loadSaldo(){
 }
 
 async function loadKue(){
+  if(!supabase) return;
   try{
     console.log('MULAI AMBIL KUE...');
     const { data, error } = await supabase.from('kue_basah').select('*');
