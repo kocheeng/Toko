@@ -3,196 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>D' Mom - Toko Kue Sultan</title>
+<title>D'MOM - Kue Basah Bandung</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#FFF8F0;padding-bottom:110px}
-.container{max-width:430px;margin:0 auto;background:#FFF8F0;min-height:100vh}
-.header{padding:22px 18px 10px;display:flex;justify-content:space-between;align-items:center}
-.logo{line-height:1}
-.logo h1{font-size:32px;font-weight:900;letter-spacing:-0.5px}
-.logo h1 span{color:#FF6B35}
-.logo small{font-size:11px;color:#999;font-weight:600;letter-spacing:2px;text-transform:uppercase}
-.icon-cart{width:56px;height:56px;background:#FF6B35;color:#fff;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:26px;box-shadow:0 5px 15px rgba(255,107,53,.4);position:relative;cursor:pointer}
-.icon-cart small{font-size:8px;font-weight:800;margin-top:1px}
-.cart-badge{position:absolute;top:-7px;right:-7px;background:#FF2D55;color:#fff;font-size:11px;font-weight:800;width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #FFF8F0}
-.banner{margin:12px 18px;background:linear-gradient(135deg,#FF6B35,#FF9A5A);border-radius:16px;padding:14px 16px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:10px}
-.banner-text{flex:1}
-.banner-text h2{font-size:17px;white-space:nowrap;line-height:1.2}
-.banner-text p{font-size:11px;opacity:.9;margin-top:3px}
-.banner button{background:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:800;color:#FF6B35;font-size:12px;white-space:nowrap;flex-shrink:0}
-.cat{padding:5px 18px;display:flex;gap:10px;overflow-x:auto}
-.cat div{background:#fff;padding:9px 16px;border-radius:20px;font-size:13px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.cat .active{background:#FF6B35;color:#fff}
-.section{padding:18px}
-.section h3{font-size:18px;margin-bottom:14px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.06);display:flex;flex-direction:column}
-.card img{width:100%;height:130px;object-fit:cover;background:#FFE8D6}
-.card-info{padding:12px;display:flex;flex-direction:column;flex:1}
-.card-info b{font-size:14px;display:block}
-.card-info small{color:#999;font-size:11px;margin-bottom:8px}
-.price{width:100%;color:#FF6B35;font-weight:900;font-size:16px;background:#FFF0E8;padding:9px;text-align:center;border-radius:12px;white-space:nowrap}
-.action-row{display:flex;gap:8px;margin-top:8px}
-.btn-beli{flex:1;background:#1A1A1A;color:#fff;border:none;padding:11px;border-radius:13px;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
-.btn-beli:active{transform:scale(.95);background:#FF6B35}
-.btn-cart{width:44px;height:44px;border:none;border-radius:13px;font-size:20px;cursor:pointer;background:#FF6B35;color:#fff;box-shadow:0 4px 12px rgba(255,107,53,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.btn-cart:active{transform:scale(.9)}
-.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;justify-content:space-around;padding:16px 0 22px;border-top:1px solid #eee;box-shadow:0 -5px 25px rgba(0,0,0,.1);z-index:90}
-.nav a{text-decoration:none;color:#999;font-size:14px;font-weight:600;text-align:center;line-height:1.3}
-.nav a.active{color:#FF6B35}
-.nav a span{font-size:28px;display:block;margin-bottom:2px}
-.chat-btn{position:fixed;bottom:105px;right:18px;width:62px;height:62px;background:#FF6B35;color:#fff;border:none;border-radius:50%;font-size:28px;box-shadow:0 8px 20px rgba(255,107,53,.5);z-index:100;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.chat-btn .notif{position:absolute;top:-2px;right:-2px;background:#FF2D55;color:#fff;font-size:11px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
-.chat-box{position:fixed;bottom:180px;right:15px;width:320px;max-width:calc(100vw - 30px);background:#fff;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,.25);z-index:101;display:none;overflow:hidden}
-.chat-header{background:#FF6B35;color:#fff;padding:15px;display:flex;gap:10px;align-items:center}
-.chat-header .avatar{width:40px;height:40px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
-.chat-header small{opacity:.9;font-size:11px}
-.chat-body{height:260px;overflow-y:auto;padding:15px;background:#FFF8F0;display:flex;flex-direction:column;gap:10px}
-.msg{padding:10px 13px;border-radius:15px;font-size:13px;max-width:80%;line-height:1.4}
-.msg.admin{background:#fff;align-self:flex-start;box-shadow:0 2px 8px rgba(0,0,0,.06);border-bottom-left-radius:4px}
-.msg.user{background:#FF6B35;color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.chat-input{display:flex;padding:10px;gap:8px;background:#fff}
-.chat-input input{flex:1;border:1px solid #eee;padding:11px 14px;border-radius:25px;outline:none;font-size:13px}
-.chat-input button{background:#FF6B35;color:#fff;border:none;width:42px;height:42px;border-radius:50%;font-size:18px}
-.quick{display:flex;gap:6px;padding:0 10px 10px;background:#fff;overflow-x:auto}
-.quick button{white-space:nowrap;background:#FFF0E8;color:#FF6B35;border:1px solid #FFD8C0;padding:6px 12px;border-radius:20px;font-size:11px}
-.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:22px;border-radius:22px;box-shadow:0 20px 50px rgba(0,0,0,.3);z-index:200;display:none;width:330px;max-width:calc(100vw - 30px);text-align:center;max-height:85vh;overflow-y:auto}
-.popup img{width:100%;height:140px;object-fit:cover;border-radius:14px;margin-bottom:12px}
-.popup h3{margin-bottom:6px}
-.popup p{font-size:13px;color:#666;margin-bottom:12px;line-height:1.5}
-.popup button{background:#FF6B35;color:#fff;border:none;padding:13px;border-radius:20px;font-weight:700;width:100%;margin-bottom:8px;font-size:14px}
-.popup .close{background:#eee;color:#333}
-.cart-item{display:flex;gap:10px;align-items:center;background:#FFF8F0;padding:10px;border-radius:14px;margin-bottom:8px;text-align:left}
-.cart-item img{width:50px;height:50px;object-fit:cover;border-radius:10px}
-.cart-item b{font-size:13px;display:block}
-.cart-item small{color:#FF6B35;font-weight:800}
-.cart-item span{margin-left:auto;font-size:18px;cursor:pointer}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+  body{background:#FFF8E7}
+  .header{background:#FF6B35;color:white;padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+  .saldo-box{background:white;color:#333;padding:8px 12px;border-radius:20px;font-weight:bold;font-size:13px;cursor:pointer}
+  .saldo-box span{color:#FF6B35}
+  .container{padding:15px;max-width:500px;margin:auto}
+  .card{background:white;border-radius:15px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.1);margin-bottom:15px}
+  .card img{width:100%;height:180px;object-fit:cover}
+  .card-body{padding:12px}
+  .price{color:#FF6B35;font-weight:bold;font-size:18px}
+  .btn-beli{background:#111;color:white;border:none;width:100%;padding:12px;border-radius:10px;font-weight:bold;margin-top:10px;cursor:pointer}
+  .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99;justify-content:center;align-items:flex-end}
+  .modal.show{display:flex}
+  .sheet{background:white;width:100%;max-width:500px;border-radius:20px 20px 0 0;padding:20px;max-height:85vh;overflow:auto}
+  .pay-opt{border:2px solid #eee;border-radius:12px;padding:14px;margin:10px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+  .pay-opt.active{border-color:#FF6B35;background:#FFF3ED}
+  .topup-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+  .topup-btn{padding:14px;border:2px solid #FF6B35;border-radius:12px;background:white;font-weight:bold;cursor:pointer}
+  .topup-btn:hover{background:#FF6B35;color:white}
+  .btn-main{background:#FF6B35;color:white;border:none;width:100%;padding:14px;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer}
+  .btn-dark{background:#111;color:white;border:none;width:100%;padding:14px;border-radius:12px;font-weight:bold;margin-top:10px;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <div class="logo"><h1>D' MOM<span>🍰</span></h1><small>Toko Kue Sultan</small></div>
-    <div class="icon-cart" onclick="showCart()">🛒<small>CART</small><span class="cart-badge" id="cartCount">0</span></div>
-  </div>
-  <div class="banner">
-    <div class="banner-text"><h2>Kue Sultan Diskon 50%!</h2><p>Khusus hari ini, Gas keun!</p></div>
-    <button>Order →</button>
-  </div>
-  <div class="cat"><div class="active">Semua</div><div>🍰 Cake</div><div>🧁 Cupcake</div><div>🍩 Donat</div><div>🍪 Cookies</div></div>
-  <div class="section"><h3>Best Seller 🔥</h3>
-    <div class="grid">
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400">
-        <div class="card-info"><b>Choco Sultan</b><small>Coklat Lumer</small>
-          <div class="price">Rp 85k</div>
-          <div class="action-row">
-            <button class="btn-beli" onclick="beliLangsung('Choco Sultan',85000,'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400')">🛍️ BELI</button>
-            <button class="btn-cart" onclick="masukKeranjang('Choco Sultan',85000,'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400',this)">🛒</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400">
-        <div class="card-info"><b>Strawberry Queen</b><small>Fresh Strawberry</small>
-          <div class="price">Rp 95k</div>
-          <div class="action-row">
-            <button class="btn-beli" onclick="beliLangsung('Strawberry Queen',95000,'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400')">🛍️ BELI</button>
-            <button class="btn-cart" onclick="masukKeranjang('Strawberry Queen',95000,'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400',this)">🛒</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400">
-        <div class="card-info"><b>Red Velvet</b><small>Super Lembut</small>
-          <div class="price">Rp 110k</div>
-          <div class="action-row">
-            <button class="btn-beli" onclick="beliLangsung('Red Velvet',110000,'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400')">🛍️ BELI</button>
-            <button class="btn-cart" onclick="masukKeranjang('Red Velvet',110000,'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400',this)">🛒</button>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400">
-        <div class="card-info"><b>Cheese Cake</b><small>Keju Sultan</small>
-          <div class="price">Rp 120k</div>
-          <div class="action-row">
-            <button class="btn-beli" onclick="beliLangsung('Cheese Cake',120000,'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400')">🛍️ BELI</button>
-            <button class="btn-cart" onclick="masukKeranjang('Cheese Cake',120000,'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400',this)">🛒</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="nav">
-  <a href="#" class="active"><span>🏠</span>Home</a>
-  <a href="#"><span>🍰</span>Shop</a>
-  <a href="#"><span>❤️</span>Wishlist</a>
-  <a href="profil.html"><span>👤</span>Akun</a>
-</div>
-<button class="chat-btn" onclick="toggleChat()">💬<span class="notif" id="notif">1</span></button>
-<div class="chat-box" id="chatBox">
-  <div class="chat-header"><div class="avatar">🍰</div><div style="flex:1"><b>Admin D' Mom</b><br><small>● Online - Balas cepat</small></div><span onclick="toggleChat()" style="cursor:pointer;font-size:20px">✕</span></div>
-  <div class="chat-body" id="chatBody"><div class="msg admin">Halo Kak! 👋 Selamat datang di D' Mom! Mau order kue apa hari ini? 😋</div><div class="msg admin">Ada promo Diskon 50% loh! 🔥</div></div>
-  <div class="quick"><button onclick="quickChat('Harga kue berapa?')">💰 Harga Kue</button><button onclick="quickChat('Ongkir ke Bandung?')">🚚 Ongkir</button><button onclick="quickChat('Mau order dong')">🛒 Order</button></div>
-  <div class="chat-input"><input id="chatInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter') sendChat()"><button onclick="sendChat()">➤</button></div>
-</div>
-<div class="popup" id="popup"><img id="popupImg" style="display:none"><h3 id="popupTitle"></h3><p id="popupText"></p><div id="popupList"></div><button id="popupBtn">Oke! 👌</button><button class="close" onclick="document.getElementById('popup').style.display='none'">Tutup</button></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<div class="header">
+  <div><b>D'MOM</b> 🍰<br><small style="font-size:11px">Kue Basah Bandung</small></div>
+  <div class="saldo-box" onclick="bukaTopUp()">💰 Saldo: <span id="saldoTxt">Rp 0</span> • Top Up +</div>
+</div>
+
+<div class="container" id="listKue"></div>
+
+<!-- MODAL BELI -->
+<div class="modal" id="modalBeli">
+  <div class="sheet">
+    <h3 id="beliNama">Choco Sultan</h3>
+    <p id="beliHarga" class="price">Rp 85.000</p>
+    <p style="margin:10px 0;font-size:14px">Mau Bayar Pake Apa, Bro?</p>
+    <div class="pay-opt active" id="optCOD" onclick="pilihBayar('COD')">
+      <div><b>💵 COD - Bayar di Tempat</b><br><small>Bayar cash pas kurir dateng. Gak perlu saldo!</small></div><b>✔️</b>
+    </div>
+    <div class="pay-opt" id="optSALDO" onclick="pilihBayar('SALDO')">
+      <div><b>💰 SALDO</b><br><small id="saldoInfo">Saldo lu: Rp 0</small></div><b></b>
+    </div>
+    <div id="peringatanSaldo" style="display:none;background:#FFE0E0;padding:10px;border-radius:10px;font-size:13px;margin-top:5px">⚠️ Saldo kurang! Top Up dulu yuk!<br><button class="btn-main" onclick="tutupBeli();bukaTopUp()">Top Up Sekarang</button></div>
+    <button class="btn-dark" onclick="prosesBeli()">🛍️ BELI SEKARANG</button>
+    <button class="btn-main" style="background:#eee;color:#333" onclick="tutupBeli()">Batal</button>
+  </div>
+</div>
+
+<!-- MODAL TOP UP -->
+<div class="modal" id="modalTopUp">
+  <div class="sheet">
+    <h3>💰 Top Up Saldo</h3>
+    <p style="font-size:13px;margin:6px 0">Saldo sekarang: <b id="saldoTopUp">Rp 0</b></p>
+    <p style="font-size:13px">Pilih Nominal:</p>
+    <div class="topup-grid">
+      <button class="topup-btn" onclick="topUp(20000)">Rp 20.000</button>
+      <button class="topup-btn" onclick="topUp(50000)">Rp 50.000</button>
+      <button class="topup-btn" onclick="topUp(100000)">Rp 100.000</button>
+      <button class="topup-btn" onclick="topUp(200000)">Rp 200.000</button>
+    </div>
+    <p style="font-size:12px;color:#888">* Top Up langsung masuk (simulasi). Nanti bisa diganti QRIS / Transfer.</p>
+    <button class="btn-main" style="background:#eee;color:#333" onclick="tutupTopUp()">Tutup</button>
+  </div>
+</div>
+
 <script>
 const SUPABASE_URL = "https://yagjplecxxojxdjiqrhv.supabase.co";
 const SUPABASE_KEY = "sb_publishable_XkvJ55x0zjvVW73LiG6mbw_hmOaYau2";
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-async function loadKue() {
-  const { data, error } = await db.from('kue_basah').select('*');
-  if (error) { console.log("Gagal:", error.message); return; }
-  console.log("BERHASIL! Kue dari database:", data);
-  alert("BERHASIL NYAMBUNG! Ada " + data.length + " kue basah di database!");
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const USER_ID = 1;
+let kueDipilih = null;
+let metodeBayar = 'COD';
+let saldoUser = 0;
+
+function rupiah(n){ return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+
+async function loadSaldo(){
+  const { data } = await supabase.from('saldo').select('saldo').eq('user_id', USER_ID).single();
+  saldoUser = data ? data.saldo : 0;
+  document.getElementById('saldoTxt').innerText = rupiah(saldoUser);
+  document.getElementById('saldoTopUp').innerText = rupiah(saldoUser);
+  document.getElementById('saldoInfo').innerText = 'Saldo lu: ' + rupiah(saldoUser);
 }
-loadKue();
-async function beliKue(namaKue, hargaKue) {
-  const { error } = await db.from('pesanan').insert([{ user_id: 1, kode_pesanan: 'DMOM-' + Date.now(), total: hargaKue, status: 'pending', alamat_kirim: 'Bandung' }]);
-  if (!error) { alert("Pesanan " + namaKue + " masuk database! 🎉 Cek Supabase > pesanan!"); }
-  else { alert("Gagal: " + error.message); }
+
+async function loadKue(){
+  const { data } = await supabase.from('kue_basah').select('*');
+  let html = '';
+  (data||[]).forEach(k=>{
+    html += `<div class="card"><img src="${k.gambar_url||'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500'}"><div class="card-body"><h3>${k.nama}</h3><p style="font-size:13px;color:#777">${k.deskripsi||''}</p><div class="price">${rupiah(k.harga)}</div><button class="btn-beli" onclick="bukaBeli(${k.id},'${k.nama}',${k.harga})">🛍️ BELI</button></div></div>`;
+  });
+  document.getElementById('listKue').innerHTML = html;
 }
-</script>
-<script>
-let cart=[];
-function masukKeranjang(nama,harga,img,btn){cart.push({nama,harga,img});document.getElementById('cartCount').textContent=cart.length;btn.textContent='✅';setTimeout(()=>btn.textContent='🛒',1200)}
-function beliLangsung(nama,harga,img){
-  document.getElementById('popupImg').style.display='block';document.getElementById('popupImg').src=img;
-  document.getElementById('popupTitle').textContent='🛍️ Beli Langsung';
-  document.getElementById('popupText').innerHTML='Lu mau langsung beli <b>'+nama+'</b> seharga <b>Rp '+harga.toLocaleString('id-ID')+'</b> tanpa masuk keranjang, Bro! Gas?';
-  document.getElementById('popupList').innerHTML='';
-  document.getElementById('popupBtn').textContent='💳 Bayar Sekarang - Rp '+harga.toLocaleString('id-ID');
-  document.getElementById('popupBtn').onclick=function(){beliKue(nama,harga);document.getElementById('popup').style.display='none'};
-  document.getElementById('popup').style.display='block';
+
+function bukaBeli(id,nama,harga){
+  kueDipilih = {id,nama,harga};
+  metodeBayar = 'COD';
+  document.getElementById('beliNama').innerText = nama;
+  document.getElementById('beliHarga').innerText = rupiah(harga);
+  pilihBayar('COD');
+  document.getElementById('modalBeli').classList.add('show');
 }
-function showCart(){
-  document.getElementById('popupImg').style.display='none';
-  document.getElementById('popupTitle').textContent='🛒 Keranjang Lu';
-  if(cart.length===0){
-    document.getElementById('popupText').textContent='Keranjang lu masih kosong, Bro! Pilih kue dulu pake tombol 🛒 di bawah tiap kue!';
-    document.getElementById('popupList').innerHTML='';
-    document.getElementById('popupBtn').textContent='Cari Kue Dulu 🍰';
-    document.getElementById('popupBtn').onclick=function(){document.getElementById('popup').style.display='none'};
-  }else{
-    let total=0;let html='';
-    cart.forEach((item,i)=>{total+=item.harga;html+='<div class="cart-item"><img src="'+item.img+'"><div><b>'+item.nama+'</b><small>Rp '+item.harga.toLocaleString('id-ID')+'</small></div><span onclick="hapusCart('+i+')">🗑️</span></div>'});
-    document.getElementById('popupText').innerHTML='Ada <b>'+cart.length+' kue</b> di keranjang lu. Total: <b>Rp '+total.toLocaleString('id-ID')+'</b>';
-    document.getElementById('popupList').innerHTML=html;
-    document.getElementById('popupBtn').textContent='💳 Checkout Semua - Rp '+total.toLocaleString('id-ID');
-    document.getElementById('popupBtn').onclick=function(){beliKue('Checkout '+cart.length+' kue',total);cart=[];document.getElementById('cartCount').textContent='0';document.getElementById('popup').style.display='none'};
+function tutupBeli(){ document.getElementById('modalBeli').classList.remove('show'); }
+function bukaTopUp(){ document.getElementById('modalTopUp').classList.add('show'); loadSaldo(); }
+function tutupTopUp(){ document.getElementById('modalTopUp').classList.remove('show'); }
+
+function pilihBayar(m){
+  metodeBayar = m;
+  document.getElementById('optCOD').classList.toggle('active', m==='COD');
+  document.getElementById('optSALDO').classList.toggle('active', m==='SALDO');
+  if(m==='SALDO' && saldoUser < kueDipilih.harga){
+    document.getElementById('peringatanSaldo').style.display='block';
+  } else {
+    document.getElementById('peringatanSaldo').style.display='none';
   }
-  document.getElementById('popup').style.display='block';
 }
-function hapusCart(i){cart.splice(i,1);document.getElementById('cartCount').textContent=cart.length;showCart()}
-function toggleChat(){let box=document.getElementById('chatBox');let notif=document.getElementById('notif');if(box.style.display==='block'){box.style.display='none'}else{box.style.display='block';notif.style.display='none'}}
-function quickChat(text){document.getElementById('chatInput').value=text;sendChat()}
-function sendChat(){let input=document.getElementById('chatInput');let body=document.getElementById('chatBody');if(!input.value.trim())return;let m=document.createElement('div');m.className='msg user';m.textContent=input.value;body.appendChild(m);let teks=input.value.toLowerCase();input.value='';body.scrollTop=body.scrollHeight;setTimeout(()=>{let r=document.createElement('div');r.className='msg admin';if(teks.includes('harga'))r.textContent='Harga mulai Rp 85k Kak! Mau yang mana? 😍';else if(teks.includes('ongkir'))r.textContent='Bandung kota FREE ONGKIR! 🎉';else if(teks.includes('order'))r.textContent='Siap! Mau order yang mana? 🛒';else r.textContent='Siap Kak! Mau tanya harga, ongkir, atau langsung order? 😊';body.appendChild(r);body.scrollTop=body.scrollHeight},800)}
+
+async function topUp(nominal){
+  if(!confirm('Top Up ' + rupiah(nominal) + ' ?')) return;
+  const baru = saldoUser + nominal;
+  const { error } = await supabase.from('saldo').update({saldo: baru}).eq('user_id', USER_ID);
+  if(error){ alert('Gagal Top Up: '+error.message); return; }
+  await supabase.from('riwayat_saldo').insert({user_id: USER_ID, jumlah: nominal, tipe: 'topup', keterangan: 'Top Up Saldo'});
+  await loadSaldo();
+  alert('Top Up Berhasil! Saldo lu sekarang ' + rupiah(baru) + ' 🎉');
+  tutupTopUp();
+}
+
+async function prosesBeli(){
+  if(!kueDipilih) return;
+  if(metodeBayar==='SALDO'){
+    if(saldoUser < kueDipilih.harga){
+      alert('Saldo kurang! Top Up dulu, Bro!'); bukaTopUp(); return;
+    }
+    const sisa = saldoUser - kueDipilih.harga;
+    const { error: errSaldo } = await supabase.from('saldo').update({saldo: sisa}).eq('user_id', USER_ID);
+    if(errSaldo){ alert('Gagal potong saldo: '+errSaldo.message); return; }
+    await supabase.from('riwayat_saldo').insert({user_id: USER_ID, jumlah: -kueDipilih.harga, tipe: 'beli', keterangan: 'Beli '+kueDipilih.nama});
+    await loadSaldo();
+  }
+  const { error } = await supabase.from('pesanan').insert({
+    user_id: USER_ID,
+    total: kueDipilih.harga,
+    status: metodeBayar==='COD' ? 'COD - Belum Bayar' : 'LUNAS - Saldo',
+    metode_bayar: metodeBayar,
+    created_at: new Date().toISOString()
+  });
+  if(error){ alert('Gagal: '+error.message); return; }
+  tutupBeli();
+  if(metodeBayar==='COD'){
+    alert('Pesanan '+kueDipilih.nama+' masuk! 💵 Bayar COD pas kurir dateng ya, Bro! Jangan di-colong! 😂');
+  } else {
+    alert('Berhasil Beli pake Saldo! 💰 Sisa saldo lu: ' + rupiah(saldoUser - kueDipilih.harga) + ' 🎉');
+  }
+  await loadSaldo();
+}
+
+loadSaldo(); loadKue();
 </script>
 </body>
 </html>
