@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Guru - Mewah</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+  body{
+    /* INI KUNCI MARMER-NYA BRO! */
+    background: #0a0a0a url('https://images.unsplash.com/photo-1541123437800-1bb1317badc2?w=1200&q=80') center/cover fixed;
+    min-height:100vh; color:white; padding-bottom:100px;
+  }
+  body::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:-1}
+  .top{padding:22px 18px 10px;display:flex;justify-content:space-between;align-items:center}
+  .top h1{font-size:28px;font-weight:800}
+  .top p{color:#d4af37;font-size:14px;margin-top:2px}
+  .avatar{width:52px;height:52px;border-radius:50%;border:3px solid #FFD700;object-fit:cover;background:#333}
+  .card-gold{
+    margin:14px 18px;background:linear-gradient(135deg,#FFD700,#F5C542 30%,#B8860B 70%,#FFD700);
+    border-radius:22px;padding:18px;color:#000;box-shadow:0 10px 30px rgba(255,215,0,.4)
+  }
+  .card-gold small{background:#000;color:#FFD700;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:700}
+  .card-gold h2{font-size:22px;margin:12px 0 4px}
+  .card-gold p{font-size:13px;opacity:.7}
+  .btn-absen{margin-top:14px;background:#000;color:white;border:none;padding:12px 18px;border-radius:12px;font-weight:700;width:100%;cursor:pointer}
+  .stats{display:flex;gap:12px;padding:0 18px}
+  .stat{flex:1;background:rgba(20,20,20,.85);border:1px solid #D4AF37;border-radius:16px;padding:14px;text-align:center;backdrop-filter:blur(10px)}
+  .stat b{font-size:22px;color:#FFD700;display:block}
+  .stat span{font-size:11px;color:#ccc}
+  .section{padding:18px}
+  .section h3{font-size:17px;margin-bottom:12px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .menu{background:rgba(25,25,25,.9);border:1px solid #D4AF37;border-radius:18px;padding:16px 8px;text-align:center;cursor:pointer}
+  .menu .icon{width:44px;height:44px;margin:0 auto 8px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;background:#1a1a1a;border:1px solid #D4AF37}
+  .menu span{font-size:12px}
+  .list{background:rgba(25,25,25,.9);border:1px solid #D4AF37;border-radius:18px;padding:14px;margin-bottom:12px}
+  .list-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #333}
+  .list-row:last-child{border:none}
+  .badge{padding:6px 10px;border-radius:20px;font-size:11px;font-weight:700}
+  .green{background:#1e4d2b;color:#7CFF9A}.orange{background:#4d351e;color:#FFC46B}.blue{background:#1e2a4d;color:#8AB4FF}
+  .nav{position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,.95);border-top:1px solid #D4AF37;display:flex;justify-content:space-around;padding:12px 0 18px}
+  .nav div{text-align:center;font-size:11px;color:#aaa}
+  .nav .active{color:#FFD700}
+  .nav .plus{width:52px;height:52px;background:#FFD700;border-radius:50%;display:flex;align-items:center;justify-content:center;color:black;font-size:28px;margin-top:-28px;border:3px solid black}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div><h1>Halo, Pak Budi</h1><p>Selasa, 10 Februari • Semester Genap</p></div>
+  <img class="avatar" src="https://i.pravatar.cc/100?img=12">
+</div>
+
+<div class="card-gold">
+  <small>⏰ KELAS BERIKUTNYA • 09.00 WIB</small>
+  <h2>X-1 Matematika</h2>
+  <p>Ruang 12 • 32 Siswa • Aljabar</p>
+  <button class="btn-absen" onclick="alert('Absen Dimulai Bro!')">Mulai Absen →</button>
+</div>
+
+<div class="stats">
+  <div class="stat"><b>68</b><span>Total Murid</span></div>
+  <div class="stat"><b>94%</b><span>Kehadiran</span></div>
+  <div class="stat"><b>3</b><span>Kelas</span></div>
+</div>
+
+<div class="section">
+  <h3>Menu Utama</h3>
+  <div class="grid">
+    <div class="menu" onclick="alert('Absensi')"><div class="icon">✅</div><span>Absensi</span></div>
+    <div class="menu" onclick="alert('Nilai')"><div class="icon">📊</div><span>Nilai</span></div>
+    <div class="menu" onclick="alert('Materi')"><div class="icon">📚</div><span>Materi</span></div>
+    <div class="menu"><div class="icon">👥</div><span>Kelas Saya</span></div>
+    <div class="menu"><div class="icon">📅</div><span>Jadwal</span></div>
+    <div class="menu"><div class="icon">📄</div><span>Laporan</span></div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0">
+  <h3>Jadwal Hari Ini</h3>
+  <div class="list">
+    <div class="list-row"><div><b>07.00 - 08.30 | X-1</b><br><small style="color:#aaa">Matematika • Ruang 12</small></div><span class="badge green">Selesai</span></div>
+    <div class="list-row"><div><b>09.00 - 10.30 | X-2</b><br><small style="color:#aaa">Matematika • Ruang 14</small></div><span class="badge orange">Berikutnya</span></div>
+    <div class="list-row"><div><b>11.00 - 12.30 | XI-1</b><br><small style="color:#aaa">Matematika • Ruang 10</small></div><span class="badge blue">Terjadwal</span></div>
+  </div>
+  <h3>Tugas Perlu Dinilai</h3>
+  <div class="list">
+    <div class="list-row"><div><b>Ulangan Aljabar - X-1</b><br><small style="color:#aaa">12 dari 32 belum dinilai</small></div><span style="color:#FFD700;font-weight:800">Nilai →</span></div>
+    <div class="list-row"><div><b>PR Trigonometri - XI-1</b><br><small style="color:#aaa">5 belum dikumpulkan</small></div><span style="color:#FFD700;font-weight:800">Lihat →</span></div>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="active">🏠<br>Beranda</div>
+  <div>👥<br>Kelas</div>
+  <div class="plus">+</div>
+  <div>💬<br>Pesan</div>
+  <div>👤<br>Profil</div>
+</div>
+
+</body>
+</html>
