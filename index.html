@@ -27,16 +27,18 @@ body{background:#FFF8F0;padding-bottom:110px}
 .section{padding:18px}
 .section h3{font-size:18px;margin-bottom:14px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.06)}
-.card img{width:100%;height:130px;object-fit:cover}
-.card-info{padding:12px}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.06);display:flex;flex-direction:column}
+.card img{width:100%;height:130px;object-fit:cover;background:#FFE8D6}
+.card-info{padding:12px;display:flex;flex-direction:column;flex:1}
 .card-info b{font-size:14px;display:block}
-.card-info small{color:#999;font-size:11px}
-.price-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:6px}
-.price{flex:1;color:#FF6B35;font-weight:900;font-size:15px;background:#FFF0E8;padding:10px 4px;border-radius:12px;text-align:center;line-height:1}
-.btn-bag{width:44px;height:44px;border:none;border-radius:13px;font-size:21px;cursor:pointer;background:#FFE8D6;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.btn-bag:active{transform:scale(.9);background:#FF6B35}
-.btn-cart{width:44px;height:44px;border:none;border-radius:13px;font-size:21px;cursor:pointer;background:#FF6B35;color:#fff;box-shadow:0 4px 12px rgba(255,107,53,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card-info small{color:#999;font-size:11px;margin-bottom:8px}
+/* FIX: HARGA FULL BARIS, GAK KEJEPIT LAGI */
+.price{width:100%;color:#FF6B35;font-weight:900;font-size:16px;background:#FFF0E8;padding:9px;text-align:center;border-radius:12px;white-space:nowrap}
+/* BARIS 2: BELI + KERANJANG */
+.action-row{display:flex;gap:8px;margin-top:8px}
+.btn-beli{flex:1;background:#1A1A1A;color:#fff;border:none;padding:11px;border-radius:13px;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px}
+.btn-beli:active{transform:scale(.95);background:#FF6B35}
+.btn-cart{width:44px;height:44px;border:none;border-radius:13px;font-size:20px;cursor:pointer;background:#FF6B35;color:#fff;box-shadow:0 4px 12px rgba(255,107,53,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .btn-cart:active{transform:scale(.9)}
 .nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;display:flex;justify-content:space-around;padding:16px 0 22px;border-top:1px solid #eee;box-shadow:0 -5px 25px rgba(0,0,0,.1);z-index:90}
 .nav a{text-decoration:none;color:#999;font-size:14px;font-weight:600;text-align:center;line-height:1.3}
@@ -57,7 +59,6 @@ body{background:#FFF8F0;padding-bottom:110px}
 .chat-input button{background:#FF6B35;color:#fff;border:none;width:42px;height:42px;border-radius:50%;font-size:18px}
 .quick{display:flex;gap:6px;padding:0 10px 10px;background:#fff;overflow-x:auto}
 .quick button{white-space:nowrap;background:#FFF0E8;color:#FF6B35;border:1px solid #FFD8C0;padding:6px 12px;border-radius:20px;font-size:11px}
-/* POPUP KERANJANG & BELI */
 .popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;padding:22px;border-radius:22px;box-shadow:0 20px 50px rgba(0,0,0,.3);z-index:200;display:none;width:330px;max-width:calc(100vw - 30px);text-align:center;max-height:85vh;overflow-y:auto}
 .popup img{width:100%;height:140px;object-fit:cover;border-radius:14px;margin-bottom:12px}
 .popup h3{margin-bottom:6px}
@@ -75,7 +76,6 @@ body{background:#FFF8F0;padding-bottom:110px}
 <div class="container">
   <div class="header">
     <div class="logo"><h1>KOCHEENG<span>🍰</span></h1><small>Toko Kue Sultan</small></div>
-    <!-- KERANJANG ATAS = CEK ISI KERANJANG -->
     <div class="icon-cart" onclick="showCart()">🛒<small>CART</small><span class="cart-badge" id="cartCount">0</span></div>
   </div>
 
@@ -88,26 +88,102 @@ body{background:#FFF8F0;padding-bottom:110px}
       <div class="card">
         <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400">
         <div class="card-info"><b>Choco Sultan</b><small>Coklat Lumer</small>
-        <div class="price-row">
           <div class="price">Rp 85k</div>
-          <button class="btn-bag" onclick="beliLangsung('Choco Sultan',85000,'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400')">🛍️</button>
-          <button class="btn-cart" onclick="masukKeranjang('Choco Sultan',85000,'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400',this)">🛒</button>
-        </div></div>
+          <div class="action-row">
+            <button class="btn-beli" onclick="beliLangsung('Choco Sultan',85000,'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400')">🛍️ BELI</button>
+            <button class="btn-cart" onclick="masukKeranjang('Choco Sultan',85000,'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400',this)">🛒</button>
+          </div>
+        </div>
       </div>
 
       <div class="card">
         <img src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400">
         <div class="card-info"><b>Strawberry Queen</b><small>Fresh Strawberry</small>
-        <div class="price-row">
           <div class="price">Rp 95k</div>
-          <button class="btn-bag" onclick="beliLangsung('Strawberry Queen',95000,'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400')">🛍️</button>
-          <button class="btn-cart" onclick="masukKeranjang('Strawberry Queen',95000,'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400',this)">🛒</button>
-        </div></div>
+          <div class="action-row">
+            <button class="btn-beli" onclick="beliLangsung('Strawberry Queen',95000,'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400')">🛍️ BELI</button>
+            <button class="btn-cart" onclick="masukKeranjang('Strawberry Queen',95000,'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400',this)">🛒</button>
+          </div>
+        </div>
       </div>
 
       <div class="card">
-        <img src="https://images.unsplash.com/photo-1587668178277-295251f9ce7c?w=400">
+        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400">
         <div class="card-info"><b>Red Velvet</b><small>Super Lembut</small>
-        <div class="price-row">
           <div class="price">Rp 110k</div>
-          <button class="btn-bag" onclick="beliLangsung('Red Velvet',110000,'https://images.unsplash.com/photo-1587668178277-295251f
+          <div class="action-row">
+            <button class="btn-beli" onclick="beliLangsung('Red Velvet',110000,'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400')">🛍️ BELI</button>
+            <button class="btn-cart" onclick="masukKeranjang('Red Velvet',110000,'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400',this)">🛒</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400">
+        <div class="card-info"><b>Cheese Cake</b><small>Keju Sultan</small>
+          <div class="price">Rp 120k</div>
+          <div class="action-row">
+            <button class="btn-beli" onclick="beliLangsung('Cheese Cake',120000,'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400')">🛍️ BELI</button>
+            <button class="btn-cart" onclick="masukKeranjang('Cheese Cake',120000,'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400',this)">🛒</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#" class="active"><span>🏠</span>Home</a>
+  <a href="#"><span>🍰</span>Shop</a>
+  <a href="#"><span>❤️</span>Wishlist</a>
+  <a href="profil.html"><span>👤</span>Akun</a>
+</div>
+
+<button class="chat-btn" onclick="toggleChat()">💬<span class="notif" id="notif">1</span></button>
+<div class="chat-box" id="chatBox">
+  <div class="chat-header"><div class="avatar">🍰</div><div style="flex:1"><b>Admin Kocheeng</b><br><small>● Online - Balas cepat</small></div><span onclick="toggleChat()" style="cursor:pointer;font-size:20px">✕</span></div>
+  <div class="chat-body" id="chatBody"><div class="msg admin">Halo Kak! 👋 Selamat datang di Kocheeng! Mau order kue apa hari ini? 😋</div><div class="msg admin">Ada promo Diskon 50% loh! 🔥</div></div>
+  <div class="quick"><button onclick="quickChat('Harga kue berapa?')">💰 Harga Kue</button><button onclick="quickChat('Ongkir ke Bandung?')">🚚 Ongkir</button><button onclick="quickChat('Mau order dong')">🛒 Order</button></div>
+  <div class="chat-input"><input id="chatInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter') sendChat()"><button onclick="sendChat()">➤</button></div>
+</div>
+
+<div class="popup" id="popup"><img id="popupImg" style="display:none"><h3 id="popupTitle"></h3><p id="popupText"></p><div id="popupList"></div><button id="popupBtn">Oke! 👌</button><button class="close" onclick="document.getElementById('popup').style.display='none'">Tutup</button></div>
+
+<script>
+let cart=[];
+function masukKeranjang(nama,harga,img,btn){cart.push({nama,harga,img});document.getElementById('cartCount').textContent=cart.length;btn.textContent='✅';setTimeout(()=>btn.textContent='🛒',1200)}
+function beliLangsung(nama,harga,img){
+  document.getElementById('popupImg').style.display='block';document.getElementById('popupImg').src=img;
+  document.getElementById('popupTitle').textContent='🛍️ Beli Langsung';
+  document.getElementById('popupText').innerHTML='Lu mau langsung beli <b>'+nama+'</b> seharga <b>Rp '+harga.toLocaleString('id-ID')+'</b> tanpa masuk keranjang, Bro! Gas?';
+  document.getElementById('popupList').innerHTML='';
+  document.getElementById('popupBtn').textContent='💳 Bayar Sekarang - Rp '+harga.toLocaleString('id-ID');
+  document.getElementById('popupBtn').onclick=function(){alert('Pesanan '+nama+' berhasil! 🎉 Kurir langsung jalan!');document.getElementById('popup').style.display='none'};
+  document.getElementById('popup').style.display='block';
+}
+function showCart(){
+  document.getElementById('popupImg').style.display='none';
+  document.getElementById('popupTitle').textContent='🛒 Keranjang Lu';
+  if(cart.length===0){
+    document.getElementById('popupText').textContent='Keranjang lu masih kosong, Bro! Pilih kue dulu pake tombol 🛒 di bawah tiap kue!';
+    document.getElementById('popupList').innerHTML='';
+    document.getElementById('popupBtn').textContent='Cari Kue Dulu 🍰';
+    document.getElementById('popupBtn').onclick=function(){document.getElementById('popup').style.display='none'};
+  }else{
+    let total=0;let html='';
+    cart.forEach((item,i)=>{total+=item.harga;html+='<div class="cart-item"><img src="'+item.img+'"><div><b>'+item.nama+'</b><small>Rp '+item.harga.toLocaleString('id-ID')+'</small></div><span onclick="hapusCart('+i+')">🗑️</span></div>'});
+    document.getElementById('popupText').innerHTML='Ada <b>'+cart.length+' kue</b> di keranjang lu. Total: <b>Rp '+total.toLocaleString('id-ID')+'</b>';
+    document.getElementById('popupList').innerHTML=html;
+    document.getElementById('popupBtn').textContent='💳 Checkout Semua - Rp '+total.toLocaleString('id-ID');
+    document.getElementById('popupBtn').onclick=function(){alert('Checkout '+cart.length+' kue berhasil! 🎉');cart=[];document.getElementById('cartCount').textContent='0';document.getElementById('popup').style.display='none'};
+  }
+  document.getElementById('popup').style.display='block';
+}
+function hapusCart(i){cart.splice(i,1);document.getElementById('cartCount').textContent=cart.length;showCart()}
+function toggleChat(){let box=document.getElementById('chatBox');let notif=document.getElementById('notif');if(box.style.display==='block'){box.style.display='none'}else{box.style.display='block';notif.style.display='none'}}
+function quickChat(text){document.getElementById('chatInput').value=text;sendChat()}
+function sendChat(){let input=document.getElementById('chatInput');let body=document.getElementById('chatBody');if(!input.value.trim())return;let m=document.createElement('div');m.className='msg user';m.textContent=input.value;body.appendChild(m);let teks=input.value.toLowerCase();input.value='';body.scrollTop=body.scrollHeight;setTimeout(()=>{let r=document.createElement('div');r.className='msg admin';if(teks.includes('harga'))r.textContent='Harga mulai Rp 85k Kak! Mau yang mana? 😍';else if(teks.includes('ongkir'))r.textContent='Bandung kota FREE ONGKIR! 🎉';else if(teks.includes('order'))r.textContent='Siap! Mau order yang mana? 🛒';else r.textContent='Siap Kak! Mau tanya harga, ongkir, atau langsung order? 😊';body.appendChild(r);body.scrollTop=body.scrollHeight},800)}
+</script>
+</body>
+</html>
