@@ -3,18 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>D'MOM 👑 - Kue dan Dessert</title>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#D4AF37">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="D'MOM">
-<link rel="apple-touch-icon" href="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=180&h=180&fit=crop">
+<title>D'MOM 👑 - Geser Kue = Geser Jenis</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"></script>
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
-  body{background:#0A0A0A;color:#fff;padding-bottom:80px;overflow-x:hidden}
+  body{background:#0A0A0A;color:#fff;padding-bottom:80px}
   .header{background:#000;color:#D4AF37;padding:14px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:20;border-bottom:1px solid #D4AF37}
   .header b{font-size:20px;letter-spacing:2px;color:#D4AF37}
   .header small{font-size:10px;color:#aaa;letter-spacing:1px}
@@ -35,10 +28,7 @@
   .kat.active{background:#D4AF37;color:#000;border-color:#D4AF37;font-weight:bold;transform:scale(1.05)}
   .judul{padding:0 15px 12px;font-size:16px;font-weight:bold;display:flex;justify-content:space-between;align-items:center;color:#D4AF37}
   .judul span{font-size:12px;color:#888;font-weight:normal}
-  .kue-swipe-wrap{overflow-x:auto;scroll-snap-type:x mandatory;display:flex;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;touch-action:pan-x pan-y}
-  .kue-swipe-wrap::-webkit-scrollbar{display:none}
-  .kue-page{min-width:100%;width:100%;scroll-snap-align:start;flex-shrink:0;padding:0 12px}
-  .kue-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .container{padding:0 12px;max-width:600px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px;touch-action:pan-y}
   .card{background:#141414;border:1px solid #2A2A2A;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;position:relative}
   .card.best{border:1px solid #D4AF37}
   .card.habis{opacity:.75;border-color:#FF3B30}
@@ -56,13 +46,8 @@
   .btn-beli:disabled{background:#FF3B30;color:#fff;cursor:not-allowed}
   .btn-keranjang{background:#222;color:#D4AF37;border:1px solid #D4AF37;width:100%;padding:9px;border-radius:10px;font-weight:bold;font-size:12px;cursor:pointer;margin-top:6px}
   .btn-keranjang:disabled{background:#222;color:#666;border-color:#333;cursor:not-allowed}
-  .geser-hint{background:#1A1A00;border:1px dashed #D4AF37;border-radius:12px;padding:12px;margin:0 12px 12px;text-align:center;font-size:12px;color:#D4AF37;line-height:1.5}
+  .geser-hint{background:#1A1A00;border:1px dashed #D4AF37;border-radius:12px;padding:10px;margin:0 12px 12px;text-align:center;font-size:12px;color:#D4AF37}
   .geser-hint b{color:#fff}
-  .dots-wrap{display:flex;justify-content:center;gap:6px;padding:10px 0 4px}
-  .dot{width:8px;height:8px;border-radius:50%;background:#333;transition:all .2s;cursor:pointer}
-  .dot.active{background:#D4AF37;width:24px;border-radius:20px}
-  .swipe-nav{display:flex;justify-content:space-between;align-items:center;padding:0 12px 10px}
-  .swipe-nav button{padding:10px 14px;border-radius:20px;border:1px solid #D4AF37;background:#000;color:#D4AF37;font-weight:bold;font-size:12px;cursor:pointer}
   .footer{text-align:center;padding:20px 15px 0;color:#666;font-size:11px;line-height:1.6}
   .footer b{color:#D4AF37}
   .page{display:none;padding:15px;max-width:600px;margin:auto}
@@ -161,6 +146,8 @@
   .admin-kue{background:#141414;border:1px solid #333;border-radius:14px;padding:12px;margin:10px 0;display:flex;gap:10px;align-items:center}
   .admin-kue img{width:60px;height:60px;object-fit:cover;border-radius:10px}
   .admin-btn{padding:7px 10px;border-radius:8px;border:none;font-weight:bold;font-size:12px;cursor:pointer}
+  .swipe-nav{display:flex;justify-content:space-between;align-items:center;padding:0 12px 10px}
+  .swipe-nav button{padding:8px 14px;border-radius:20px;border:1px solid #D4AF37;background:#000;color:#D4AF37;font-weight:bold;font-size:12px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -181,51 +168,42 @@
   </div>
   <div class="promo">
     <div><b>🎁 PROMO HARI INI!</b><br><small>Beli 2 Gratis Ongkir Bandung Kota!</small></div>
-    <button class="btn-promo" onclick="document.getElementById('kueSwipe').scrollIntoView({behavior:'smooth'})">LIHAT ➔</button>
+    <button class="btn-promo" onclick="document.getElementById('listKue').scrollIntoView({behavior:'smooth'})">LIHAT ➔</button>
   </div>
 
   <div class="kategori" id="kategoriBar">
-    <div class="kat active" data-kat="ALL" onclick="lompatKeJenis('ALL')">✨ Semua</div>
-    <div class="kat" data-kat="COKLAT" onclick="lompatKeJenis('COKLAT')">🍫 Coklat</div>
-    <div class="kat" data-kat="KEJU" onclick="lompatKeJenis('KEJU')">🧀 Keju</div>
-    <div class="kat" data-kat="PANDAN" onclick="lompatKeJenis('PANDAN')">🌿 Pandan</div>
-    <div class="kat" data-kat="SULTAN" onclick="lompatKeJenis('SULTAN')">👑 Sultan</div>
+    <div class="kat active" data-kat="ALL" onclick="filterKat('ALL',this)">✨ Semua</div>
+    <div class="kat" data-kat="COKLAT" onclick="filterKat('COKLAT',this)">🍫 Coklat</div>
+    <div class="kat" data-kat="KEJU" onclick="filterKat('KEJU',this)">🧀 Keju</div>
+    <div class="kat" data-kat="PANDAN" onclick="filterKat('PANDAN',this)">🌿 Pandan</div>
+    <div class="kat" data-kat="SULTAN" onclick="filterKat('SULTAN',this)">👑 Sultan</div>
   </div>
 
-  <!-- TULISAN DISEMBUNYIIN, TAPI TETEP ADA BIAR GESER JALAN -->
-  <div class="geser-hint" style="display:none">👈 <b>CARA GESER YANG BENER:</b><br>Tempelin jempol di <b>TENGAH GAMBAR KUE</b>, terus <b>TARIK KE KIRI</b> cepet! Jangan geser pelan & jangan geser dari tombol BELI! 👉<br><small>Kalau masih susah, klik tombol ◀ ▶ di bawah ini!</small></div>
-
+  <!-- TULISAN DISEMBUNYIIN TAPI TETEP ADA BIAR GESER JALAN -->
+  <div class="geser-hint" style="display:none">👈 <b>GESER GAMBAR KUE-NYA!</b> Geser ke kiri -> Jenis di atas ikut pindah! Geser ke kanan -> Balik lagi! 👉</div>
   <div class="swipe-nav" style="display:none">
-    <button onclick="geserJenis(-1)">◀ Sebelumnya</button>
+    <button onclick="geserJenis(-1)">◀ Jenis Sebelumnya</button>
     <span id="jenisAktifTxt" style="font-size:12px;color:#D4AF37;font-weight:bold">✨ Semua</span>
-    <button onclick="geserJenis(1)">Berikutnya ▶</button>
+    <button onclick="geserJenis(1)">Jenis Berikutnya ▶</button>
   </div>
 
   <div class="judul">👑 Best Seller <span id="jumlahTxt"></span></div>
-
-  <div class="kue-swipe-wrap" id="kueSwipe"></div>
-  <div class="dots-wrap" id="dotsWrap">
-    <div class="dot active" onclick="lompatKeJenis('ALL')"></div>
-    <div class="dot" onclick="lompatKeJenis('COKLAT')"></div>
-    <div class="dot" onclick="lompatKeJenis('KEJU')"></div>
-    <div class="dot" onclick="lompatKeJenis('PANDAN')"></div>
-    <div class="dot" onclick="lompatKeJenis('SULTAN')"></div>
-  </div>
-  <p style="display:none;text-align:center;font-size:11px;color:#666;padding:0 0 6px">👆 Geser kotak kue di atas ke kiri / kanan!</p>
+  <div class="container" id="listKue"><p style="text-align:center;color:#999;padding:20px;grid-column:1/3">Lagi ngambil kue... 🍰</p></div>
+  <p style="display:none;text-align:center;font-size:11px;color:#666;padding:8px 0 0">👆 Geser kotak kue di atas ke kiri / kanan buat ganti jenis!</p>
 
   <div class="slide-section">
     <div class="slide-head"><b>🍰 Kue Basah Sultan</b><div class="slide-nav"><button class="slide-btn" onclick="geserSlide('slideSultan',-1)">◀</button><button class="slide-btn" onclick="geserSlide('slideSultan',1)">▶</button></div></div>
-    <div class="slide-hint" style="display:none">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
+    <div class="slide-hint">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
     <div class="slide-wrap" id="slideSultan"></div>
   </div>
   <div class="slide-section">
     <div class="slide-head"><b>🍫 Kue Basah Lumer</b><div class="slide-nav"><button class="slide-btn" onclick="geserSlide('slideLumer',-1)">◀</button><button class="slide-btn" onclick="geserSlide('slideLumer',1)">▶</button></div></div>
-    <div class="slide-hint" style="display:none">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
+    <div class="slide-hint">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
     <div class="slide-wrap" id="slideLumer"></div>
   </div>
   <div class="slide-section">
     <div class="slide-head"><b>🍿 Snacks & Cemilan</b><div class="slide-nav"><button class="slide-btn" onclick="geserSlide('slideSnacks',-1)">◀</button><button class="slide-btn" onclick="geserSlide('slideSnacks',1)">▶</button></div></div>
-    <div class="slide-hint" style="display:none">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
+    <div class="slide-hint">👈 Geser pake jempol ATAU klik tombol ▶ di atas!</div>
     <div class="slide-wrap" id="slideSnacks"></div>
   </div>
   <div class="footer"><b>D'MOM 👑</b><br>Jl. Kue Basah No. 1 - Bandung<br>Buka Tiap Hari 08.00 - 21.00 WIB</div>
@@ -425,7 +403,7 @@ const SUPABASE_KEY = "sb_publishable_XkvJ55x0zjvVW73LiG6mbw_hmOaYau2";
 let supabase = null;
 if(window.supabase){ supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY); }
 const USER_ID = 1;
-let kueDipilih = null; let metodeBayar = 'COD'; let saldoUser = 0; let semuaKue = []; let filterAktif = 'ALL'; let keranjang = []; let editId = null; let sedangGeserProgram = false;
+let kueDipilih = null; let metodeBayar = 'COD'; let saldoUser = 0; let semuaKue = []; let filterAktif = 'ALL'; let keranjang = []; let editId = null;
 const DAFTAR_JENIS = ['ALL','COKLAT','KEJU','PANDAN','SULTAN'];
 const LABEL_JENIS = {ALL:'✨ Semua', COKLAT:'🍫 Coklat', KEJU:'🧀 Keju', PANDAN:'🌿 Pandan', SULTAN:'👑 Sultan'};
 function rupiah(n){ return 'Rp ' + Number(n||0).toLocaleString('id-ID'); }
@@ -439,122 +417,38 @@ function geserJenis(arah){
   let baru = idx + arah;
   if(baru < 0) baru = DAFTAR_JENIS.length - 1;
   if(baru >= DAFTAR_JENIS.length) baru = 0;
-  lompatKeJenis(DAFTAR_JENIS[baru]);
+  let kat = DAFTAR_JENIS[baru];
+  let el = document.querySelector('.kat[data-kat="'+kat+'"]');
+  filterKat(kat, el);
 }
-function lompatKeJenis(kat){
-  filterAktif = kat;
-  document.querySelectorAll('.kat').forEach(k=>k.classList.toggle('active', k.dataset.kat===kat));
-  document.querySelectorAll('#dotsWrap .dot').forEach((d,i)=>d.classList.toggle('active', DAFTAR_JENIS[i]===kat));
-  let elTxt = document.getElementById('jenisAktifTxt');
-  if(elTxt) elTxt.innerText = LABEL_JENIS[kat] || kat;
-  let bar = document.getElementById('kategoriBar');
-  let aktifEl = document.querySelector('.kat[data-kat="'+kat+'"]');
-  if(bar && aktifEl){ bar.scrollTo({left: aktifEl.offsetLeft - 20, behavior:'smooth'}); }
-  let wrap = document.getElementById('kueSwipe');
-  let idx = DAFTAR_JENIS.indexOf(kat);
-  if(wrap){
-    sedangGeserProgram = true;
-    wrap.scrollTo({left: idx * wrap.clientWidth, behavior:'smooth'});
-    setTimeout(()=>{ sedangGeserProgram = false; }, 500);
-  }
-  let data = dataPerJenis(kat);
-  document.getElementById('jumlahTxt').innerText = data.length + ' menu • ' + LABEL_JENIS[kat];
-}
-function dataPerJenis(kat){
-  if(kat==='ALL') return semuaKue;
-  return semuaKue.filter(k => (k.nama||'').toUpperCase().includes(kat) || (k.deskripsi||'').toUpperCase().includes(kat));
-}
-function kartuKue(k,i){
-  const img = k.gambar || k.gambar_url || 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500';
-  const hrg = k.harga || 0;
-  const stok = k.stok ?? 0;
-  const habis = Number(stok) <= 0;
-  const namaAman = (k.nama||'Kue').replace(/'/g, "");
-  const isBest = i===0 && !habis ? 'best' : '';
-  const badge = i===0 && !habis ? '<div class="badge-best">👑 BEST SELLER</div>' : '';
-  const badgeHabis = habis ? '<div class="badge-habis">🔴 STOK HABIS</div>' : '';
-  const cardClass = habis ? 'habis' : isBest;
-  const stokTxt = habis ? '<div class="stok habis-txt">🔴 Stok: HABIS</div>' : `<div class="stok">Stok: ${stok}</div>`;
-  const btnBeli = habis ? `<button class="btn-beli" disabled>🔴 STOK HABIS</button>` : `<button class="btn-beli" onclick="bukaBeli(${k.id},'${namaAman}',${hrg})">🛍️ BELI</button>`;
-  const btnKeranjang = habis ? `<button class="btn-keranjang" disabled>❌ STOK HABIS</button>` : `<button class="btn-keranjang" onclick="tambahKeranjang(${k.id},'${namaAman}',${hrg},'${img}')">🛒 + KERANJANG</button>`;
-  return `<div class="card ${cardClass}">${badge}${badgeHabis}<img src="${img}" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500'"><div class="card-body"><h3>${k.nama}</h3><p>${k.deskripsi||''}</p><div class="price">${rupiah(hrg)}</div>${stokTxt}${btnBeli}${btnKeranjang}</div></div>`;
-}
-function renderKue(){
-  let wrap = document.getElementById('kueSwipe');
-  if(!wrap) return;
-  let html = '';
-  DAFTAR_JENIS.forEach(kat=>{
-    let data = dataPerJenis(kat);
-    let isi = '';
-    if(data.length===0){
-      isi = `<div style="background:#141414;padding:20px;border-radius:15px;text-align:center;grid-column:1/3;border:1px solid #333"><b>Kue ${LABEL_JENIS[kat]} lagi kosong!</b><br><small style="color:#999">Geser lagi buat liat jenis lain!</small></div>`;
-    } else {
-      isi = data.map((k,i)=>kartuKue(k,i)).join('');
-    }
-    html += `<div class="kue-page"><div style="display:none;text-align:center;font-size:12px;color:#D4AF37;font-weight:bold;padding:0 0 10px">${LABEL_JENIS[kat]} • ${data.length} menu • 👈 Geser ke kiri / kanan 👉</div><div class="kue-grid">${isi}</div></div>`;
+function pasangSwipeKue(){
+  let box = document.getElementById('listKue');
+  if(!box || box.dataset.swipe) return;
+  box.dataset.swipe = '1';
+  let startX = 0; let startY = 0; let isSwipe = false;
+  box.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY; isSwipe = false;
+  }, {passive:true});
+  box.addEventListener('touchmove', function(e){
+    let dx = e.touches[0].clientX - startX;
+    let dy = e.touches[0].clientY - startY;
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5){ isSwipe = true; }
+  }, {passive:true});
+  box.addEventListener('touchend', function(e){
+    if(!isSwipe) return;
+    let endX = e.changedTouches[0].clientX;
+    let dx = endX - startX;
+    if(dx < -50){ geserJenis(1); }
+    else if(dx > 50){ geserJenis(-1); }
+  }, {passive:true});
+  let mouseDown = false; let mStartX = 0;
+  box.addEventListener('mousedown', function(e){ mouseDown = true; mStartX = e.clientX; });
+  box.addEventListener('mouseup', function(e){
+    if(!mouseDown) return; mouseDown = false;
+    let dx = e.clientX - mStartX;
+    if(dx < -60) geserJenis(1);
+    else if(dx > 60) geserJenis(-1);
   });
-  wrap.innerHTML = html;
-  renderSlides();
-  if(!wrap.dataset.pasang){
-    wrap.dataset.pasang = '1';
-    let timer = null;
-    wrap.addEventListener('scroll', function(){
-      if(sedangGeserProgram) return;
-      clearTimeout(timer);
-      timer = setTimeout(()=>{
-        let idx = Math.round(wrap.scrollLeft / wrap.clientWidth);
-        if(idx < 0) idx = 0; if(idx >= DAFTAR_JENIS.length) idx = DAFTAR_JENIS.length - 1;
-        let kat = DAFTAR_JENIS[idx];
-        if(kat !== filterAktif){
-          filterAktif = kat;
-          document.querySelectorAll('.kat').forEach(k=>k.classList.toggle('active', k.dataset.kat===kat));
-          document.querySelectorAll('#dotsWrap .dot').forEach((d,i)=>d.classList.toggle('active', DAFTAR_JENIS[i]===kat));
-          let elTxt2 = document.getElementById('jenisAktifTxt');
-          if(elTxt2) elTxt2.innerText = LABEL_JENIS[kat];
-          document.getElementById('jumlahTxt').innerText = dataPerJenis(kat).length + ' menu • ' + LABEL_JENIS[kat];
-          let bar = document.getElementById('kategoriBar');
-          let aktifEl = document.querySelector('.kat[data-kat="'+kat+'"]');
-          if(bar && aktifEl){ bar.scrollTo({left: aktifEl.offsetLeft - 20, behavior:'smooth'}); }
-        }
-      }, 120);
-    });
-  }
-}
-function buatSlideCard(k, gold){
-  let img = k.gambar || k.gambar_url || k.img || 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400';
-  let namaAman = (k.nama||'Kue').replace(/'/g,"");
-  let id = k.id || 999;
-  let stok = k.stok ?? 99;
-  let habis = Number(stok) <= 0;
-  let stokTxt = habis ? '<p style="color:#FF3B30;font-weight:bold">🔴 STOK HABIS</p>' : `<p>Stok: ${stok}</p>`;
-  let btn = habis ? `<button class="s-btn" disabled>🔴 STOK HABIS</button>` : `<button class="s-btn" onclick="bukaBeli(${id},'${namaAman}',${k.harga})">🛍️ BELI</button>`;
-  return `<div class="slide-card ${gold?'gold':''} ${habis?'habis':''}"><img src="${img}" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400'"><div class="s-body"><h4>${k.nama}</h4><p>${k.deskripsi||'Enak banget!'}</p><div class="s-price">${rupiah(k.harga)}</div>${stokTxt}${btn}</div></div>`;
-}
-function renderSlides(){
-  let sultan = semuaKue.filter(k=> (k.nama||'').toUpperCase().includes('SULTAN') || (k.nama||'').toUpperCase().includes('COKLAT') || (k.nama||'').toUpperCase().includes('KEJU'));
-  if(sultan.length===0) sultan = semuaKue;
-  let lumer = semuaKue.filter(k=> (k.nama||'').toUpperCase().includes('PANDAN') || (k.deskripsi||'').toUpperCase().includes('LUMER') || (k.deskripsi||'').toUpperCase().includes('LEMBUT'));
-  if(lumer.length===0) lumer = [...semuaKue].reverse();
-  document.getElementById('slideSultan').innerHTML = sultan.map(k=>buatSlideCard(k,true)).join('') || '<p style="color:#999;padding:10px">Belum ada kue Sultan!</p>';
-  document.getElementById('slideLumer').innerHTML = lumer.map(k=>buatSlideCard(k,false)).join('') || '<p style="color:#999;padding:10px">Belum ada kue Lumer!</p>';
-  let snacks = [
-    {id:901, nama:'Keripik Singkong Pedas', harga:15000, stok:99, deskripsi:'Renyah, pedas nagih!', img:'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400'},
-    {id:902, nama:'Basreng Pedas Daun Jeruk', harga:18000, stok:99, deskripsi:'Gurih, pedas wangi!', img:'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400'},
-    {id:903, nama:'Makaroni Pedas', harga:12000, stok:99, deskripsi:'Cemilan wajib nongkrong!', img:'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400'},
-    {id:904, nama:'Kue Cubit Coklat', harga:20000, stok:99, deskripsi:'Lembut, coklat lumer!', img:'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400'},
-    {id:905, nama:'Donat Mini Gula', harga:16000, stok:99, deskripsi:'Manis, empuk, nagih!', img:'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400'},
-    {id:906, nama:'Risoles Mayo', harga:22000, stok:99, deskripsi:'Creamy, gurih banget!', img:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400'},
-  ];
-  document.getElementById('slideSnacks').innerHTML = snacks.map(k=>buatSlideCard(k,true)).join('');
-}
-async function loadKue(){
-  if(!supabase) return;
-  try{
-    const { data, error } = await supabase.from('kue_basah').select('*').order('id');
-    if(error){ document.getElementById('kueSwipe').innerHTML = '<div class="kue-page"><div style="background:#2A1A00;padding:20px;border-radius:15px;text-align:center;border:1px solid #D4AF37"><b>GAGAL AMBIL KUE!</b><br><small>'+error.message+'</small></div></div>'; return; }
-    if(!data || data.length===0){ document.getElementById('kueSwipe').innerHTML = '<div class="kue-page"><div style="background:#141414;padding:20px;border-radius:15px;text-align:center"><b>Kue lagi kosong!</b></div></div>'; renderSlides(); return; }
-    semuaKue = data; renderKue(); lompatKeJenis('ALL');
-  }catch(e){ renderSlides(); }
 }
 function sembunyikanSemua(){
   document.getElementById('pageHome').style.display = 'none';
@@ -591,6 +485,81 @@ async function loadSaldo(){
     document.getElementById('saldoTopUp').innerText = rupiah(saldoUser);
     document.getElementById('saldoInfo').innerText = 'Saldo lu: ' + rupiah(saldoUser);
   }catch(e){}
+}
+function filterKat(kat, el){
+  filterAktif = kat;
+  document.querySelectorAll('.kat').forEach(k=>k.classList.remove('active'));
+  if(el) el.classList.add('active');
+  else {
+    let auto = document.querySelector('.kat[data-kat="'+kat+'"]');
+    if(auto) auto.classList.add('active');
+  }
+  let bar = document.getElementById('kategoriBar');
+  let aktifEl = document.querySelector('.kat[data-kat="'+kat+'"]');
+  if(bar && aktifEl){ bar.scrollTo({left: aktifEl.offsetLeft - 20, behavior:'smooth'}); }
+  let elTxt = document.getElementById('jenisAktifTxt');
+  if(elTxt) elTxt.innerText = LABEL_JENIS[kat] || kat;
+  renderKue();
+}
+function renderKue(){
+  let data = semuaKue;
+  if(filterAktif !== 'ALL'){ data = semuaKue.filter(k => (k.nama||'').toUpperCase().includes(filterAktif) || (k.deskripsi||'').toUpperCase().includes(filterAktif)); }
+  if(!data || data.length===0){ document.getElementById('listKue').innerHTML = '<div style="background:#141414;padding:20px;border-radius:15px;text-align:center;grid-column:1/3;border:1px solid #333"><b>Kue '+LABEL_JENIS[filterAktif]+' lagi kosong!</b><br><small style="color:#999">Geser lagi buat liat jenis lain!</small></div>'; renderSlides(); return; }
+  document.getElementById('jumlahTxt').innerText = data.length + ' menu • ' + LABEL_JENIS[filterAktif];
+  let html = '';
+  data.forEach((k,i)=>{
+    const img = k.gambar || k.gambar_url || 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500';
+    const hrg = k.harga || 0;
+    const stok = k.stok ?? 0;
+    const habis = Number(stok) <= 0;
+    const namaAman = (k.nama||'Kue').replace(/'/g, "");
+    const isBest = i===0 && !habis ? 'best' : '';
+    const badge = i===0 && !habis ? '<div class="badge-best">👑 BEST SELLER</div>' : '';
+    const badgeHabis = habis ? '<div class="badge-habis">🔴 STOK HABIS</div>' : '';
+    const cardClass = habis ? 'habis' : isBest;
+    const stokTxt = habis ? '<div class="stok habis-txt">🔴 Stok: HABIS</div>' : `<div class="stok">Stok: ${stok}</div>`;
+    const btnBeli = habis ? `<button class="btn-beli" disabled>🔴 STOK HABIS</button>` : `<button class="btn-beli" onclick="bukaBeli(${k.id},'${namaAman}',${hrg})">🛍️ BELI</button>`;
+    const btnKeranjang = habis ? `<button class="btn-keranjang" disabled>❌ STOK HABIS</button>` : `<button class="btn-keranjang" onclick="tambahKeranjang(${k.id},'${namaAman}',${hrg},'${img}')">🛒 + KERANJANG</button>`;
+    html += `<div class="card ${cardClass}">${badge}${badgeHabis}<img src="${img}" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500'"><div class="card-body"><h3>${k.nama}</h3><p>${k.deskripsi||''}</p><div class="price">${rupiah(hrg)}</div>${stokTxt}${btnBeli}${btnKeranjang}</div></div>`;
+  });
+  document.getElementById('listKue').innerHTML = html;
+  renderSlides();
+}
+function buatSlideCard(k, gold){
+  let img = k.gambar || k.gambar_url || k.img || 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400';
+  let namaAman = (k.nama||'Kue').replace(/'/g,"");
+  let id = k.id || 999;
+  let stok = k.stok ?? 99;
+  let habis = Number(stok) <= 0;
+  let stokTxt = habis ? '<p style="color:#FF3B30;font-weight:bold">🔴 STOK HABIS</p>' : `<p>Stok: ${stok}</p>`;
+  let btn = habis ? `<button class="s-btn" disabled>🔴 STOK HABIS</button>` : `<button class="s-btn" onclick="bukaBeli(${id},'${namaAman}',${k.harga})">🛍️ BELI</button>`;
+  return `<div class="slide-card ${gold?'gold':''} ${habis?'habis':''}"><img src="${img}" onerror="this.src='https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400'"><div class="s-body"><h4>${k.nama}</h4><p>${k.deskripsi||'Enak banget!'}</p><div class="s-price">${rupiah(k.harga)}</div>${stokTxt}${btn}</div></div>`;
+}
+function renderSlides(){
+  let sultan = semuaKue.filter(k=> (k.nama||'').toUpperCase().includes('SULTAN') || (k.nama||'').toUpperCase().includes('COKLAT') || (k.nama||'').toUpperCase().includes('KEJU'));
+  if(sultan.length===0) sultan = semuaKue;
+  let lumer = semuaKue.filter(k=> (k.nama||'').toUpperCase().includes('PANDAN') || (k.deskripsi||'').toUpperCase().includes('LUMER') || (k.deskripsi||'').toUpperCase().includes('LEMBUT'));
+  if(lumer.length===0) lumer = [...semuaKue].reverse();
+  document.getElementById('slideSultan').innerHTML = sultan.map(k=>buatSlideCard(k,true)).join('') || '<p style="color:#999;padding:10px">Belum ada kue Sultan!</p>';
+  document.getElementById('slideLumer').innerHTML = lumer.map(k=>buatSlideCard(k,false)).join('') || '<p style="color:#999;padding:10px">Belum ada kue Lumer!</p>';
+  let snacks = [
+    {id:901, nama:'Keripik Singkong Pedas', harga:15000, stok:99, deskripsi:'Renyah, pedas nagih!', img:'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=400'},
+    {id:902, nama:'Basreng Pedas Daun Jeruk', harga:18000, stok:99, deskripsi:'Gurih, pedas wangi!', img:'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?w=400'},
+    {id:903, nama:'Makaroni Pedas', harga:12000, stok:99, deskripsi:'Cemilan wajib nongkrong!', img:'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400'},
+    {id:904, nama:'Kue Cubit Coklat', harga:20000, stok:99, deskripsi:'Lembut, coklat lumer!', img:'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400'},
+    {id:905, nama:'Donat Mini Gula', harga:16000, stok:99, deskripsi:'Manis, empuk, nagih!', img:'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=400'},
+    {id:906, nama:'Risoles Mayo', harga:22000, stok:99, deskripsi:'Creamy, gurih banget!', img:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400'},
+  ];
+  document.getElementById('slideSnacks').innerHTML = snacks.map(k=>buatSlideCard(k,true)).join('');
+}
+async function loadKue(){
+  if(!supabase) return;
+  try{
+    const { data, error } = await supabase.from('kue_basah').select('*').order('id');
+    if(error){ document.getElementById('listKue').innerHTML = '<div style="background:#2A1A00;padding:20px;border-radius:15px;text-align:center;grid-column:1/3;border:1px solid #D4AF37"><b>GAGAL AMBIL KUE!</b><br><small>'+error.message+'</small></div>'; return; }
+    if(!data || data.length===0){ document.getElementById('listKue').innerHTML = '<div style="background:#141414;padding:20px;border-radius:15px;text-align:center;grid-column:1/3"><b>Kue lagi kosong!</b></div>'; renderSlides(); return; }
+    semuaKue = data; renderKue();
+  }catch(e){ renderSlides(); }
 }
 function tambahKeranjang(id,nama,harga,img){ keranjang.push({id,nama,harga,img}); updateBadge(); alert(nama + ' masuk keranjang! 🛒'); }
 function hapusKeranjang(index){ keranjang.splice(index,1); updateBadge(); renderKeranjang(); }
@@ -760,16 +729,8 @@ async function prosesBeli(){
   if(error){ alert('Gagal: '+error.message); return; }
   tutupBeli(); alert(metodeBayar==='COD' ? 'Pesanan masuk! 💵 Bayar COD pas kurir dateng ya!' : 'Berhasil Beli pake Saldo! 💰'); await loadSaldo();
 }
+pasangSwipeKue();
 loadSaldo(); loadKue(); renderKeranjang();
-</script>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').then(() => {
-      console.log('D\'MOM siap di-install! 👑');
-    }).catch((e) => console.log('SW gagal:', e));
-  });
-}
 </script>
 </body>
 </html>
